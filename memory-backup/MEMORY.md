@@ -1,0 +1,1 @@
+- [Installed Skills 2026-04-26](installed-skills-2026-04-26.md) — 5 skills installed: cangjie-skill, cn-patent-disclosure, ljg-xray-paper, academic-paper-strategist, academic-paper-composer

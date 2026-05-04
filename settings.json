@@ -1,0 +1,26 @@
+﻿{
+    "alwaysThinkingEnabled":  false,
+    "env":  {
+                "ANTHROPIC_API_KEY":  "sk-3e4845b245d04745926bd678832d8a5f",
+                "ANTHROPIC_DEFAULT_SONNET_MODEL":  "deepseek-v4-pro",
+                "CLAUDE_CODE_GIT_BASH_PATH":  "E:\\Program Files\\Git\\bin\\bash.exe",
+                "CLAUDE_PLUGIN_ROOT":  "C:\\Users\\hasee\\.claude\\plugins\\marketplaces\\superpowers-marketplace",
+                "ANTHROPIC_DEFAULT_HAIKU_MODEL":  "deepseek-v4-flash",
+                "ANTHROPIC_DEFAULT_OPUS_MODEL":  "deepseek-v4-pro",
+                "ANTHROPIC_BASE_URL":  "https://api.deepseek.com/anthropic"
+            },
+    "hooks": {
+        "SessionStart": [
+            {
+                "matcher": "startup|clear|compact",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "\"C:\\Users\\hasee\\.claude\\plugins\\marketplaces\\superpowers-marketplace\\hooks\\run-hook.cmd\" session-start",
+                        "async": false
+                    }
+                ]
+            }
+        ]
+    }
+}

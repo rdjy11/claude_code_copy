@@ -1,0 +1,9 @@
+{
+  "id": "3",
+  "subject": "实现 print_news() 和 main() 串联",
+  "description": "格式化输出 + 主函数串联所有来源",
+  "activeForm": "实现输出和主函数",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

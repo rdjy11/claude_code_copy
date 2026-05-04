@@ -9,6 +9,15 @@
                 "ANTHROPIC_DEFAULT_OPUS_MODEL":  "deepseek-v4-pro",
                 "ANTHROPIC_BASE_URL":  "https://api.deepseek.com/anthropic"
             },
+    "permissions": {
+        "allow": [
+            "Bash(git *)",
+            "PowerShell(Copy-Item *)",
+            "PowerShell(Remove-Item *)",
+            "PowerShell(Set-Location *)",
+            "PowerShell(Get-ChildItem *)"
+        ]
+    },
     "hooks": {
         "SessionStart": [
             {

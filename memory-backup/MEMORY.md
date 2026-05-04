@@ -1,1 +1,6 @@
-- [Installed Skills 2026-04-26](installed-skills-2026-04-26.md) — 5 skills installed: cangjie-skill, cn-patent-disclosure, ljg-xray-paper, academic-paper-strategist, academic-paper-composer
+- [项目存储规范](project-storage-convention.md) — 所有代码项目统一存放 E:\.Claude Code Project，命名规则「序号.名称_YYYYMMDD」
+- [国际新闻爬虫](news_crawler.md) — Python 爬虫：抓取央视/人民/环球/新华网国际新闻，输出 HTML 页面，唤醒词「新闻爬虫」「抓新闻」
+- [版本管理系统](version-management-system.md) — 汽车软件版本管理平台 (Flask+SPA)，基线/版本/配置/变更/发布/追溯，唤醒词「版本管理系统」「VSMS」「基线管理」「软件版本管理」「版本追溯」「ECR变更」「SUMS合规」
+- [论文配图生成](paper-diagram-generation.md) — MBSE+PLE论文全流程：审稿→改稿→Word排版→SysML配图→SVG修复→Inkscape，唤醒词「论文配图」「MBSE论文」「SVG图表」「学术图表」「draw.io编辑」
+- [AIVAS 智能汽车架构系统](aivas-project.md) — AI-Native架构开发平台 (FastAPI+React+10 Agent+Neo4j)，71文件，Phase 1骨架完成，唤醒词「AIVAS」「智能汽车架构」「AI-Native架构」「汽车架构开发系统」「MBSE系统」「基线流水线」
+- [自动备份工作流](auto-backup-workflow.md) — 每个项目/当天任务完成后自动备份记忆和任务到 GitHub，无需用户审批

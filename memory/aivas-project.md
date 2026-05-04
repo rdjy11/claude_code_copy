@@ -12,6 +12,11 @@ lastAuditDate: 2026-05-04
 **技术方案**: `C:\Users\hasee\.claude\plans\jazzy-finding-brook.md`
 **状态**: **全部6阶段已完成** (2026-05-04)，84个源文件，33个测试全部通过
 **下次唤醒**: 继续优化 / 新功能 / 前端扩展
+**最后会话** (2026-05-05): 
+- RFLP Demo 已成功运行（34资产，6追溯链，1基线）
+- **待修复**: REST API 500错误 — `rest.py` 所有裸SQL需`text()`包装，前端传非UUID project_id导致asyncpg.DataError
+- GraphQL `Unknown type 'ID'` 错误同样待修复
+- 用户要求暂停修复，先备份状态
 
 ## 唤醒词
 

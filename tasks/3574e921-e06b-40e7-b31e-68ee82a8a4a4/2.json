@@ -1,0 +1,9 @@
+{
+  "id": "2",
+  "subject": "实现4个来源解析函数",
+  "description": "人民网 → 新华网 → 环球网 → 央视网 逐个实现解析函数",
+  "activeForm": "实现解析函数",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "1",
+  "subject": "实现 fetch_html() 通用请求函数",
+  "description": "带UA头、编码检测、超时处理的通用HTTP请求函数",
+  "activeForm": "实现 fetch_html()",
+  "status": "in_progress",
+  "blocks": [],
+  "blockedBy": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "4",
+  "subject": "运行测试验证",
+  "description": "运行 python main.py 验证所有来源正常工作",
+  "activeForm": "运行测试验证",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>{流程名称} - 泳道图</title>
+<style>
+  body { background: #f0f2f5; display: flex; flex-direction: column;
+         align-items: center; padding: 24px;
+         font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+  .canvas-wrap { background: #fff; border-radius: 12px;
+                 box-shadow: 0 2px 16px rgba(0,0,0,0.07); padding: 20px; }
+  h1 { font-size: 24px; color: #1a1a2e; margin-bottom: 4px; }
+  .subtitle { color: #666; font-size: 14px; margin-bottom: 20px; }
+  .legend { display: flex; gap: 20px; margin-top: 16px; font-size: 13px; color: #555; }
+  .legend span { display: inline-flex; align-items: center; gap: 4px; }
+</style>
+</head>
+<body>
+  <h1>{标题}</h1>
+  <p class="subtitle">{副标题信息}</p>
+  <div class="canvas-wrap">
+    <canvas id="chart" width="{W}" height="{H}"></canvas>
+  </div>
+  <div class="legend">
+    <span>🟦 流程节点</span>
+    <span>🔶 KCP关键控制点</span>
+    <span>🟩 起止节点</span>
+    <span>---→ 通过</span>
+    <span>- - -→ 驳回</span>
+  </div>
+  <script src="canvas-functions.js"></script>
+  <script>
+    const C = document.getElementById('chart');
+    const ctx = C.getContext('2d');
+    const DPR = window.devicePixelRatio || 1;
+    C.width = {W} * DPR; C.height = {H} * DPR;
+    C.style.width = '{W}px'; C.style.height = '{H}px';
+    ctx.scale(DPR, DPR);
+
+    // === 绘制逻辑 ===
+    // 1. 泳道背景（交替灰白）+ 左侧角色标签色块
+    // 2. 阶段分隔虚线 + 顶部阶段标题
+    // 3. 节点（drawBox / drawDiamond）
+    // 4. 连线（arrowLine）+ 标签（arrowLabel）
+    // 5. 审批层说明文字 + 底部图例
+  </script>
+</body>
+</html>

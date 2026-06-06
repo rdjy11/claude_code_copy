@@ -1,0 +1,230 @@
+{
+  "course_id": "calculus",
+  "course_name": "微积分",
+  "subject_id": "math",
+  "structure_type": "hierarchical",
+  "chapters": [
+    {
+      "id": "calc_ch01",
+      "title": "第一章 函数与极限",
+      "sections": [
+        {
+          "id": "calc_sec01",
+          "title": "1.1 函数的概念与性质",
+          "knowledge_points": [
+            {
+              "id": "calc_kp001",
+              "title": "函数的定义",
+              "content_type": "markdown",
+              "content": "## 函数的定义\n\n设 $X$ 和 $Y$ 是两个非空集合。如果存在一个对应法则 $f$，使得对于 $X$ 中的每一个元素 $x$，在 $Y$ 中都有**唯一**确定的元素 $y$ 与之对应，则称 $f$ 是从 $X$ 到 $Y$ 的一个**函数**，记作：\n\n$$y = f(x), \\quad x \\in X$$\n\n其中：\n- $x$ 称为**自变量**，$X$ 称为**定义域**\n- $y$ 称为**因变量**，$f(x)$ 的全体取值称为**值域**\n\n函数的两个基本要素：\n1. **定义域**：自变量 $x$ 的取值范围\n2. **对应法则**：由 $x$ 确定 $y$ 的规则\n\n两函数相等当且仅当它们的定义域和对应法则完全相同。",
+              "key_concepts": ["定义域", "值域", "对应法则", "映射"],
+              "quizzes": [
+                {
+                  "id": "calc_q001",
+                  "type": "single_choice",
+                  "question": "若 $f(x) = x^2 + 1$，则 $f(-2)$ 的值为？",
+                  "options": [
+                    {"key": "A", "text": "3"},
+                    {"key": "B", "text": "5"},
+                    {"key": "C", "text": "-3"},
+                    {"key": "D", "text": "4"}
+                  ],
+                  "answer": "B",
+                  "explanation": "代入 $x = -2$：$f(-2) = (-2)^2 + 1 = 4 + 1 = 5$"
+                },
+                {
+                  "id": "calc_q002",
+                  "type": "single_choice",
+                  "question": "函数 $f(x) = \\frac{1}{x-1}$ 的定义域是？",
+                  "options": [
+                    {"key": "A", "text": "$(-\\infty, +\\infty)$"},
+                    {"key": "B", "text": "$(-\\infty, 1) \\cup (1, +\\infty)$"},
+                    {"key": "C", "text": "$[1, +\\infty)$"},
+                    {"key": "D", "text": "$(0, +\\infty)$"}
+                  ],
+                  "answer": "B",
+                  "explanation": "分母不能为零，所以 $x-1 \\neq 0$，即 $x \\neq 1$。定义域为除 $x=1$ 以外的全体实数。"
+                },
+                {
+                  "id": "calc_q003",
+                  "type": "single_choice",
+                  "question": "下列哪个不是函数的表示方法？",
+                  "options": [
+                    {"key": "A", "text": "解析法（公式法）"},
+                    {"key": "B", "text": "列表法"},
+                    {"key": "C", "text": "图像法"},
+                    {"key": "D", "text": "递归法"}
+                  ],
+                  "answer": "D",
+                  "explanation": "函数的三种基本表示方法为：解析法（用公式表示）、列表法（用表格列出对应值）、图像法（用坐标平面上的曲线表示）。递归法是描述数列的一种方法，不是函数的基本表示方法。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp002",
+              "title": "函数的奇偶性",
+              "content_type": "markdown",
+              "content": "## 函数的奇偶性\n\n### 偶函数\n设函数 $f(x)$ 的定义域 $D$ 关于原点对称。若对于任意 $x \\in D$，都有：\n\n$$f(-x) = f(x)$$\n\n则称 $f(x)$ 为**偶函数**。偶函数的图像关于 $y$ 轴对称。\n\n常见偶函数：$y = x^2$，$y = \\cos x$，$y = |x|$\n\n### 奇函数\n若对于任意 $x \\in D$，都有：\n\n$$f(-x) = -f(x)$$\n\n则称 $f(x)$ 为**奇函数**。奇函数的图像关于原点对称。\n\n常见奇函数：$y = x^3$，$y = \\sin x$，$y = \\frac{1}{x}$\n\n### 注意事项\n- 函数的定义域必须关于原点对称，才能讨论奇偶性\n- 有些函数既不是奇函数也不是偶函数，如 $y = x + 1$",
+              "key_concepts": ["偶函数", "奇函数", "对称性", "定义域对称"],
+              "quizzes": [
+                {
+                  "id": "calc_q004",
+                  "type": "single_choice",
+                  "question": "函数 $f(x) = x^2 \\cos x$ 的奇偶性是？",
+                  "options": [
+                    {"key": "A", "text": "奇函数"},
+                    {"key": "B", "text": "偶函数"},
+                    {"key": "C", "text": "既不是奇函数也不是偶函数"},
+                    {"key": "D", "text": "既是奇函数也是偶函数"}
+                  ],
+                  "answer": "B",
+                  "explanation": "$x^2$ 是偶函数（$(-x)^2 = x^2$），$\\cos x$ 是偶函数（$\\cos(-x) = \\cos x$）。偶函数 × 偶函数 = 偶函数，所以 $f(x)$ 是偶函数。"
+                },
+                {
+                  "id": "calc_q005",
+                  "type": "single_choice",
+                  "question": "函数 $f(x) = x^3 + \\sin x$ 是？",
+                  "options": [
+                    {"key": "A", "text": "奇函数"},
+                    {"key": "B", "text": "偶函数"},
+                    {"key": "C", "text": "非奇非偶"},
+                    {"key": "D", "text": "无法判断"}
+                  ],
+                  "answer": "A",
+                  "explanation": "$x^3$ 是奇函数，$\\sin x$ 是奇函数。奇函数 + 奇函数 = 奇函数，所以 $f(x)$ 是奇函数。"
+                },
+                {
+                  "id": "calc_q006",
+                  "type": "single_choice",
+                  "question": "偶函数的图像有什么几何特征？",
+                  "options": [
+                    {"key": "A", "text": "关于原点对称"},
+                    {"key": "B", "text": "关于 $y$ 轴对称"},
+                    {"key": "C", "text": "关于 $x$ 轴对称"},
+                    {"key": "D", "text": "关于直线 $y=x$ 对称"}
+                  ],
+                  "answer": "B",
+                  "explanation": "偶函数满足 $f(-x) = f(x)$，意味着 $(-a, f(a))$ 和 $(a, f(a))$ 都在图像上，这两点关于 $y$ 轴对称，因此偶函数图像关于 $y$ 轴对称。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec02",
+          "title": "1.2 数列的极限",
+          "knowledge_points": [
+            {
+              "id": "calc_kp003",
+              "title": "数列极限的定义",
+              "content_type": "markdown",
+              "content": "## 数列极限的定义\n\n设 $\\{x_n\\}$ 是一个数列，$a$ 是一个常数。如果对于任意给定的正数 $\\varepsilon > 0$，总存在正整数 $N$，使得当 $n > N$ 时，恒有：\n\n$$|x_n - a| < \\varepsilon$$\n\n则称常数 $a$ 是数列 $\\{x_n\\}$ 的**极限**，或称数列 $\\{x_n\\}$ **收敛**于 $a$，记作：\n\n$$\\lim_{n \\to \\infty} x_n = a \\quad \\text{或} \\quad x_n \\to a \\ (n \\to \\infty)$$\n\n### $\\varepsilon$-$N$ 语言的理解\n- $\\varepsilon$ 是任意给定的精度要求（可以任意小）\n- $N$ 是满足精度要求的分界点\n- 当 $n > N$ 时，$x_n$ 与 $a$ 的距离始终小于 $\\varepsilon$\n- 如果不存在这样的 $a$，则称数列**发散**",
+              "key_concepts": ["收敛", "发散", "ε-N 语言", "极限"],
+              "quizzes": [
+                {
+                  "id": "calc_q007",
+                  "type": "single_choice",
+                  "question": "数列 $x_n = \\frac{1}{n}$ 的极限是？",
+                  "options": [
+                    {"key": "A", "text": "1"},
+                    {"key": "B", "text": "0"},
+                    {"key": "C", "text": "不存在"},
+                    {"key": "D", "text": "$\\infty$"}
+                  ],
+                  "answer": "B",
+                  "explanation": "$\\lim_{n \\to \\infty} \\frac{1}{n} = 0$。因为对于任意 $\\varepsilon > 0$，取 $N = \\lceil \\frac{1}{\\varepsilon} \\rceil$，则当 $n > N$ 时，$|\\frac{1}{n} - 0| = \\frac{1}{n} < \\frac{1}{N} \\leq \\varepsilon$。"
+                },
+                {
+                  "id": "calc_q008",
+                  "type": "single_choice",
+                  "question": "下列哪个数列是发散的？",
+                  "options": [
+                    {"key": "A", "text": "$x_n = \\frac{1}{n}$"},
+                    {"key": "B", "text": "$x_n = (-1)^n$"},
+                    {"key": "C", "text": "$x_n = \\frac{n}{n+1}$"},
+                    {"key": "D", "text": "$x_n = 2^{-n}$"}
+                  ],
+                  "answer": "B",
+                  "explanation": "$x_n = (-1)^n$ 的取值在 1 和 -1 之间交替跳动，不收敛于任何常数。其他三个数列都收敛：$\\frac{1}{n} \\to 0$，$\\frac{n}{n+1} \\to 1$，$2^{-n} \\to 0$。"
+                },
+                {
+                  "id": "calc_q009",
+                  "type": "single_choice",
+                  "question": "若 $\\lim_{n \\to \\infty} x_n = a$ 且 $\\lim_{n \\to \\infty} y_n = b$，则 $\\lim_{n \\to \\infty} (x_n + y_n)$ 等于？",
+                  "options": [
+                    {"key": "A", "text": "$a \\times b$"},
+                    {"key": "B", "text": "$a + b$"},
+                    {"key": "C", "text": "不确定"},
+                    {"key": "D", "text": "$\\frac{a}{b}$"}
+                  ],
+                  "answer": "B",
+                  "explanation": "收敛数列的加法法则：如果两个数列都收敛，则它们的和数列也收敛，且极限等于两极限之和，即 $\\lim (x_n + y_n) = \\lim x_n + \\lim y_n = a + b$。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "calc_ch02",
+      "title": "第二章 导数与微分",
+      "sections": [
+        {
+          "id": "calc_sec03",
+          "title": "2.1 导数的定义",
+          "knowledge_points": [
+            {
+              "id": "calc_kp004",
+              "title": "导数的概念",
+              "content_type": "markdown",
+              "content": "## 导数的定义\n\n设函数 $y = f(x)$ 在点 $x_0$ 的某个邻域内有定义。当自变量 $x$ 在 $x_0$ 处有增量 $\\Delta x$（$x_0 + \\Delta x$ 仍在邻域内）时，函数的增量为 $\\Delta y = f(x_0 + \\Delta x) - f(x_0)$。如果\n\n$$\\lim_{\\Delta x \\to 0} \\frac{\\Delta y}{\\Delta x} = \\lim_{\\Delta x \\to 0} \\frac{f(x_0 + \\Delta x) - f(x_0)}{\\Delta x}$$\n\n存在，则称函数 $f(x)$ 在点 $x_0$ 处**可导**，并称此极限值为 $f(x)$ 在点 $x_0$ 处的**导数**，记作：\n\n$$f'(x_0) = \\lim_{\\Delta x \\to 0} \\frac{f(x_0 + \\Delta x) - f(x_0)}{\\Delta x}$$\n\n### 常见记法\n$$f'(x) = y' = \\frac{dy}{dx} = \\frac{df}{dx}$$\n\n### 导数的几何意义\n函数 $y = f(x)$ 在点 $x_0$ 处的导数 $f'(x_0)$，等于曲线 $y = f(x)$ 在点 $(x_0, f(x_0))$ 处的**切线斜率**。",
+              "key_concepts": ["导数", "可导", "差商极限", "切线斜率"],
+              "quizzes": [
+                {
+                  "id": "calc_q010",
+                  "type": "single_choice",
+                  "question": "函数 $f(x) = x^2$ 在 $x = 1$ 处的导数 $f'(1)$ 等于？",
+                  "options": [
+                    {"key": "A", "text": "1"},
+                    {"key": "B", "text": "2"},
+                    {"key": "C", "text": "0"},
+                    {"key": "D", "text": "3"}
+                  ],
+                  "answer": "B",
+                  "explanation": "$f'(x) = 2x$，代入 $x = 1$ 得 $f'(1) = 2$。也可以通过定义计算：$\\lim_{h \\to 0} \\frac{(1+h)^2 - 1^2}{h} = \\lim_{h \\to 0} \\frac{2h + h^2}{h} = \\lim_{h \\to 0} (2 + h) = 2$。"
+                },
+                {
+                  "id": "calc_q011",
+                  "type": "single_choice",
+                  "question": "导数 $f'(x_0)$ 的几何意义是什么？",
+                  "options": [
+                    {"key": "A", "text": "曲线在 $x_0$ 处的函数值"},
+                    {"key": "B", "text": "曲线在 $(x_0, f(x_0))$ 处的切线斜率"},
+                    {"key": "C", "text": "曲线与 $x$ 轴围成的面积"},
+                    {"key": "D", "text": "曲线的凹凸性"}
+                  ],
+                  "answer": "B",
+                  "explanation": "导数 $f'(x_0)$ 表示函数在点 $x_0$ 处的瞬时变化率，几何上对应曲线 $y = f(x)$ 在点 $\\big(x_0, f(x_0)\\big)$ 处切线的斜率。切线方程为 $y - f(x_0) = f'(x_0)(x - x_0)$。"
+                },
+                {
+                  "id": "calc_q012",
+                  "type": "single_choice",
+                  "question": "若 $f'(x_0) = 0$，则曲线在 $x_0$ 处的切线是？",
+                  "options": [
+                    {"key": "A", "text": "斜向上的直线"},
+                    {"key": "B", "text": "斜向下的直线"},
+                    {"key": "C", "text": "水平直线"},
+                    {"key": "D", "text": "竖直直线"}
+                  ],
+                  "answer": "C",
+                  "explanation": "切线斜率 $k = f'(x_0) = 0$，斜率为 0 的直线是水平直线。这通常意味着 $x_0$ 可能是函数的极值点或驻点。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

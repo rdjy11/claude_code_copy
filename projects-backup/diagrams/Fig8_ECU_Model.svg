@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 400" width="720" height="400">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker>
+  <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1565C0"/></marker>
+  <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#E65100"/></marker>
+</defs>
+  <text x="360.0" y="22" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="16" fill="#000" text-anchor="middle" font-weight="bold" >ECU 150% 模型与变体绑定</text>
+  <rect x="250.0" y="55" width="220" height="55" rx="8" fill="#1565C0" stroke="#0D47A1" stroke-width="2" class=""/>
+  <text x="360.0" y="75" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#BBDEFB" text-anchor="middle" ><<ECU Generic>></text>
+  <text x="360.0" y="94" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="12" fill="#FFF" text-anchor="middle" font-weight="bold" >DCM (车门控制模块) 150% 模型</text>
+  <rect x="30.0" y="170.0" width="180" height="80" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="120.0" y="192" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="11" fill="#1565C0" text-anchor="middle" font-weight="bold" >DCM_BASE</text>
+  <text x="120.0" y="212" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#555" text-anchor="middle" >标签绑定: PHEV_B / BL_V1.0</text>
+  <text x="120.0" y="228" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#777" text-anchor="middle" >变异点: 防夹策略/总线速率</text>
+  <line x1="360.0" y1="110" x2="120.0" y2="170.0" stroke="#1565C0" stroke-width="1.2"/>
+  <rect x="270.0" y="170.0" width="180" height="80" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5" class=""/>
+  <text x="360.0" y="192" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="11" fill="#2E7D32" text-anchor="middle" font-weight="bold" >DCM_MID</text>
+  <text x="360.0" y="212" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#555" text-anchor="middle" >标签绑定: BEV_D / BL_V2.0</text>
+  <text x="360.0" y="228" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#777" text-anchor="middle" >变异点: 防夹策略/总线速率</text>
+  <line x1="360.0" y1="110" x2="360.0" y2="170.0" stroke="#2E7D32" stroke-width="1.2"/>
+  <rect x="510.0" y="170.0" width="180" height="80" rx="6" fill="#FFF3E0" stroke="#E65100" stroke-width="1.5" class=""/>
+  <text x="600.0" y="192" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="11" fill="#E65100" text-anchor="middle" font-weight="bold" >DCM_HIGH</text>
+  <text x="600.0" y="212" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#555" text-anchor="middle" >标签绑定: BEV_E / BL_V3.0</text>
+  <text x="600.0" y="228" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#777" text-anchor="middle" >变异点: 防夹策略/总线速率</text>
+  <line x1="360.0" y1="110" x2="600.0" y2="170.0" stroke="#E65100" stroke-width="1.2"/>
+</svg>

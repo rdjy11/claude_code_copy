@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSMS 系统架构图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #0f1119; color: #ccc; padding: 40px;
+  min-height: 100vh;
+}
+h1 { text-align: center; font-size: 24px; color: #fff; margin-bottom: 8px; }
+h1 span { color: #8b5cf6; }
+.subtitle { text-align: center; font-size: 13px; color: #666; margin-bottom: 40px; }
+
+.diagram { max-width: 1200px; margin: 0 auto; }
+
+/* Layer */
+.layer { margin-bottom: 32px; }
+.layer-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+  color: #555; margin-bottom: 10px; padding-left: 4px;
+}
+.layer-boxes { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+/* Box */
+.box {
+  background: #1a1d2e; border: 1px solid #2a2d3e; border-radius: 10px;
+  padding: 20px 24px; min-width: 160px; transition: all .2s;
+}
+.box:hover { border-color: #8b5cf6; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,92,246,.12); }
+.box-title { font-size: 15px; font-weight: 700; color: #e0e0e0; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.box-title .icon { font-size: 18px; }
+.box-items { font-size: 12px; color: #888; line-height: 1.8; }
+.box-items li { list-style: none; padding: 2px 0; }
+.box-items li::before { content: "▸ "; color: #555; }
+.box-items .hl { color: #a78bfa; }
+
+/* Colors per layer */
+.layer-frontend .box { border-left: 3px solid #3b82f6; }
+.layer-backend .box { border-left: 3px solid #8b5cf6; }
+.layer-data .box { border-left: 3px solid #10b981; }
+.layer-standards .box { border-left: 3px solid #f59e0b; }
+
+/* Arrows between layers */
+.connectors {
+  display: flex; justify-content: center; gap: 60px; padding: 8px 0; margin: 4px 0;
+}
+.connector {
+  display: flex; flex-direction: column; align-items: center;
+  font-size: 11px; color: #555;
+}
+.connector .line { width: 2px; height: 28px; background: linear-gradient(to bottom, #3b82f6, #8b5cf6); }
+.connector .arrow { font-size: 10px; color: #666; }
+.connector .label { margin-top: 4px; font-size: 10px; }
+
+/* Domain Model Section */
+.domain-model { margin-top: 48px; }
+.domain-model h2 { text-align: center; font-size: 18px; color: #fff; margin-bottom: 24px; }
+.domain-model h2 span { color: #8b5cf6; }
+
+.entity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.entity {
+  background: #1a1d2e; border: 1px solid #2a2d3e; border-radius: 10px;
+  padding: 18px; text-align: center;
+}
+.entity:hover { border-color: #8b5cf6; }
+.entity-name { font-size: 14px; font-weight: 700; color: #e0e0e0; margin-bottom: 8px; }
+.entity-name .pk { color: #f59e0b; font-size: 10px; margin-left: 4px; }
+.entity-fields { font-size: 11px; color: #777; line-height: 1.7; }
+.entity-fields .fk { color: #8b5cf6; }
+.entity-fields .val { color: #10b981; }
+
+/* Relationships */
+.relationships { margin-top: 24px; }
+.relationships h3 { font-size: 13px; color: #999; margin-bottom: 12px; text-align: center; }
+.rel-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.rel-chip {
+  background: #1a1d2e; border: 1px solid #2a2d3e; border-radius: 6px;
+  padding: 6px 14px; font-size: 11px; color: #a78bfa;
+}
+.rel-chip .card { color: #8b5cf6; }
+.rel-chip .many { color: #f59e0b; }
+
+/* API Map */
+.api-map { margin-top: 48px; }
+.api-map h2 { text-align: center; font-size: 18px; color: #fff; margin-bottom: 24px; }
+.api-map h2 span { color: #8b5cf6; }
+.api-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.api-group { background: #1a1d2e; border-radius: 10px; padding: 16px; border-top: 3px solid #8b5cf6; }
+.api-group h4 { font-size: 13px; color: #e0e0e0; margin-bottom: 8px; }
+.api-endpoint { font-size: 11px; padding: 4px 0; color: #888; display: flex; align-items: center; gap: 6px; }
+.api-method {
+  display: inline-block; width: 36px; text-align: center; padding: 1px 4px;
+  border-radius: 3px; font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+.api-method.get { background: #1e3a5f; color: #3b82f6; }
+.api-method.post { background: #1a3d2e; color: #10b981; }
+.api-method.put { background: #3d2e1a; color: #f59e0b; }
+.api-method.del { background: #3d1a1a; color: #ef4444; }
+
+/* Flow */
+.flow-section { margin-top: 48px; }
+.flow-section h2 { text-align: center; font-size: 18px; color: #fff; margin-bottom: 24px; }
+.flow-section h2 span { color: #8b5cf6; }
+.flow-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.flow-step {
+  background: #1a1d2e; border: 1px solid #2a2d3e; border-radius: 8px;
+  padding: 10px 18px; font-size: 12px; color: #ccc; text-align: center;
+  min-width: 80px;
+}
+.flow-step:hover { border-color: #8b5cf6; }
+.flow-arrow { color: #555; font-size: 16px; }
+
+/* Footer */
+.footer { text-align: center; margin-top: 48px; font-size: 11px; color: #444; }
+</style>
+</head>
+<body>
+
+<h1>VSMS <span>系统架构</span></h1>
+<p class="subtitle">Vehicle Software Management System — AI Native 汽车软件版本管理平台</p>
+
+<div class="diagram">
+
+  <!-- ===== Layer 1: Frontend ===== -->
+  <div class="layer layer-frontend">
+    <div class="layer-label">Presentation Layer · 前端</div>
+    <div class="layer-boxes">
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9635;</span> SPA 单页应用</div>
+        <ul class="box-items">
+          <li>Vanilla JS · 无框架依赖</li>
+          <li>Sidebar 路由导航</li>
+          <li>REST API 全量加载</li>
+          <li>客户端状态管理 (store)</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9776;</span> 8 个功能页面</div>
+        <ul class="box-items">
+          <li>仪表盘 · 统计概览</li>
+          <li>版本管理 · CRUD + 详情</li>
+          <li>基线管理 · 行内展开面板</li>
+          <li>配置管理 · 标签页 + 文件上传</li>
+          <li>变更管理 · 看板视图</li>
+          <li>发布管理 · 编排 + 准出检查</li>
+          <li>追溯管理 · 全链路视图</li>
+          <li>标准参考 · ASPICE / ISO / UNECE</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#10031;</span> AI 助手面板</div>
+        <ul class="box-items">
+          <li>影响分析 · 上下游ECU评估</li>
+          <li>Release Note 自动生成</li>
+          <li>合规检查 · ASPICE + R156</li>
+          <li>版本号建议 · SemVer推荐</li>
+          <li>追溯完整性检查</li>
+          <li>快捷键 <span class="hl">Ctrl+Space</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connectors -->
+  <div class="connectors">
+    <div class="connector"><span class="label">HTTP REST</span><div class="line"></div><div class="arrow">JSON</div></div>
+    <div class="connector"><span class="label">File Upload</span><div class="line"></div><div class="arrow">multipart/form-data</div></div>
+    <div class="connector"><span class="label">Static</span><div class="line"></div><div class="arrow">HTML/CSS/JS</div></div>
+  </div>
+
+  <!-- ===== Layer 2: Backend ===== -->
+  <div class="layer layer-backend">
+    <div class="layer-label">Application Layer · 后端 (Flask)</div>
+    <div class="layer-boxes">
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9881;</span> REST API 端点</div>
+        <ul class="box-items">
+          <li><span class="hl">/api/baselines</span> · GET/POST/PUT/DEL</li>
+          <li><span class="hl">/api/versions</span> · GET/POST/PUT/DEL</li>
+          <li><span class="hl">/api/config-items</span> · GET/POST/PUT/DEL</li>
+          <li><span class="hl">/api/changes</span> · GET/POST/PUT/DEL</li>
+          <li><span class="hl">/api/releases</span> · GET/POST/PUT/DEL</li>
+          <li><span class="hl">/api/files</span> · GET/POST/DEL + upload/download</li>
+          <li><span class="hl">/api/stats</span> · GET 统计摘要</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9881;</span> 核心处理</div>
+        <ul class="box-items">
+          <li>自动 ID 生成 (前缀 + 序号)</li>
+          <li>camelCase / snake_case 映射</li>
+          <li>文件上传 · UUID 重命名</li>
+          <li>文件类型自动推断</li>
+          <li>JSON 序列化 date 类型</li>
+          <li>SQL 注入防护 (参数化查询)</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#10003;</span> 数据库抽象</div>
+        <ul class="box-items">
+          <li>双模式切换: SQLite / MySQL</li>
+          <li>环境变量 <span class="hl">VSMS_DB_MODE</span></li>
+          <li>PRAGMA WAL + foreign_keys</li>
+          <li>自动建表 + 种子数据</li>
+          <li>ON DELETE CASCADE / SET NULL</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connectors -->
+  <div class="connectors">
+    <div class="connector"><span class="label">SQLite (dev)</span><div class="line"></div></div>
+    <div class="connector"><span class="label">MySQL (prod)</span><div class="line"></div></div>
+  </div>
+
+  <!-- ===== Layer 3: Data ===== -->
+  <div class="layer layer-data">
+    <div class="layer-label">Data Layer · 数据库</div>
+    <div class="layer-boxes">
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9638;</span> baselines · 基线</div>
+        <ul class="box-items">
+          <li>id · name · domain · phase</li>
+          <li>ecu_count · creator</li>
+          <li>created_date · frozen_date</li>
+          <li>status · description</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9638;</span> versions · 版本</div>
+        <ul class="box-items">
+          <li>id · name · project · domain</li>
+          <li>ecu · major · minor · patch</li>
+          <li>phase · rxswin · status</li>
+          <li>baseline_id (FK)</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9638;</span> config_items · 配置项</div>
+        <ul class="box-items">
+          <li>id · type · name</li>
+          <li>version · location</li>
+          <li>baseline_id (FK)</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9638;</span> changes · 变更</div>
+        <ul class="box-items">
+          <li>id · title · type · urgency</li>
+          <li>status · applicant</li>
+          <li>baseline_id (FK)</li>
+          <li>created_date</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9638;</span> releases · 发布</div>
+        <ul class="box-items">
+          <li>id · name · type</li>
+          <li>ecu_count · version</li>
+          <li>status · created_date</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9638;</span> release_baselines</div>
+        <ul class="box-items">
+          <li>release_id (FK)</li>
+          <li>baseline_id (FK)</li>
+          <li>N:M 关联表</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title"><span class="icon">&#9638;</span> files · 文件</div>
+        <ul class="box-items">
+          <li>id · name · size · type</li>
+          <li>baseline_id (FK)</li>
+          <li>file_path · uploaded_date</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Domain Relationships ===== -->
+  <div class="domain-model">
+    <h2>&#9679; 领域模型 &amp; <span>实体关系</span></h2>
+    <div class="relationships">
+      <h3>数据关联</h3>
+      <div class="rel-grid">
+        <div class="rel-chip">Baseline <span class="many">1:N</span> Version</div>
+        <div class="rel-chip">Baseline <span class="many">1:N</span> ConfigItem</div>
+        <div class="rel-chip">Baseline <span class="many">1:N</span> Change</div>
+        <div class="rel-chip">Baseline <span class="many">1:N</span> File</div>
+        <div class="rel-chip">Release <span class="many">N:M</span> Baseline</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== API Map ===== -->
+  <div class="api-map">
+    <h2>&#9679; <span>API</span> 路由总览</h2>
+    <div class="api-grid">
+      <div class="api-group">
+        <h4>/api/baselines</h4>
+        <div class="api-endpoint"><span class="api-method get">GET</span> /api/baselines</div>
+        <div class="api-endpoint"><span class="api-method get">GET</span> /api/baselines/:id</div>
+        <div class="api-endpoint"><span class="api-method post">POST</span> /api/baselines</div>
+        <div class="api-endpoint"><span class="api-method put">PUT</span> /api/baselines/:id</div>
+        <div class="api-endpoint"><span class="api-method del">DEL</span> /api/baselines/:id</div>
+      </div>
+      <div class="api-group">
+        <h4>/api/versions</h4>
+        <div class="api-endpoint"><span class="api-method get">GET</span> /api/versions</div>
+        <div class="api-endpoint"><span class="api-method post">POST</span> /api/versions</div>
+        <div class="api-endpoint"><span class="api-method put">PUT</span> /api/versions/:id</div>
+        <div class="api-endpoint"><span class="api-method del">DEL</span> /api/versions/:id</div>
+      </div>
+      <div class="api-group">
+        <h4>/api/config-items</h4>
+        <div class="api-endpoint"><span class="api-method get">GET</span> /api/config-items</div>
+        <div class="api-endpoint"><span class="api-method post">POST</span> /api/config-items</div>
+        <div class="api-endpoint"><span class="api-method put">PUT</span> /api/config-items/:id</div>
+        <div class="api-endpoint"><span class="api-method del">DEL</span> /api/config-items/:id</div>
+      </div>
+      <div class="api-group">
+        <h4>/api/changes</h4>
+        <div class="api-endpoint"><span class="api-method get">GET</span> /api/changes</div>
+        <div class="api-endpoint"><span class="api-method post">POST</span> /api/changes</div>
+        <div class="api-endpoint"><span class="api-method put">PUT</span> /api/changes/:id</div>
+        <div class="api-endpoint"><span class="api-method del">DEL</span> /api/changes/:id</div>
+      </div>
+      <div class="api-group">
+        <h4>/api/releases</h4>
+        <div class="api-endpoint"><span class="api-method get">GET</span> /api/releases</div>
+        <div class="api-endpoint"><span class="api-method post">POST</span> /api/releases</div>
+        <div class="api-endpoint"><span class="api-method put">PUT</span> /api/releases/:id</div>
+        <div class="api-endpoint"><span class="api-method del">DEL</span> /api/releases/:id</div>
+      </div>
+      <div class="api-group">
+        <h4>/api/files</h4>
+        <div class="api-endpoint"><span class="api-method get">GET</span> /api/files</div>
+        <div class="api-endpoint"><span class="api-method post">POST</span> /api/files/upload</div>
+        <div class="api-endpoint"><span class="api-method get">GET</span> /api/files/:id/download</div>
+        <div class="api-endpoint"><span class="api-method del">DEL</span> /api/files/:id</div>
+      </div>
+      <div class="api-group">
+        <h4>/api/stats</h4>
+        <div class="api-endpoint"><span class="api-method get">GET</span> /api/stats</div>
+        <div style="font-size:11px;color:#666;margin-top:6px">返回各表行数统计</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Business Flow ===== -->
+  <div class="flow-section">
+    <h2>&#9679; 核心业务 <span>流程</span></h2>
+    <div class="flow-row">
+      <div class="flow-step">创建基线<br><small style="color:#888">Baseline</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">关联ECU版本<br><small style="color:#888">Version</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">登记配置项<br><small style="color:#888">ConfigItem</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">上传文件<br><small style="color:#888">File</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">基线冻结<br><small style="color:#888">Freeze</small></div>
+    </div>
+    <div class="flow-row" style="margin-top:16px">
+      <div class="flow-step">发起变更<br><small style="color:#888">ECR</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">影响分析<br><small style="color:#888">AI Assisted</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">评审通过<br><small style="color:#888">CCB</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">实施变更<br><small style="color:#888">Implementation</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">编排发布<br><small style="color:#888">Release</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">OTA推送<br><small style="color:#888">Deploy</small></div>
+    </div>
+  </div>
+
+  <!-- ===== Standards ===== -->
+  <div class="layer layer-standards" style="margin-top:48px">
+    <div class="layer-label">合规标准对齐</div>
+    <div class="layer-boxes">
+      <div class="box">
+        <div class="box-title">ASPICE SUP.8</div>
+        <ul class="box-items">
+          <li>配置管理过程域</li>
+          <li>BP1-BP7 全流程</li>
+          <li>基线 · 分支 · 审计</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title">ISO 26262-8 Ch.8</div>
+        <ul class="box-items">
+          <li>功能安全配置管理</li>
+          <li>ASIL 决定审批严格度</li>
+          <li>HARA / FMEA 可追溯</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title">UNECE R156</div>
+        <ul class="box-items">
+          <li>SUMS 强制认证</li>
+          <li>RXSWIN + 型式认证追溯</li>
+          <li>OTA 回滚 + 记录存档</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title">UNECE R155</div>
+        <ul class="box-items">
+          <li>CSMS 网络安全</li>
+          <li>软件完整性验证</li>
+          <li>防篡改版本管理</li>
+        </ul>
+      </div>
+      <div class="box">
+        <div class="box-title">EU GPSR / PLD</div>
+        <ul class="box-items">
+          <li>10 年技术文档存档</li>
+          <li>版本追溯链 → 法律证据</li>
+          <li>举证责任倒置</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">VSMS Architecture Diagram · Generated 2026-05-01</div>
+</body>
+</html>

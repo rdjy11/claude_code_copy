@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 960 320" width="960" height="320">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker>
+  <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1565C0"/></marker>
+  <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#E65100"/></marker>
+</defs>
+  <text x="480.0" y="22" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="16" fill="#000" text-anchor="middle" font-weight="bold" >基线生成与交付流水线</text>
+  <rect x="70.0" y="80" width="120" height="55" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="130.0" y="102" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" font-weight="bold" >1.标签组合</text>
+  <line x1="194.0" y1="107.5" x2="206.0" y2="107.5" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="210.0" y="80" width="120" height="55" rx="8" fill="#BBDEFB" stroke="#0D47A1" stroke-width="1.5" class=""/>
+  <text x="270.0" y="102" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#0D47A1" text-anchor="middle" font-weight="bold" >2.SSC版本</text>
+  <text x="270.0" y="120" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#0D47A1" text-anchor="middle" >锁定</text>
+  <line x1="334.0" y1="107.5" x2="346.0" y2="107.5" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="350.0" y="80" width="120" height="55" rx="8" fill="#90CAF9" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="410.0" y="102" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" font-weight="bold" >3.ECU变体</text>
+  <text x="410.0" y="120" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" >解析</text>
+  <line x1="474.0" y1="107.5" x2="486.0" y2="107.5" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="490.0" y="80" width="120" height="55" rx="8" fill="#A5D6A7" stroke="#2E7D32" stroke-width="1.5" class=""/>
+  <text x="550.0" y="102" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#2E7D32" text-anchor="middle" font-weight="bold" >4.基线快照</text>
+  <text x="550.0" y="120" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#2E7D32" text-anchor="middle" >生成</text>
+  <line x1="614.0" y1="107.5" x2="626.0" y2="107.5" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="630.0" y="80" width="120" height="55" rx="8" fill="#66BB6A" stroke="#1B5E20" stroke-width="1.5" class=""/>
+  <text x="690.0" y="102" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1B5E20" text-anchor="middle" font-weight="bold" >5.集成</text>
+  <text x="690.0" y="120" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1B5E20" text-anchor="middle" >验证</text>
+  <line x1="754.0" y1="107.5" x2="766.0" y2="107.5" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="770.0" y="80" width="120" height="55" rx="8" fill="#43A047" stroke="#1B5E20" stroke-width="1.5" class=""/>
+  <text x="830.0" y="102" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1B5E20" text-anchor="middle" font-weight="bold" >6.基线</text>
+  <text x="830.0" y="120" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1B5E20" text-anchor="middle" >发布</text>
+  <rect x="380.0" y="180" width="200" height="40" rx="6" fill="#FFF3E0" stroke="#E65100" stroke-width="1.5" class=""/>
+  <text x="480.0" y="195" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="12" fill="#E65100" text-anchor="middle" font-weight="bold" >Audit</text>
+  <text x="480.0" y="210" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#BF360C" text-anchor="middle" >可追溯性审查 (全流程门禁)</text>
+  <line x1="480.0" y1="180" x2="480.0" y2="135" stroke="#E65100" stroke-width="1.2" stroke-dasharray="5,3"/>
+</svg>

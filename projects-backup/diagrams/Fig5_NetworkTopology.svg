@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 960 480" width="960" height="480">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker>
+  <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1565C0"/></marker>
+  <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#E65100"/></marker>
+</defs>
+  <text x="480.0" y="22" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="16" fill="#000" text-anchor="middle" font-weight="bold" >网络拓扑与 ECU 分配</text>
+  <rect x="275.0" y="45" width="410" height="40" rx="4" fill="#1565C020" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="270.0" y="65" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#1565C0" text-anchor="end" font-weight="bold" >CAN-FD (底盘/动力)</text>
+  <rect x="325.0" y="68" width="70" height="28" rx="4" fill="#FFF" stroke="#1565C0" stroke-width="1" class=""/>
+  <text x="360.0" y="86" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >EMS</text>
+  <rect x="405.0" y="68" width="70" height="28" rx="4" fill="#FFF" stroke="#1565C0" stroke-width="1" class=""/>
+  <text x="440.0" y="86" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >TCU</text>
+  <rect x="485.0" y="68" width="70" height="28" rx="4" fill="#FFF" stroke="#1565C0" stroke-width="1" class=""/>
+  <text x="520.0" y="86" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >ESP</text>
+  <rect x="565.0" y="68" width="70" height="28" rx="4" fill="#FFF" stroke="#1565C0" stroke-width="1" class=""/>
+  <text x="600.0" y="86" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >EPS</text>
+  <rect x="275.0" y="245" width="410" height="40" rx="4" fill="#2E7D3220" stroke="#2E7D32" stroke-width="1.5" class=""/>
+  <text x="270.0" y="265" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#2E7D32" text-anchor="end" font-weight="bold" >CAN-Body (车身)</text>
+  <rect x="325.0" y="268" width="70" height="28" rx="4" fill="#FFF" stroke="#2E7D32" stroke-width="1" class=""/>
+  <text x="360.0" y="286" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >BCM</text>
+  <rect x="405.0" y="268" width="70" height="28" rx="4" fill="#FFF" stroke="#2E7D32" stroke-width="1" class=""/>
+  <text x="440.0" y="286" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >GW</text>
+  <rect x="485.0" y="268" width="70" height="28" rx="4" fill="#FFF" stroke="#2E7D32" stroke-width="1" class=""/>
+  <text x="520.0" y="286" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >DCM_L</text>
+  <rect x="565.0" y="268" width="70" height="28" rx="4" fill="#FFF" stroke="#2E7D32" stroke-width="1" class=""/>
+  <text x="600.0" y="286" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >DCM_R</text>
+  <rect x="275.0" y="445" width="410" height="40" rx="4" fill="#E6510020" stroke="#E65100" stroke-width="1.5" class=""/>
+  <text x="270.0" y="465" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#E65100" text-anchor="end" font-weight="bold" >CAN-Comfort (舒适)</text>
+  <rect x="325.0" y="468" width="70" height="28" rx="4" fill="#FFF" stroke="#E65100" stroke-width="1" class=""/>
+  <text x="360.0" y="486" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >HVAC</text>
+  <rect x="405.0" y="468" width="70" height="28" rx="4" fill="#FFF" stroke="#E65100" stroke-width="1" class=""/>
+  <text x="440.0" y="486" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >PEPS</text>
+  <rect x="485.0" y="468" width="70" height="28" rx="4" fill="#FFF" stroke="#E65100" stroke-width="1" class=""/>
+  <text x="520.0" y="486" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >SUNROOF</text>
+  <rect x="565.0" y="468" width="70" height="28" rx="4" fill="#FFF" stroke="#E65100" stroke-width="1" class=""/>
+  <text x="600.0" y="486" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >AMB_LIGHT</text>
+  <rect x="275.0" y="645" width="410" height="40" rx="4" fill="#6A1B9A20" stroke="#6A1B9A" stroke-width="1.5" class=""/>
+  <text x="270.0" y="665" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#6A1B9A" text-anchor="end" font-weight="bold" >Ethernet (骨干网)</text>
+  <rect x="325.0" y="668" width="70" height="28" rx="4" fill="#FFF" stroke="#6A1B9A" stroke-width="1" class=""/>
+  <text x="360.0" y="686" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >ADC</text>
+  <rect x="405.0" y="668" width="70" height="28" rx="4" fill="#FFF" stroke="#6A1B9A" stroke-width="1" class=""/>
+  <text x="440.0" y="686" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >HPC</text>
+  <rect x="485.0" y="668" width="70" height="28" rx="4" fill="#FFF" stroke="#6A1B9A" stroke-width="1" class=""/>
+  <text x="520.0" y="686" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >T-BOX</text>
+  <rect x="565.0" y="668" width="70" height="28" rx="4" fill="#FFF" stroke="#6A1B9A" stroke-width="1" class=""/>
+  <text x="600.0" y="686" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >AVM</text>
+  <line x1="280" y1="283" x2="280" y2="455" stroke="#999" stroke-width="0.6" stroke-dasharray="4,4"/>
+</svg>

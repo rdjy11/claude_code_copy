@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 700 400" width="700" height="400">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker>
+  <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1565C0"/></marker>
+  <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#E65100"/></marker>
+</defs>
+  <text x="350.0" y="22" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="16" fill="#000" text-anchor="middle" font-weight="bold" >信号特征标签: SSC-ECU 分配冲突解决</text>
+  <rect x="270.0" y="55" width="160" height="50" rx="8" fill="#1565C0" stroke="#0D47A1" stroke-width="2" class=""/>
+  <text x="350.0" y="74" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#BBDEFB" text-anchor="middle" ><<SSC>></text>
+  <text x="350.0" y="93" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="11" fill="#FFF" text-anchor="middle" font-weight="bold" >SSC_Door_Control</text>
+  <rect x="100" y="200" width="150" height="70" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="175" y="222" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" font-weight="bold" >DCM_L (左前门)</text>
+  <text x="175" y="240" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#555" text-anchor="middle" >标签: LIN_ENABLED</text>
+  <text x="175" y="254" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#888" text-anchor="middle" >信号: LIN_Cmd_Left</text>
+  <rect x="450" y="200" width="150" height="70" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5" class=""/>
+  <text x="525" y="222" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#2E7D32" text-anchor="middle" font-weight="bold" >DCM_R (右前门)</text>
+  <text x="525" y="240" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#555" text-anchor="middle" >标签: LIN_ENABLED</text>
+  <text x="525" y="254" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#888" text-anchor="middle" >信号: LIN_Cmd_Right</text>
+  <rect x="290.0" y="310" width="120" height="36" rx="6" fill="#FFF3E0" stroke="#E65100" stroke-width="1.5" class=""/>
+  <text x="350.0" y="322" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#E65100" text-anchor="middle" font-weight="bold" >特征冲突检测</text>
+  <text x="350.0" y="336" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#BF360C" text-anchor="middle" >{信号标签}过滤分流</text>
+  <line x1="350.0" y1="105" x2="175" y2="200" stroke="#1565C0" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="350.0" y1="105" x2="525" y2="200" stroke="#2E7D32" stroke-width="1.5"/>
+  <line x1="175" y1="270" x2="350.0" y2="310" stroke="#E65100" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-orange)"/>
+  <line x1="525" y1="270" x2="350.0" y2="310" stroke="#E65100" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-orange)"/>
+</svg>

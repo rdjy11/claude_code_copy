@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 740 420" width="740" height="420">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker>
+  <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1565C0"/></marker>
+  <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#E65100"/></marker>
+</defs>
+  <text x="370.0" y="25" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="16" fill="#000" text-anchor="middle" font-weight="bold" >IVCPS 需求类型分解</text>
+  <rect x="280.0" y="60" width="180" height="36" rx="6" fill="#1565C0" stroke="#0D47A1" stroke-width="1.5" class=""/>
+  <text x="370.0" y="83" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="12" fill="#FFF" text-anchor="middle" font-weight="bold" >IVCPS 需求体系</text>
+  <rect x="50.0" y="140" width="140" height="34" rx="5" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="120.0" y="161" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" >市场需求</text>
+  <line x1="370.0" y1="96" x2="120.0" y2="140" stroke="#555" stroke-width="0.8"/>
+  <rect x="220.0" y="140" width="140" height="34" rx="5" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="290.0" y="161" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" >服务及功能需求</text>
+  <line x1="370.0" y1="96" x2="290.0" y2="140" stroke="#555" stroke-width="0.8"/>
+  <rect x="390.0" y="140" width="140" height="34" rx="5" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="460.0" y="161" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" >系统功能需求</text>
+  <line x1="370.0" y1="96" x2="460.0" y2="140" stroke="#555" stroke-width="0.8"/>
+  <rect x="560.0" y="140" width="140" height="34" rx="5" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="630.0" y="161" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" >法规标准要求</text>
+  <line x1="370.0" y1="96" x2="630.0" y2="140" stroke="#555" stroke-width="0.8"/>
+  <rect x="205.0" y="220" width="140" height="34" rx="5" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="275.0" y="241" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" >安全需求</text>
+  <rect x="405.0" y="220" width="140" height="34" rx="5" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="475.0" y="241" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#1565C0" text-anchor="middle" >网络安全需求</text>
+  <line x1="120.0" y1="174" x2="275.0" y2="220" stroke="#555" stroke-width="0.8"/>
+  <line x1="290.0" y1="174" x2="275.0" y2="220" stroke="#555" stroke-width="0.8"/>
+  <line x1="460.0" y1="174" x2="475.0" y2="220" stroke="#555" stroke-width="0.8"/>
+  <line x1="630.0" y1="174" x2="475.0" y2="220" stroke="#555" stroke-width="0.8"/>
+  <text x="370.0" y="290" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="10" fill="#888" text-anchor="middle" >基于 IVCPS 7S 理论 [10]</text>
+</svg>

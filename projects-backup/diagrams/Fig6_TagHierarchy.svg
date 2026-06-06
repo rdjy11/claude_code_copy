@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 780 520" width="780" height="520">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker>
+  <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1565C0"/></marker>
+  <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#E65100"/></marker>
+</defs>
+  <text x="390.0" y="22" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="16" fill="#000" text-anchor="middle" font-weight="bold" >PLE 三级标签体系</text>
+  <rect x="15" y="62" width="750" height="112" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.2" class=""/>
+  <text x="100" y="80" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="12" fill="#1565C0" text-anchor="start" font-weight="bold" >L1: 应用架构</text>
+  <rect x="60.0" y="95" width="120" height="36" rx="5" fill="#FFF" stroke="#1565C0" stroke-width="1.2" class=""/>
+  <text x="120.0" y="117" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >ADAS_APP</text>
+  <rect x="195.0" y="95" width="120" height="36" rx="5" fill="#FFF" stroke="#1565C0" stroke-width="1.2" class=""/>
+  <text x="255.0" y="117" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >Chassis_APP</text>
+  <rect x="330.0" y="95" width="120" height="36" rx="5" fill="#FFF" stroke="#1565C0" stroke-width="1.2" class=""/>
+  <text x="390.0" y="117" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >Body_APP</text>
+  <rect x="465.0" y="95" width="120" height="36" rx="5" fill="#FFF" stroke="#1565C0" stroke-width="1.2" class=""/>
+  <text x="525.0" y="117" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >Cockpit_APP</text>
+  <rect x="600.0" y="95" width="120" height="36" rx="5" fill="#FFF" stroke="#1565C0" stroke-width="1.2" class=""/>
+  <text x="660.0" y="117" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >Connect_APP</text>
+  <line x1="120.0" y1="131" x2="120.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="120.0" y1="131" x2="255.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="120.0" y1="131" x2="390.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="120.0" y1="131" x2="525.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="120.0" y1="131" x2="660.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="131" x2="120.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="131" x2="255.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="131" x2="390.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="131" x2="525.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="131" x2="660.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="131" x2="120.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="131" x2="255.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="131" x2="390.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="131" x2="525.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="131" x2="660.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="131" x2="120.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="131" x2="255.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="131" x2="390.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="131" x2="525.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="131" x2="660.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="131" x2="120.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="131" x2="255.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="131" x2="390.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="131" x2="525.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="131" x2="660.0" y2="225" stroke="#BBB" stroke-width="0.5"/>
+  <rect x="15" y="192" width="750" height="112" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.2" class=""/>
+  <text x="100" y="210" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="12" fill="#2E7D32" text-anchor="start" font-weight="bold" >L2: 车型平台</text>
+  <rect x="60.0" y="225" width="120" height="36" rx="5" fill="#FFF" stroke="#2E7D32" stroke-width="1.2" class=""/>
+  <text x="120.0" y="247" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >PHEV_B</text>
+  <rect x="195.0" y="225" width="120" height="36" rx="5" fill="#FFF" stroke="#2E7D32" stroke-width="1.2" class=""/>
+  <text x="255.0" y="247" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >PHEV_C</text>
+  <rect x="330.0" y="225" width="120" height="36" rx="5" fill="#FFF" stroke="#2E7D32" stroke-width="1.2" class=""/>
+  <text x="390.0" y="247" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >BEV_D</text>
+  <rect x="465.0" y="225" width="120" height="36" rx="5" fill="#FFF" stroke="#2E7D32" stroke-width="1.2" class=""/>
+  <text x="525.0" y="247" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >BEV_E</text>
+  <rect x="600.0" y="225" width="120" height="36" rx="5" fill="#FFF" stroke="#2E7D32" stroke-width="1.2" class=""/>
+  <text x="660.0" y="247" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >EREV_F</text>
+  <line x1="120.0" y1="261" x2="120.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="120.0" y1="261" x2="255.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="120.0" y1="261" x2="390.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="120.0" y1="261" x2="525.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="120.0" y1="261" x2="660.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="261" x2="120.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="261" x2="255.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="261" x2="390.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="261" x2="525.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="255.0" y1="261" x2="660.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="261" x2="120.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="261" x2="255.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="261" x2="390.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="261" x2="525.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="390.0" y1="261" x2="660.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="261" x2="120.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="261" x2="255.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="261" x2="390.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="261" x2="525.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="525.0" y1="261" x2="660.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="261" x2="120.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="261" x2="255.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="261" x2="390.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="261" x2="525.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <line x1="660.0" y1="261" x2="660.0" y2="355" stroke="#BBB" stroke-width="0.5"/>
+  <rect x="15" y="322" width="750" height="112" rx="8" fill="#FFF3E0" stroke="#E65100" stroke-width="1.2" class=""/>
+  <text x="100" y="340" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="12" fill="#E65100" text-anchor="start" font-weight="bold" >L3: 基线阶段</text>
+  <rect x="60.0" y="355" width="120" height="36" rx="5" fill="#FFF" stroke="#E65100" stroke-width="1.2" class=""/>
+  <text x="120.0" y="377" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >BL_V1.0</text>
+  <rect x="195.0" y="355" width="120" height="36" rx="5" fill="#FFF" stroke="#E65100" stroke-width="1.2" class=""/>
+  <text x="255.0" y="377" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >BL_V1.1</text>
+  <rect x="330.0" y="355" width="120" height="36" rx="5" fill="#FFF" stroke="#E65100" stroke-width="1.2" class=""/>
+  <text x="390.0" y="377" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >BL_V2.0</text>
+  <rect x="465.0" y="355" width="120" height="36" rx="5" fill="#FFF" stroke="#E65100" stroke-width="1.2" class=""/>
+  <text x="525.0" y="377" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >BL_V2.1</text>
+  <rect x="600.0" y="355" width="120" height="36" rx="5" fill="#FFF" stroke="#E65100" stroke-width="1.2" class=""/>
+  <text x="660.0" y="377" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#333" text-anchor="middle" >BL_V3.0</text>
+  <text x="390.0" y="480" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#888" text-anchor="middle" >实例: ADAS_APP / PHEV_B / BL_V1.0  ->  PHEV_B 车型 ADAS 1.0 基线</text>
+</svg>

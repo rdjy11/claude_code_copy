@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 620 380" width="620" height="380">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker>
+  <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1565C0"/></marker>
+  <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#E65100"/></marker>
+</defs>
+  <text x="310.0" y="22" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="16" fill="#000" text-anchor="middle" font-weight="bold" >SC-SSC 子系统分解 (IBD)</text>
+  <rect x="210.0" y="55" width="200" height="45" rx="6" fill="#1565C0" stroke="#0D47A1" stroke-width="1.5" class=""/>
+  <text x="310.0" y="72" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#BBDEFB" text-anchor="middle" ><<Subsystem>></text>
+  <text x="310.0" y="88" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="11" fill="#FFF" text-anchor="middle" font-weight="bold" >SC_A: 智能驾驶域控制器</text>
+  <rect x="20.0" y="145.0" width="130" height="70" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="85.0" y="162" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#1565C0" text-anchor="middle" font-weight="bold" >SSC_A1</text>
+  <text x="85.0" y="178" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#333" text-anchor="middle" >感知处理模块</text>
+  <text x="85.0" y="192" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#666" text-anchor="middle" >CAM/LiDAR/Radar</text>
+  <text x="85.0" y="204" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#666" text-anchor="middle" >信号输入处理</text>
+  <line x1="310.0" y1="100" x2="85.0" y2="145.0" stroke="#1565C0" stroke-width="1.2" marker-end="url(#arrow-blue)"/>
+  <rect x="170.0" y="145.0" width="130" height="70" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="235.0" y="162" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#1565C0" text-anchor="middle" font-weight="bold" >SSC_A2</text>
+  <text x="235.0" y="178" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#333" text-anchor="middle" >融合决策模块</text>
+  <text x="235.0" y="192" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#666" text-anchor="middle" >多源融合 + </text>
+  <text x="235.0" y="204" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#666" text-anchor="middle" >规划决策算法</text>
+  <line x1="310.0" y1="100" x2="235.0" y2="145.0" stroke="#1565C0" stroke-width="1.2" marker-end="url(#arrow-blue)"/>
+  <rect x="320.0" y="145.0" width="130" height="70" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="385.0" y="162" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#1565C0" text-anchor="middle" font-weight="bold" >SSC_A3</text>
+  <text x="385.0" y="178" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#333" text-anchor="middle" >执行控制模块</text>
+  <text x="385.0" y="192" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#666" text-anchor="middle" >纵向/横向</text>
+  <text x="385.0" y="204" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#666" text-anchor="middle" >运动控制输出</text>
+  <line x1="310.0" y1="100" x2="385.0" y2="145.0" stroke="#1565C0" stroke-width="1.2" marker-end="url(#arrow-blue)"/>
+  <rect x="470.0" y="145.0" width="130" height="70" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" class=""/>
+  <text x="535.0" y="162" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#1565C0" text-anchor="middle" font-weight="bold" >SSC_A4</text>
+  <text x="535.0" y="178" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="8" fill="#333" text-anchor="middle" >通信网关模块</text>
+  <text x="535.0" y="192" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#666" text-anchor="middle" >CAN-FD/</text>
+  <text x="535.0" y="204" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="7" fill="#666" text-anchor="middle" >以太网路由</text>
+  <line x1="310.0" y1="100" x2="535.0" y2="145.0" stroke="#1565C0" stroke-width="1.2" marker-end="url(#arrow-blue)"/>
+  <text x="310.0" y="280" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#888" text-anchor="middle" >每个SSC具备独立版本演进能力</text>
+  <text x="310.0" y="300" font-family="Microsoft YaHei, SimHei, sans-serif" font-size="9" fill="#888" text-anchor="middle" >信号接口: CAN-FD/CCP 协议; 以太网: SOME/IP</text>
+</svg>

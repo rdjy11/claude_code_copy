@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>汽车软件版本管理系统 - VSMS (AI Native)</title>
+<style>
+/* ========== Reset ========== */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#333;display:flex;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* ========== Sidebar ========== */
+.sidebar{width:240px;background:#1a1d28;color:#ccc;flex-shrink:0;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100}
+.sidebar-logo{padding:20px;border-bottom:1px solid #2a2d3a;font-size:17px;font-weight:700;color:#fff;display:flex;align-items:center;gap:10px}
+.sidebar-logo .icon{width:32px;height:32px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 0}
+.nav-group-title{padding:12px 20px 6px;font-size:11px;text-transform:uppercase;color:#666;letter-spacing:1px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:14px;cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.nav-item:hover{background:#22253a;color:#e0e0e0}
+.nav-item.active{background:#22253a;color:#fff;border-left-color:#3b82f6;font-weight:600}
+.nav-item .badge{font-size:11px;background:#ef4444;color:#fff;padding:1px 7px;border-radius:10px;margin-left:auto}
+.nav-item .badge.ok{background:#10b981}
+
+/* ========== Main ========== */
+.main{margin-left:240px;flex:1;min-width:0}
+.header{background:#fff;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:50}
+.header h1{font-size:20px;font-weight:700}
+.header-right{display:flex;align-items:center;gap:16px;font-size:13px;color:#888}
+.header-right .avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+.content{padding:24px 28px}
+.page{display:none}
+.page.active{display:block}
+
+/* ========== Cards ========== */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06);cursor:pointer;transition:all .2s}
+.stat-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.1);transform:translateY(-1px)}
+.stat-card .label{font-size:13px;color:#888;margin-bottom:6px}
+.stat-card .value{font-size:28px;font-weight:700}
+.stat-card .sub{font-size:12px;color:#888;margin-top:4px}
+.stat-card.blue{border-left:4px solid #3b82f6}
+.stat-card.orange{border-left:4px solid #f59e0b}
+.stat-card.green{border-left:4px solid #10b981}
+.stat-card.red{border-left:4px solid #ef4444}
+
+.panel{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:20px}
+.panel-header{padding:16px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between}
+.panel-header h2{font-size:15px;font-weight:700}
+.panel-body{padding:20px}
+
+/* ========== Tables ========== */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;background:#f8f9fb;color:#666;font-weight:600;font-size:12px;border-bottom:2px solid #e5e7eb;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+tr:hover td{background:#fafbfc}
+tr.row-clickable{cursor:pointer}
+tr.row-clickable.selected td{background:#eff6ff}
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.tag-blue{background:#eff6ff;color:#2563eb}
+.tag-green{background:#ecfdf5;color:#059669}
+.tag-yellow{background:#fffbeb;color:#d97706}
+.tag-red{background:#fef2f2;color:#dc2626}
+.tag-gray{background:#f3f4f6;color:#6b7280}
+.tag-purple{background:#f5f3ff;color:#7c3aed}
+
+/* ========== Buttons ========== */
+.btn{padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-primary{background:#3b82f6;color:#fff}
+.btn-primary:hover{background:#2563eb}
+.btn-outline{background:#fff;color:#555;border:1px solid #ddd}
+.btn-outline:hover{background:#f5f5f5}
+.btn-danger{background:#ef4444;color:#fff;cursor:pointer}
+.btn-sm{padding:4px 10px;font-size:11px}
+.btn-xs{padding:2px 8px;font-size:10px}
+.btn-ai{background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff}
+.btn-ai:hover{opacity:.9}
+
+/* ========== Grid ========== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+/* ========== Timeline ========== */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:#e5e7eb}
+.timeline-item{position:relative;padding-bottom:20px}
+.timeline-item::before{content:'';position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#3b82f6;border:2px solid #fff;box-shadow:0 0 0 2px #3b82f6}
+.timeline-item.done::before{background:#10b981;box-shadow:0 0 0 2px #10b981}
+
+/* ========== Kanban ========== */
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kanban-col{background:#f8f9fb;border-radius:8px;padding:12px;min-height:120px}
+.kanban-col h3{font-size:13px;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #e5e7eb}
+.kanban-card{background:#fff;border-radius:6px;padding:12px;margin-bottom:8px;box-shadow:0 1px 2px rgba(0,0,0,.04);cursor:pointer;transition:all .15s}
+
+/* ========== Detail panel ========== */
+.detail-panel{display:none;background:#f8f9fb;border-radius:0 0 8px 8px;padding:20px;border-top:2px solid #3b82f6}
+.detail-panel.show{display:block}
+.detail-section{margin-bottom:16px}
+.detail-section h4{font-size:13px;font-weight:700;color:#555;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #e5e7eb}
+
+/* ========== File Upload ========== */
+.drop-zone{border:2px dashed #d1d5db;border-radius:8px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;color:#999;font-size:13px}
+.drop-zone:hover,.drop-zone.drag-over{border-color:#3b82f6;color:#3b82f6;background:#f8faff}
+.drop-zone input[type=file]{display:none}
+.file-list{display:grid;gap:8px;margin-top:12px}
+.file-item{display:flex;align-items:center;gap:12px;padding:8px 12px;background:#f8f9fb;border-radius:6px;font-size:13px}
+.file-item .name{flex:1;font-weight:600}
+.file-item .size{color:#999;font-size:11px}
+.file-item .meta{font-size:11px;color:#999}
+
+/* ========== Toolbar ========== */
+.toolbar{display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.search-input{padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:13px;width:260px}
+.filter-select{padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:13px;background:#fff}
+
+/* ========== Modal ========== */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:12px;padding:28px;width:600px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.modal h2{font-size:18px;margin-bottom:20px}
+.modal label{display:block;font-size:13px;font-weight:600;margin-bottom:4px;color:#555;margin-top:12px}
+.modal input,.modal select,.modal textarea{width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:13px;margin-bottom:8px;font-family:inherit}
+.modal textarea{resize:vertical;min-height:80px}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}
+
+/* ========== AI Panel ========== */
+.ai-toggle{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;font-size:22px;border:none;cursor:pointer;z-index:150;box-shadow:0 4px 16px rgba(99,102,241,.4);transition:all .2s;display:flex;align-items:center;justify-content:center}
+.ai-toggle:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(99,102,241,.5)}
+.ai-toggle.has-msg::after{content:'';position:absolute;top:6px;right:6px;width:10px;height:10px;border-radius:50%;background:#10b981}
+.ai-panel{position:fixed;bottom:88px;right:24px;width:420px;height:560px;background:#fff;border-radius:14px;box-shadow:0 12px 48px rgba(0,0,0,.15);z-index:149;display:none;flex-direction:column;overflow:hidden}
+.ai-panel.show{display:flex}
+.ai-panel-header{background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.ai-panel-header h3{font-size:15px;display:flex;align-items:center;gap:8px}
+.ai-panel-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.ai-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.6;animation:fadeIn .3s}
+.ai-msg.user{align-self:flex-end;background:#3b82f6;color:#fff;border-bottom-right-radius:4px}
+.ai-msg.bot{align-self:flex-start;background:#f3f4f6;color:#333;border-bottom-left-radius:4px}
+.ai-msg.bot pre{background:#1a1d28;color:#10b981;padding:8px 12px;border-radius:6px;font-size:11px;margin:6px 0;overflow-x:auto}
+.ai-panel-input{border-top:1px solid #eee;padding:12px 16px;display:flex;gap:8px}
+.ai-panel-input input{flex:1;padding:8px 12px;border:1px solid #ddd;border-radius:20px;font-size:13px;outline:none;font-family:inherit}
+.ai-panel-input input:focus{border-color:#8b5cf6}
+.ai-quick-actions{display:flex;gap:6px;flex-wrap:wrap;padding:8px 16px 0}
+.ai-quick{font-size:11px;padding:4px 10px;border-radius:12px;background:#f3f4f6;border:1px solid #eee;cursor:pointer;white-space:nowrap;transition:all .15s}
+.ai-quick:hover{background:#e5e7ff;border-color:#c4b5fd}
+
+/* ========== File Upload Form ========== */
+.upload-form{background:#f8f9fb;border-radius:8px;padding:20px}
+.upload-form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-field{display:flex;flex-direction:column}
+.form-label{font-size:13px;font-weight:600;color:#555;margin-bottom:6px}
+.form-select{width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;background:#fff;color:#333;font-family:inherit;transition:border-color .15s}
+.form-select:focus{border-color:#3b82f6;outline:none;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+
+/* ========== Config Baseline Tabs ========== */
+.config-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.config-tabs .config-tab{padding:7px 16px;border-radius:6px;font-size:13px;cursor:pointer;border:none;background:#e8e9ee;color:#888;font-weight:400;transition:all .15s;font-family:inherit;white-space:nowrap}
+.config-tabs .config-tab:hover{background:#ddd;color:#555}
+.config-tabs .config-tab.active{background:#3b82f6;color:#fff;font-weight:600}
+.config-tabs .config-tab .count{font-size:11px;opacity:.7;margin-left:4px}
+
+/* ========== Toast ========== */
+.toast{position:fixed;top:24px;right:24px;background:#10b981;color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:300;animation:slideIn .3s;box-shadow:0 4px 12px rgba(16,185,129,.3)}
+.toast.error{background:#ef4444;box-shadow:0 4px 12px rgba(239,68,68,.3)}
+@keyframes slideIn{from{transform:translateX(100px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ========== Responsive ========== */
+@media(max-width:1200px){.stats-grid{grid-template-columns:repeat(2,1fr)}.kanban{grid-template-columns:repeat(2,1fr)}.grid-2{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{width:60px}.sidebar-logo span,.nav-item span,.nav-group-title{display:none}.main{margin-left:60px}.ai-panel{width:calc(100vw - 48px);right:24px}}
+</style>
+</head>
+<body>
+
+<!-- ===== Sidebar ===== -->
+<aside class="sidebar">
+  <div class="sidebar-logo"><div class="icon">&#9881;</div><span>VSMS</span></div>
+  <nav class="sidebar-nav">
+    <div class="nav-group"><div class="nav-group-title">概览</div>
+      <div class="nav-item active" data-page="dashboard">&#9673; <span>仪表盘</span><span class="badge ok" id="badgeDashboard">3</span></div>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">核心业务</div>
+      <div class="nav-item" data-page="versions">&#9711; <span>版本管理</span><span class="badge ok" id="badgeVersions">10</span></div>
+      <div class="nav-item" data-page="baseline">&#9711; <span>基线管理</span><span class="badge" id="badgeBaseline">2</span></div>
+      <div class="nav-item" data-page="config">&#9711; <span>配置管理</span></div>
+      <div class="nav-item" data-page="change">&#9711; <span>变更管理</span><span class="badge" id="badgeChange">5</span></div>
+      <div class="nav-item" data-page="release">&#9711; <span>发布管理</span></div>
+    </div>
+    <div class="nav-group"><div class="nav-group-title">追溯与合规</div>
+      <div class="nav-item" data-page="traceability">&#9711; <span>追溯管理</span></div>
+      <div class="nav-item" data-page="standards">&#9711; <span>标准参考</span></div>
+    </div>
+  </nav>
+</aside>
+
+<!-- ===== Main ===== -->
+<div class="main">
+  <header class="header">
+    <h1 id="pageTitle">仪表盘</h1>
+    <div class="header-right"><span id="headerTime">2026-05-01 14:30</span><div class="avatar">Q</div></div>
+  </header>
+
+  <div class="content" id="contentRoot"></div>
+</div>
+
+<!-- ===== AI Toggle ===== -->
+<button class="ai-toggle" id="aiToggle" title="AI 助手 (Ctrl+Space)">
+  &#10031;
+</button>
+
+<!-- ===== AI Panel ===== -->
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-panel-header">
+    <h3>&#10031; VSMS AI 助手</h3>
+    <button style="background:none;border:none;color:#fff;cursor:pointer;font-size:18px" onclick="toggleAI()">&#10005;</button>
+  </div>
+  <div class="ai-quick-actions" id="aiQuickActions">
+    <button class="ai-quick" onclick="aiQuick('analyzeImpact')">影响分析</button>
+    <button class="ai-quick" onclick="aiQuick('generateReleaseNote')">生成Release Note</button>
+    <button class="ai-quick" onclick="aiQuick('checkCompliance')">合规检查</button>
+    <button class="ai-quick" onclick="aiQuick('suggestVersion')">版本号建议</button>
+    <button class="ai-quick" onclick="aiQuick('traceCheck')">追溯完整性</button>
+  </div>
+  <div class="ai-panel-body" id="aiMessages">
+    <div class="ai-msg bot">你好！我是 VSMS AI 助手。我可以帮你进行变更影响分析、生成发布说明、检查合规状态、建议版本号等。试试下面的快捷操作，或直接问我问题。</div>
+  </div>
+  <div class="ai-panel-input">
+    <input id="aiInput" placeholder="输入问题或指令..." onkeydown="if(event.key==='Enter')sendAIMessage()">
+    <button class="btn btn-ai btn-sm" onclick="sendAIMessage()">发送</button>
+  </div>
+</div>
+
+<!-- ===== Modals Container ===== -->
+<div id="modalsContainer"></div>
+
+<script>
+// ============================
+//  API LAYER
+// ============================
+const API_BASE = '/api';
+
+async function apiGet(path) {
+  const resp = await fetch(API_BASE + path);
+  if (!resp.ok) throw new Error(resp.status + ' ' + resp.statusText);
+  return resp.json();
+}
+
+async function apiPost(path, data) {
+  const resp = await fetch(API_BASE + path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  if (!resp.ok) throw new Error(resp.status + ' ' + resp.statusText);
+  return resp.json();
+}
+
+async function apiPut(path, data) {
+  const resp = await fetch(API_BASE + path, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  if (!resp.ok) throw new Error(resp.status + ' ' + resp.statusText);
+  return resp.json();
+}
+
+async function apiDelete(path) {
+  const resp = await fetch(API_BASE + path, { method: 'DELETE' });
+  if (!resp.ok) throw new Error(resp.status + ' ' + resp.statusText);
+  return resp.json();
+}
+
+// ============================
+//  DATA STORE (loaded from API)
+// ============================
+const today = new Date().toISOString().split('T')[0];
+
+let _idCounter = 100;
+function genId(prefix) { return prefix + '-' + today.replace(/-/g,'') + '-' + (++_idCounter); }
+
+// Field mapping: API snake_case → frontend camelCase
+function mapBaseline(b) {
+  return { id:b.id, name:b.name, domain:b.domain, phase:b.phase, ecuCount:b.ecu_count, creator:b.creator, created:b.created_date, frozen:b.frozen_date||'', status:b.status, desc:b.description||'' };
+}
+function mapVersion(v) {
+  return { id:v.id, name:v.name, project:v.project, domain:v.domain, ecu:v.ecu, major:v.major, minor:v.minor, patch:v.patch, phase:v.phase, rxswin:v.rxswin, status:v.status, baselineId:v.baseline_id||'', created:v.created_date };
+}
+function mapCI(c) {
+  return { id:c.id, type:c.type, name:c.name, version:c.version, location:c.location, baselineId:c.baseline_id };
+}
+function mapChange(c) {
+  return { id:c.id, title:c.title, type:c.type, urgency:c.urgency, status:c.status, applicant:c.applicant, baselineId:c.baseline_id||'', created:c.created_date };
+}
+function mapRelease(r) {
+  return { id:r.id, name:r.name, type:r.type, ecuCount:r.ecu_count, version:r.version, created:r.created_date, status:r.status, baselineIds:r.baseline_ids||[] };
+}
+function mapFile(f) {
+  return { id:f.id, name:f.name, size:f.size, type:f.type, baselineId:f.baseline_id, uploaded:f.uploaded_date };
+}
+
+const store = {
+  baselines: [],
+  versions: [],
+  configItems: [],
+  changes: [],
+  releases: [],
+  files: [],
+  auditLogs: [
+    { date:'2026-04-30', type:'物理审计', scope:'全量CI', result:'通过' },
+    { date:'2026-04-15', type:'功能审计', scope:'智驾域', result:'通过' },
+    { date:'2026-04-01', type:'物理审计', scope:'全量CI', result:'1项缺失(已修复)' },
+    { date:'2026-03-15', type:'功能审计', scope:'全量CI', result:'通过' }
+  ]
+};
+
+let _storeLoaded = false;
+
+async function loadStore() {
+  if (_storeLoaded) return;
+  try {
+    const [baselines, versions, configItems, changes, releases, files] = await Promise.all([
+      apiGet('/baselines'), apiGet('/versions'), apiGet('/config-items'),
+      apiGet('/changes'), apiGet('/releases'), apiGet('/files')
+    ]);
+    store.baselines = baselines.map(mapBaseline);
+    store.versions = versions.map(mapVersion);
+    store.configItems = configItems.map(mapCI);
+    store.changes = changes.map(mapChange);
+    store.releases = releases.map(mapRelease);
+    store.files = files.map(mapFile);
+    _storeLoaded = true;
+    console.log('Data loaded from API:', store.baselines.length, 'baselines,', store.versions.length, 'versions,', store.configItems.length, 'CIs,', store.changes.length, 'changes,', store.releases.length, 'releases,', store.files.length, 'files');
+  } catch(e) {
+    console.warn('API connection failed, using seed data from API fallback:', e.message);
+  }
+}
+
+// ============================
+//  HELPERS
+// ============================
+function toast(msg, isErr) {
+  var t = document.createElement('div');
+  t.className = 'toast' + (isErr ? ' error' : '');
+  t.textContent = msg; document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 2500);
+}
+
+function getBaselineName(id) {
+  var bl = store.baselines.find(function(b){ return b.id === id; });
+  return bl ? bl.name : '未关联';
+}
+
+function getBaselineOptions(selectedId) {
+  return store.baselines.map(function(b){
+    return '<option value="'+b.id+'"'+(b.id===selectedId?' selected':'')+'>'+b.name+' ('+b.status+')</option>';
+  }).join('');
+}
+
+function getStatusTag(status) {
+  var map = {'已冻结':'tag-green','评审中':'tag-yellow','开发中':'tag-blue','测试中':'tag-yellow','准出通过':'tag-green','待评审':'tag-yellow','实施中':'tag-blue','已关闭':'tag-gray','通过':'tag-green'};
+  return '<span class="tag '+ (map[status]||'tag-gray') +'">'+status+'</span>';
+}
+
+function getTypeTag(type) {
+  var map = {'源码':'tag-blue','二进制':'tag-yellow','标定':'tag-green','文档':'tag-gray','OTA':'tag-blue','基线':'tag-gray','Hotfix':'tag-red'};
+  return '<span class="tag '+(map[type]||'tag-gray')+'">'+type+'</span>';
+}
+
+// ============================
+//  CONTENT RENDERER
+// ============================
+function openModal(html) {
+  var container = document.getElementById('modalsContainer');
+  var overlay = document.createElement('div');
+  overlay.className = 'modal-overlay show';
+  overlay.innerHTML = '<div class="modal">'+html+'</div>';
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) overlay.remove(); });
+  container.appendChild(overlay);
+  return overlay;
+}
+
+// ============================
+//  AI PANEL
+// ============================
+function toggleAI() {
+  document.getElementById('aiPanel').classList.toggle('show');
+}
+document.getElementById('aiToggle').addEventListener('click', toggleAI);
+
+var aiResponses = {
+  analyzeImpact: '正在分析变更影响...\n\n**ECR-2026-0425 通信矩阵接口变更 影响分析：**\n\n| 受影响ECU | 影响类型 | 严重度 |\n|-----------|---------|-------|\n| ADAS_DCU | 接口适配 | 高 |\n| Radar_Front | 数据格式变更 | 中 |\n| Camera_Main | 协议兼容 | 中 |\n\n建议：变更前冻结ADAS_DCU v3.2.1基线，变更后全量回归测试。\n\n是否需要我生成详细的影响分析报告？',
+  generateReleaseNote: '已为 **A_Vehicle_OTA_20260430** 生成 Release Note：\n\n```\nRelease Note - A_Vehicle_OTA_20260430\n日期：2026-04-30\n类型：OTA升级\n\n变更内容：\n1. ADAS_DCU v3.2.0 → v3.2.1\n   - 优化ACC跟车距离算法\n   - 修复AEB误触发问题 (JIRA-4421)\n\n2. BCM v2.3.0 → v2.3.1\n   - 修复车门灯光控制逻辑\n\n受影响车辆：A_Vehicle全系 12,000台\n灰度策略：5%→20%→100%\n回滚版本：3.1.5\n```',
+  checkCompliance: '**SUMS合规检查结果：**\n\n| 检查项 | 状态 |\n|-------|------|\n| RXSWIN唯一标识 | ✅ 已建立 |\n| 版本→型式认证追溯 | ✅ 完整 |\n| OTA验证机制 | ✅ 已建立 |\n| OTA回滚能力 | ✅ 已验证 |\n| 10年存档 | ✅ 合规 |\n| ASPICE SUP.8 | ⚠️ BP6(配置状态报告)待完善 |\n\n发现1项待改进：配置状态报告未自动化，建议增加定期自动生成机制。',
+  suggestVersion: '**版本号建议：**\n\n根据变更内容分析：\n\n| 变更 | 类型 | 建议 |\n|------|------|------|\n| 通信矩阵变更 | 不兼容接口变更 | **Major +1** |\n| 新增ACC功能 | 向后兼容功能新增 | **Minor +1** |\n| BCM Bug修复 | 缺陷修复 | **Patch +1** |\n\n当前 ADAS_DCU: 3.2.1 → 通信矩阵变更建议 → **4.0.0**',
+  traceCheck: '**追溯完整性检查：**\n\n| 需求 | 设计 | 代码 | 测试 | 发布 | 完整性 |\n|------|------|------|------|------|-------|\n| REQ-1001 ACC | DES-001 | ✅ | ✅ | ADAS 3.2.1 | 100% |\n| REQ-2003 BCM | DES-003 | ✅ | ✅ | BCM 2.3.1 | 100% |\n| REQ-3001 AEB | DES-005 | ✅ | ⚠️ 缺2个用例 | ADAS 3.3.0-rc1 | 85% |\n\n**REQ-3001 AEB紧急制动** 缺少边缘场景测试用例（隧道逆光、雨天），建议补充后再发布。'
+};
+
+function aiQuick(action) {
+  addAIMessage('user', document.querySelector('.ai-quick[onclick*="'+action+'"]').textContent);
+  setTimeout(function(){
+    addAIMessage('bot', aiResponses[action] || '正在分析中，请稍候...');
+  }, 600);
+}
+
+function sendAIMessage() {
+  var input = document.getElementById('aiInput');
+  var text = input.value.trim();
+  if (!text) return;
+  addAIMessage('user', text);
+  input.value = '';
+
+  // Simple keyword matching
+  var reply = '';
+  var lc = text.toLowerCase();
+  if (lc.includes('影响')||lc.includes('impact')) reply = aiResponses.analyzeImpact;
+  else if (lc.includes('release')||lc.includes('发布说明')) reply = aiResponses.generateReleaseNote;
+  else if (lc.includes('合规')||lc.includes('compliance')) reply = aiResponses.checkCompliance;
+  else if (lc.includes('版本号')||lc.includes('version')) reply = aiResponses.suggestVersion;
+  else if (lc.includes('追溯')||lc.includes('trace')) reply = aiResponses.traceCheck;
+  else reply = '收到你的问题：「'+text+'」。目前我可以帮助你进行：\n\n1. **影响分析** — 评估变更对上下游ECU的影响\n2. **生成Release Note** — 自动生成发布说明\n3. **合规检查** — 检查ASPICE/UNECE R156合规状态\n4. **版本号建议** — 根据变更类型推荐版本号\n5. **追溯完整性** — 检查需求到发布的全链路\n\n请点击快捷按钮或直接描述你的需求。';
+
+  setTimeout(function(){ addAIMessage('bot', reply); }, 600);
+}
+
+function addAIMessage(role, text) {
+  var msgs = document.getElementById('aiMessages');
+  var div = document.createElement('div');
+  div.className = 'ai-msg ' + role;
+  div.innerHTML = text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/```([^`]*)```/g,'<pre>$1</pre>');
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+// Initialize AI panel with welcome message
+document.addEventListener('DOMContentLoaded', function() {
+  var welcomeDiv = document.querySelector('#aiMessages .ai-msg');
+  if (welcomeDiv) welcomeDiv.innerHTML = welcomeDiv.innerHTML.replace(/\n/g,'<br>');
+});
+
+// Keyboard shortcut
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === ' ') { e.preventDefault(); toggleAI(); }
+});
+
+// ============================
+//  NAVIGATION
+// ============================
+document.querySelectorAll('.nav-item').forEach(function(item){
+  item.addEventListener('click', function(){
+    var page = this.dataset.page;
+    document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+    this.classList.add('active');
+    renderPage(page);
+    var titles = {
+      dashboard:'仪表盘', versions:'版本管理', baseline:'基线管理',
+      config:'配置管理', change:'变更管理', release:'发布管理',
+      traceability:'追溯管理', standards:'标准参考'
+    };
+    document.getElementById('pageTitle').textContent = titles[page] || page;
+  });
+});
+
+function renderPage(page) {
+  var root = document.getElementById('contentRoot');
+  root.innerHTML = '';
+  var fn = window['render_'+page.replace(/-/g,'_')];
+  if (fn) fn(root);
+}
+
+// ============================
+//  DASHBOARD
+// ============================
+function render_dashboard(root) {
+  var pendingCR = store.changes.filter(function(c){ return c.status!=='已关闭'; }).length;
+  var pendingReview = store.baselines.filter(function(b){ return b.status==='评审中'; }).length;
+  root.innerHTML =
+    '<div class="stats-grid">'+
+      '<div class="stat-card blue" onclick="navigateTo(\'versions\')"><div class="label">管理版本数</div><div class="value">'+store.versions.length+'</div><div class="sub">5个域 · 3个平台 · 10个ECU</div></div>'+
+      '<div class="stat-card orange" onclick="navigateTo(\'change\')"><div class="label">待审批变更</div><div class="value">'+pendingCR+'</div><div class="sub">'+store.changes.filter(function(c){return c.urgency==='紧急'&&c.status!=='已关闭'}).length+'个紧急</div></div>'+
+      '<div class="stat-card green" onclick="navigateTo(\'release\')"><div class="label">本月发布</div><div class="value">'+store.releases.length+'</div><div class="sub">'+store.releases.filter(function(r){return r.type==='OTA'}).length+'次OTA</div></div>'+
+      '<div class="stat-card red"><div class="label">待处理冲突</div><div class="value">2</div><div class="sub">智驾域×底盘域接口</div></div>'+
+    '</div>'+
+    '<div class="grid-2">'+
+      '<div class="panel"><div class="panel-header"><h2>近期基线状态</h2><a href="#" class="btn btn-sm btn-outline" onclick="navigateTo(\'baseline\');return false">查看全部</a></div><div class="panel-body"><table><thead><tr><th>基线名称</th><th>阶段</th><th>ECU数</th><th>状态</th><th>冻结日期</th></tr></thead><tbody>'+
+        store.baselines.map(function(b){ return '<tr class="row-clickable" onclick="navigateTo(\'baseline\')"><td>'+b.name+'</td><td>'+b.phase+'</td><td>'+b.ecuCount+'</td><td>'+getStatusTag(b.status)+'</td><td>'+(b.frozen||'—')+'</td></tr>'; }).join('')+
+      '</tbody></table></div></div>'+
+      '<div class="panel"><div class="panel-header"><h2>待处理变更请求</h2><a href="#" class="btn btn-sm btn-outline" onclick="navigateTo(\'change\');return false">查看全部</a></div><div class="panel-body"><table><thead><tr><th>编号</th><th>标题</th><th>紧急度</th><th>状态</th></tr></thead><tbody>'+
+        store.changes.filter(function(c){ return c.status!=='已关闭'; }).slice(0,5).map(function(c){ return '<tr class="row-clickable" onclick="navigateTo(\'change\')"><td>'+c.id+'</td><td>'+c.title+'</td><td><span class="tag '+(c.urgency==='紧急'?'tag-red':'tag-yellow')+'">'+c.urgency+'</span></td><td>'+getStatusTag(c.status)+'</td></tr>'; }).join('')+
+      '</tbody></table></div></div>'+
+    '</div>'+
+    '<div class="panel"><div class="panel-header"><h2>最近活动</h2></div><div class="panel-body"><div class="timeline">'+
+      '<div class="timeline-item done"><div class="time">2026-05-01 10:30</div><div class="title">A_Vehicle_Body_V1.5.0 基线冻结审批通过</div><div class="desc">CCB一致同意，28个ECU基线已锁定</div></div>'+
+      '<div class="timeline-item"><div class="time">2026-04-30 16:15</div><div class="title">ECR-2026-0428 影响分析完成</div><div class="desc">ADAS域3个ECU受影响，需同步更新通信矩阵</div></div>'+
+      '<div class="timeline-item done"><div class="time">2026-04-30 14:00</div><div class="title">A_Vehicle_OTA_20260430 发布包编排完成</div><div class="desc">包含智驾域5个ECU、座舱域3个ECU的升级包</div></div>'+
+      '<div class="timeline-item"><div class="time">2026-04-29 09:00</div><div class="title">配置审计通过</div><div class="desc">物理审计和功能审计均无异常项</div></div>'+
+    '</div></div></div>';
+}
+
+function navigateTo(page) {
+  var nav = document.querySelector('.nav-item[data-page="'+page+'"]');
+  if (nav) nav.click();
+}
+
+// ============================
+//  VERSIONS
+// ============================
+function render_versions(root) {
+  root.innerHTML =
+    '<div class="toolbar">'+
+      '<input class="search-input" placeholder="搜索版本名称、ECU..." oninput="filterTableLive(this, \'versionTable\')">'+
+      '<select class="filter-select" onchange="filterTableLive(this, \'versionTable\')"><option value="">全部域</option><option>智驾</option><option>座舱</option><option>三电</option><option>底盘</option><option>车身</option></select>'+
+      '<select class="filter-select" onchange="filterTableLive(this, \'versionTable\')"><option value="">全部状态</option><option>已冻结</option><option>测试中</option><option>开发中</option></select>'+
+      '<button class="btn btn-ai btn-sm" style="margin-left:auto" onclick="aiQuick(\'suggestVersion\');toggleAI()">&#10031; AI版本号建议</button>'+
+      '<button class="btn btn-primary btn-sm" onclick="openVersionModal()">+ 新建版本</button>'+
+    '</div>'+
+    '<div class="panel"><div class="panel-body" style="overflow-x:auto">'+
+      '<table id="versionTable"><thead><tr><th>版本名称</th><th>域</th><th>ECU</th><th>Major.Minor.Patch</th><th>阶段</th><th>RXSWIN</th><th>关联基线</th><th>状态</th><th>操作</th></tr></thead><tbody>'+
+        store.versions.map(function(v){ return '<tr><td><strong>'+v.name+'</strong></td><td>'+v.domain+'</td><td>'+v.ecu+'</td><td>'+v.major+'.'+v.minor+'.'+v.patch+'</td><td>'+v.phase+'</td><td><code>'+v.rxswin+'</code></td><td>'+(v.baselineId?'<span class="tag tag-blue">'+getBaselineName(v.baselineId)+'</span>':'<span class="tag tag-gray">未关联</span>')+'</td><td>'+getStatusTag(v.status)+'</td><td><button class="btn btn-xs btn-outline" onclick="event.stopPropagation();openVersionDetail(\''+v.id+'\')">详情</button> <button class="btn btn-xs btn-ai" onclick="event.stopPropagation();analyzeVersion(\''+v.id+'\')">AI分析</button></td></tr>'; }).join('')+
+      '</tbody></table>'+
+    '</div></div>';
+}
+
+function openVersionModal() {
+  var overlay = openModal(
+    '<h2>+ 新建版本</h2>'+
+    '<label>项目代号</label><input id="vProj" value="A_Vehicle">'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+
+      '<div><label>域</label><select id="vDomain"><option>智驾</option><option>座舱</option><option>三电</option><option>底盘</option><option>车身</option></select></div>'+
+      '<div><label>ECU名称</label><input id="vEcu" placeholder="例如：ADAS_DCU"></div>'+
+    '</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">'+
+      '<div><label>Major</label><input id="vMajor" type="number" value="1" min="0"></div>'+
+      '<div><label>Minor</label><input id="vMinor" type="number" value="0" min="0"></div>'+
+      '<div><label>Patch</label><input id="vPatch" type="number" value="0" min="0"></div>'+
+    '</div>'+
+    '<label>阶段</label><select id="vPhase"><option>A样</option><option>DV</option><option>PV</option><option>SOP</option></select>'+
+    '<label>RXSWIN</label><input id="vRxswin" placeholder="RXS-A_Vehicle-XXX-001">'+
+    '<label>关联基线</label><select id="vBaseline"><option value="">— 暂不关联 —</option>'+getBaselineOptions('')+'</select>'+
+    '<label>备注</label><textarea id="vDesc" placeholder="版本说明..."></textarea>'+
+    '<div class="modal-actions">'+
+      '<button class="btn btn-outline" onclick="this.closest(\'.modal-overlay\').remove()">取消</button>'+
+      '<button class="btn btn-ai btn-sm" style="margin-right:auto" onclick="aiSuggestVersion()">&#10031; AI建议</button>'+
+      '<button class="btn btn-primary" onclick="createVersion()">确认创建</button>'+
+    '</div>'
+  );
+}
+
+function aiSuggestVersion() {
+  var domain = document.getElementById('vDomain').value;
+  var ecu = document.getElementById('vEcu').value;
+  var major = document.getElementById('vMajor');
+  var minor = document.getElementById('vMinor');
+  var patch = document.getElementById('vPatch');
+  if (ecu.toLowerCase().includes('fix')||ecu.toLowerCase().includes('bug')) { major.value=3; minor.value=2; patch.value=2; }
+  else { major.value=1; minor.value=0; patch.value=0; }
+  toast('AI 已建议版本号：'+major.value+'.'+minor.value+'.'+patch.value);
+}
+
+async function createVersion() {
+  var proj = document.getElementById('vProj').value.trim();
+  var domain = document.getElementById('vDomain').value;
+  var ecu = document.getElementById('vEcu').value.trim();
+  var major = parseInt(document.getElementById('vMajor').value)||1;
+  var minor = parseInt(document.getElementById('vMinor').value)||0;
+  var patch = parseInt(document.getElementById('vPatch').value)||0;
+  var phase = document.getElementById('vPhase').value;
+  var rxswin = document.getElementById('vRxswin').value.trim();
+  var baselineId = document.getElementById('vBaseline').value;
+  if (!ecu) { toast('请输入ECU名称', true); return; }
+  var name = proj+'_'+domain+'_'+ecu+'_'+major+'.'+minor+'.'+patch+'_'+phase;
+  var v = { id:genId('V'), name:name, project:proj, domain:domain, ecu:ecu, major:major, minor:minor, patch:patch, phase:phase, rxswin:rxswin||'RXS-'+proj+'-'+ecu.substring(0,3)+'-001', status:'开发中', baselineId:baselineId, created:today };
+  try {
+    var created = await apiPost('/versions', { id:v.id, name:v.name, project:v.project, domain:v.domain, ecu:v.ecu, major:v.major, minor:v.minor, patch:v.patch, phase:v.phase, rxswin:v.rxswin, status:v.status, baselineId:v.baselineId||null, createdDate:v.created });
+    store.versions.push(mapVersion(created));
+  } catch(e) {
+    console.warn('API save failed, using local store:', e.message);
+    store.versions.push(v);
+  }
+  document.querySelectorAll('#modalsContainer .modal-overlay').forEach(function(o){ o.remove(); });
+  renderPage('versions');
+  toast('版本 '+name+' 已创建');
+}
+
+function openVersionDetail(vid) {
+  var v = store.versions.find(function(x){ return x.id===vid; });
+  if (!v) return;
+  var linkedBaseline = store.baselines.find(function(b){ return b.id===v.baselineId; });
+  var linkedCIs = store.configItems.filter(function(c){ return c.baselineId===v.baselineId; });
+  var linkedFiles = store.files.filter(function(f){ return f.baselineId===v.baselineId; });
+  var overlay = openModal(
+    '<h2>'+v.name+'</h2>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:16px">'+
+      '<div><strong>域：</strong>'+v.domain+'</div><div><strong>ECU：</strong>'+v.ecu+'</div>'+
+      '<div><strong>版本号：</strong>'+v.major+'.'+v.minor+'.'+v.patch+'</div><div><strong>阶段：</strong>'+v.phase+'</div>'+
+      '<div><strong>RXSWIN：</strong><code>'+v.rxswin+'</code></div><div><strong>状态：</strong>'+getStatusTag(v.status)+'</div>'+
+      '<div><strong>创建日期：</strong>'+v.created+'</div><div><strong>关联基线：</strong>'+(linkedBaseline?linkedBaseline.name:'<span class="tag tag-gray">未关联</span>')+'</div>'+
+    '</div>'+
+    (linkedCIs.length ? '<div class="detail-section"><h4>关联配置项 ('+linkedCIs.length+')</h4><table><thead><tr><th>CI编号</th><th>类型</th><th>名称</th><th>版本</th></tr></thead><tbody>'+
+      linkedCIs.map(function(c){ return '<tr><td>'+c.id+'</td><td>'+getTypeTag(c.type)+'</td><td>'+c.name+'</td><td>'+c.version+'</td></tr>'; }).join('')+
+    '</tbody></table></div>' : '')+
+    (linkedFiles.length ? '<div class="detail-section"><h4>关联文件 ('+linkedFiles.length+')</h4>'+linkedFiles.map(function(f){ return '<div class="file-item"><span class="name">'+f.name+'</span><span class="size">'+f.size+'</span><span class="meta">'+f.uploaded+'</span></div>'; }).join('')+'</div>' : '')+
+    '<div class="modal-actions"><button class="btn btn-outline" onclick="this.closest(\'.modal-overlay\').remove()">关闭</button></div>'
+  );
+}
+
+function analyzeVersion(vid) {
+  var v = store.versions.find(function(x){ return x.id===vid; });
+  if (!v) return;
+  addAIMessage('user', '分析版本 '+v.name);
+  setTimeout(function(){
+    var relatedChanges = store.changes.filter(function(c){ return c.baselineId===v.baselineId; });
+    var relatedCIs = store.configItems.filter(function(c){ return c.baselineId===v.baselineId; });
+    addAIMessage('bot', '**'+v.name+' 分析报告：**\n\n| 维度 | 状态 |\n|------|------|\n| 关联基线 | '+(v.baselineId?getBaselineName(v.baselineId):'⚠️ 未关联')+' |\n| 关联配置项 | '+relatedCIs.length+' 个 |\n| 关联变更 | '+relatedChanges.length+' 个 |\n| RXSWIN合规 | ✅ 已分配 |\n| 版本号规范 | ✅ 符合SemVer |\n\n'+(v.baselineId?'':'⚠️ **建议**：该版本未关联基线，建议关联以确保追溯完整性。'));
+    toggleAI();
+  }, 500);
+}
+
+// ============================
+//  BASELINE
+// ============================
+function render_baseline(root) {
+  root.innerHTML =
+    '<div class="toolbar">'+
+      '<input class="search-input" placeholder="搜索基线名称..." oninput="filterTableLive(this, \'baselineTable\')">'+
+      '<select class="filter-select" onchange="filterTableLive(this, \'baselineTable\')"><option value="">全部状态</option><option>已冻结</option><option>评审中</option><option>开发中</option></select>'+
+      '<button class="btn btn-ai btn-sm" style="margin-left:auto" onclick="aiQuick(\'checkCompliance\');toggleAI()">&#10031; AI合规检查</button>'+
+      '<button class="btn btn-primary btn-sm" onclick="openBaselineModal()">+ 新建基线</button>'+
+    '</div>'+
+    '<div class="panel"><div class="panel-body" style="overflow-x:auto">'+
+      '<table id="baselineTable"><thead><tr><th></th><th>基线名称</th><th>域</th><th>阶段</th><th>ECU数</th><th>创建人</th><th>冻结日期</th><th>关联CI</th><th>关联文件</th><th>状态</th><th>操作</th></tr></thead><tbody>'+
+        store.baselines.map(function(b,idx){ return '<tr class="row-clickable" id="blrow-'+b.id+'" onclick="toggleBaselineDetail(\''+b.id+'\')"><td>&#9654;</td><td><strong>'+b.name+'</strong></td><td>'+b.domain+'</td><td>'+b.phase+'</td><td>'+b.ecuCount+'</td><td>'+b.creator+'</td><td>'+(b.frozen||'—')+'</td><td>'+store.configItems.filter(function(c){return c.baselineId===b.id;}).length+' 项</td><td>'+store.files.filter(function(f){return f.baselineId===b.id;}).length+' 个</td><td>'+getStatusTag(b.status)+'</td><td><button class="btn btn-xs btn-outline" onclick="event.stopPropagation();editBaseline(\''+b.id+'\')">审批</button> <button class="btn btn-xs btn-ai" onclick="event.stopPropagation();aiAnalyzeBaseline(\''+b.id+'\')">AI分析</button></td></tr>'+
+                 '<tr class="detail-row" id="bldetail-'+b.id+'" style="display:none"><td colspan="11"><div class="detail-panel show">'+renderBaselineDetail(b.id)+'</div></td></tr>'; }).join('')+
+      '</tbody></table>'+
+    '</div></div>';
+}
+
+function renderBaselineDetail(blId) {
+  var versions = store.versions.filter(function(v){ return v.baselineId===blId; });
+  var cis = store.configItems.filter(function(c){ return c.baselineId===blId; });
+  var files = store.files.filter(function(f){ return f.baselineId===blId; });
+  var changes = store.changes.filter(function(c){ return c.baselineId===blId; });
+  var releases = store.releases.filter(function(r){ return r.baselineIds.indexOf(blId)>=0; });
+  return '<div class="grid-2">'+
+    '<div class="detail-section"><h4>关联版本 ('+versions.length+')</h4>'+(versions.length?versions.map(function(v){return '<div style="font-size:12px;padding:4px 0">'+v.name+' '+getStatusTag(v.status)+'</div>';}).join(''):'<span style="color:#999;font-size:12px">无关联版本</span>')+'</div>'+
+    '<div class="detail-section"><h4>关联配置项 ('+cis.length+')</h4>'+(cis.length?cis.map(function(c){return '<div style="font-size:12px;padding:4px 0">'+c.id+' '+getTypeTag(c.type)+' '+c.name+' v'+c.version+'</div>';}).join(''):'<span style="color:#999;font-size:12px">无关联配置项</span>')+'</div>'+
+    '<div class="detail-section"><h4>关联变更 ('+changes.length+')</h4>'+(changes.length?changes.map(function(c){return '<div style="font-size:12px;padding:4px 0">'+c.id+' '+c.title+' '+getStatusTag(c.status)+'</div>';}).join(''):'<span style="color:#999;font-size:12px">无关联变更</span>')+'</div>'+
+    '<div class="detail-section"><h4>关联发布 ('+releases.length+')</h4>'+(releases.length?releases.map(function(r){return '<div style="font-size:12px;padding:4px 0">'+r.name+' ('+r.type+') '+getStatusTag(r.status)+'</div>';}).join(''):'<span style="color:#999;font-size:12px">未纳入发布包</span>')+'</div>'+
+    '<div class="detail-section"><h4>关联文件 ('+files.length+')</h4>'+(files.length?files.map(function(f){return '<div class="file-item"><span class="name">'+f.name+'</span><span class="size">'+f.size+'</span><span class="meta">'+f.uploaded+'</span></div>';}).join(''):'<span style="color:#999;font-size:12px">无关联文件</span>')+'</div>'+
+  '</div>';
+}
+
+function toggleBaselineDetail(blId) {
+  var row = document.getElementById('bldetail-'+blId);
+  var blrow = document.getElementById('blrow-'+blId);
+  if (row.style.display === 'none') {
+    row.style.display = '';
+    blrow.classList.add('selected');
+    blrow.querySelector('td').textContent = '▼';
+  } else {
+    row.style.display = 'none';
+    blrow.classList.remove('selected');
+    blrow.querySelector('td').textContent = '▶';
+  }
+}
+
+function openBaselineModal() {
+  var overlay = openModal(
+    '<h2>+ 新建基线</h2>'+
+    '<label>基线名称</label><input id="blName" placeholder="例如：A_Vehicle_ADAS_V3.3.0_Baseline">'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+
+      '<div><label>所属域</label><select id="blDomain"><option>整车</option><option>智驾</option><option>座舱</option><option>三电</option><option>底盘</option><option>车身</option></select></div>'+
+      '<div><label>阶段</label><select id="blPhase"><option>A样</option><option>DV</option><option>PV</option><option>SOP</option></select></div>'+
+    '</div>'+
+    '<label>包含ECU（逗号分隔，或由AI从关联版本自动填入）</label><textarea id="blEcuList" placeholder="例如：ADAS_DCU, Radar_Front, Camera_Main"></textarea>'+
+    '<label>备注</label><textarea id="blDesc" placeholder="基线说明..."></textarea>'+
+    '<div class="modal-actions">'+
+      '<button class="btn btn-outline" onclick="this.closest(\'.modal-overlay\').remove()">取消</button>'+
+      '<button class="btn btn-primary" onclick="createBaseline()">确认创建</button>'+
+    '</div>'
+  );
+}
+
+async function createBaseline() {
+  var name = document.getElementById('blName').value.trim();
+  if (!name) { toast('请输入基线名称', true); return; }
+  var b = { id:genId('BL'), name:name, domain:document.getElementById('blDomain').value, phase:document.getElementById('blPhase').value, ecuCount:0, creator:'骞剑策', created:today, frozen:'', status:'开发中', desc:document.getElementById('blDesc').value };
+  try {
+    var created = await apiPost('/baselines', { id:b.id, name:b.name, domain:b.domain, phase:b.phase, ecuCount:b.ecuCount, creator:b.creator, createdDate:b.created, status:b.status, description:b.desc });
+    store.baselines.push(mapBaseline(created));
+  } catch(e) {
+    console.warn('API save failed, using local store:', e.message);
+    store.baselines.push(b);
+  }
+  document.querySelectorAll('#modalsContainer .modal-overlay').forEach(function(o){ o.remove(); });
+  renderPage('baseline');
+  toast('基线 '+name+' 已创建');
+}
+
+async function editBaseline(blId) {
+  var b = store.baselines.find(function(x){ return x.id===blId; });
+  if (!b) return;
+  if (b.status === '已冻结') { toast('已冻结的基线不可修改', true); return; }
+  b.status = '已冻结'; b.frozen = today;
+  try { await apiPut('/baselines/' + blId, { status: '已冻结', frozen_date: today }); } catch(e) {}
+  renderPage('baseline');
+  toast('基线 '+b.name+' 已冻结');
+}
+
+function aiAnalyzeBaseline(blId) {
+  var b = store.baselines.find(function(x){ return x.id===blId; });
+  if (!b) return;
+  addAIMessage('user', '分析基线 '+b.name);
+  var vCount = store.versions.filter(function(v){ return v.baselineId===blId; }).length;
+  var ciCount = store.configItems.filter(function(c){ return c.baselineId===blId; }).length;
+  var crCount = store.changes.filter(function(c){ return c.baselineId===blId; }).length;
+  setTimeout(function(){
+    addAIMessage('bot', '**基线 '+b.name+' 完整度分析：**\n\n| 维度 | 状态 |\n|------|------|\n| 关联版本 | '+vCount+' 个 |\n| 配置项 | '+ciCount+' 项 |\n| 待处理变更 | '+crCount+' 个 |\n| 基线状态 | '+b.status+' |\n\n**建议：**\n'+(vCount===0?'- ⚠️ 未关联任何版本，请关联至少一个版本\n':'')+'- '+(ciCount>0?'✅ 配置项管理完整':'- ⚠️ 建议补充配置项'));
+    toggleAI();
+  }, 500);
+}
+
+// ============================
+//  CONFIG MANAGEMENT
+// ============================
+function render_config(root) {
+  // Get unique baseline IDs from CIs
+  var usedBaselineIds = [];
+  store.configItems.forEach(function(c){ if (usedBaselineIds.indexOf(c.baselineId)<0) usedBaselineIds.push(c.baselineId); });
+  // Also include baselines that have files but no CIs
+  store.files.forEach(function(f){ if (usedBaselineIds.indexOf(f.baselineId)<0) usedBaselineIds.push(f.baselineId); });
+
+  var tabsHtml = '<div class="config-tabs"><button class="config-tab active" onclick="switchConfigTab(\'all\',this)">全部基线</button>';
+  store.baselines.forEach(function(b){
+    var ciCount = store.configItems.filter(function(c){return c.baselineId===b.id;}).length;
+    var fileCount = store.files.filter(function(f){return f.baselineId===b.id;}).length;
+    if (ciCount > 0 || fileCount > 0) {
+      tabsHtml += '<button class="config-tab" onclick="switchConfigTab(\''+b.id+'\',this)">'+b.name+'<span class="count">'+ciCount+'CI</span></button>';
+    }
+  });
+  tabsHtml += '</div>';
+
+  // All CIs + files table
+  var allCis = store.configItems.map(function(c){ return {type:'ci',data:c}; });
+  store.files.forEach(function(f){ allCis.push({type:'file',data:f}); });
+
+  root.innerHTML =
+    '<div class="toolbar">'+
+      '<button class="btn btn-primary btn-sm" onclick="openCIModal()">+ 新建配置项</button>'+
+    '</div>'+
+    tabsHtml+
+    '<div class="panel"><div class="panel-body" style="overflow-x:auto">'+
+      '<table id="configTable"><thead><tr><th>类型</th><th>名称</th><th>版本/大小</th><th>存储位置</th><th>关联基线</th><th>上传/创建日期</th><th>操作</th></tr></thead><tbody id="configTableBody">'+
+      '</tbody></table>'+
+    '</div></div>'+
+    '<div class="panel" style="margin-top:20px">'+
+      '<div class="panel-header"><h2>文件上传</h2><span style="font-size:12px;color:#999">上传文件后绑定到指定基线，自动出现在该基线的配置项清单中</span></div>'+
+      '<div class="panel-body">'+
+        '<div class="upload-form">'+
+          '<div class="upload-form-row">'+
+            '<div class="form-field"><label class="form-label">关联基线 <span style="color:#ef4444">*</span></label><select class="form-select" id="uploadBaselineSelect"><option value="">— 请选择基线 —</option>'+getBaselineOptions('')+'</select></div>'+
+            '<div class="form-field"><label class="form-label">文件类型</label><select class="form-select" id="uploadFileType"><option>自动识别</option><option>源码</option><option>二进制</option><option>标定</option><option>文档</option></select></div>'+
+          '</div>'+
+          '<div class="drop-zone" id="configDropZone" onclick="this.querySelector(\'input\').click()" ondragover="event.preventDefault();this.classList.add(\'drag-over\')" ondragleave="this.classList.remove(\'drag-over\')" ondrop="handleConfigDrop(event)">拖拽文件到此处 或 点击上传<input type="file" multiple onchange="handleConfigFiles(this.files)"></div>'+
+        '</div>'+
+        '<div class="file-list" id="recentFileList"></div>'+
+      '</div>'+
+    '</div>';
+
+  // Initialize table with all items
+  window._configTab = 'all';
+  renderConfigTable('all');
+
+  // Show recent files across all baselines
+  var recentFiles = store.files.slice().reverse().slice(0, 10);
+  document.getElementById('recentFileList').innerHTML = recentFiles.length ?
+    recentFiles.map(function(f){ return '<div class="file-item"><span class="name">'+f.name+'</span><span class="size">'+f.size+'</span><span class="meta">'+getBaselineName(f.baselineId)+' · '+f.uploaded+'</span></div>'; }).join('') :
+    '<div style="color:#999;font-size:12px;text-align:center;padding:12px">暂无上传文件</div>';
+}
+
+function openCIModal() {
+  var overlay = openModal(
+    '<h2>+ 新建配置项</h2>'+
+    '<label>名称</label><input id="ciName" placeholder="配置项名称...">'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+
+      '<div><label>类型</label><select id="ciType"><option>源码</option><option>二进制</option><option>标定</option><option>文档</option></select></div>'+
+      '<div><label>版本号</label><input id="ciVersion" placeholder="例如：3.2.1"></div>'+
+    '</div>'+
+    '<label>存储位置</label><input id="ciLocation" placeholder="例如：Git: adas/app">'+
+    '<label>关联基线 <span style="color:red">*</span></label><select id="ciBaseline"><option value="">— 请选择基线 —</option>'+getBaselineOptions('')+'</select>'+
+    '<div class="modal-actions">'+
+      '<button class="btn btn-outline" onclick="this.closest(\'.modal-overlay\').remove()">取消</button>'+
+      '<button class="btn btn-primary" onclick="createCI()">确认创建</button>'+
+    '</div>'
+  );
+}
+
+async function createCI() {
+  var name = document.getElementById('ciName').value.trim();
+  var baselineId = document.getElementById('ciBaseline').value;
+  if (!name || !baselineId) { toast('请填写名称并选择关联基线', true); return; }
+  var ci = { id:genId('CI'), type:document.getElementById('ciType').value, name:name, version:document.getElementById('ciVersion').value||'1.0.0', location:document.getElementById('ciLocation').value, baselineId:baselineId };
+  try {
+    var created = await apiPost('/config-items', { id:ci.id, type:ci.type, name:ci.name, version:ci.version, location:ci.location, baselineId:ci.baselineId });
+    store.configItems.push(mapCI(created));
+  } catch(e) {
+    console.warn('API save failed, using local store:', e.message);
+    store.configItems.push(ci);
+  }
+  document.querySelectorAll('#modalsContainer .modal-overlay').forEach(function(o){ o.remove(); });
+  renderPage('config');
+  toast('配置项 '+name+' 已创建（关联基线：'+getBaselineName(baselineId)+'）');
+}
+
+// ============================
+//  CONFIG MANAGEMENT — Tab switching & file upload
+// ============================
+function switchConfigTab(baselineId, btn) {
+  window._configTab = baselineId;
+  // Update tab styles
+  document.querySelectorAll('#contentRoot .config-tab').forEach(function(t){ t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderConfigTable(baselineId);
+}
+
+function renderConfigTable(baselineId) {
+  var tbody = document.getElementById('configTableBody');
+  if (!tbody) return;
+  var items = [];
+  if (baselineId === 'all') {
+    store.configItems.forEach(function(c){ items.push({type:'ci',data:c}); });
+    store.files.forEach(function(f){ items.push({type:'file',data:f}); });
+  } else {
+    store.configItems.filter(function(c){return c.baselineId===baselineId;}).forEach(function(c){ items.push({type:'ci',data:c}); });
+    store.files.filter(function(f){return f.baselineId===baselineId;}).forEach(function(f){ items.push({type:'file',data:f}); });
+  }
+  if (items.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;padding:24px">该基线下暂无配置项或文件</td></tr>';
+    return;
+  }
+  tbody.innerHTML = items.map(function(item){
+    if (item.type === 'ci') {
+      var c = item.data;
+      return '<tr><td>'+getTypeTag(c.type)+' <span class="tag tag-purple" style="margin-left:4px">配置项</span></td><td><strong>'+c.name+'</strong></td><td>'+c.version+'</td><td>'+c.location+'</td><td><span class="tag tag-blue">'+getBaselineName(c.baselineId)+'</span></td><td>—</td><td>—</td></tr>';
+    } else {
+      var f = item.data;
+      return '<tr><td>'+getTypeTag(f.type)+' <span class="tag tag-gray" style="margin-left:4px">文件</span></td><td><strong>'+f.name+'</strong></td><td>'+f.size+'</td><td>本地上传</td><td><span class="tag tag-blue">'+getBaselineName(f.baselineId)+'</span></td><td>'+f.uploaded+'</td><td><button class="btn btn-xs btn-outline" onclick="downloadFile(\''+f.name+'\')">下载</button></td></tr>';
+    }
+  }).join('');
+}
+
+function handleConfigDrop(e) {
+  e.preventDefault();
+  e.target.classList.remove('drag-over');
+  handleConfigFiles(e.dataTransfer.files);
+}
+
+async function handleConfigFiles(fileList) {
+  var baselineId = document.getElementById('uploadBaselineSelect').value;
+  if (!baselineId) { toast('请先选择关联基线', true); return; }
+  var fileTypeSelect = document.getElementById('uploadFileType').value;
+  var count = 0;
+  for (var i=0; i<fileList.length; i++) {
+    var f = fileList[i];
+    try {
+      var formData = new FormData();
+      formData.append('file', f);
+      formData.append('baseline_id', baselineId);
+      if (fileTypeSelect !== '自动识别') formData.append('type', fileTypeSelect);
+      var resp = await fetch(API_BASE + '/files/upload', { method: 'POST', body: formData });
+      if (resp.ok) {
+        var created = await resp.json();
+        store.files.push(mapFile(created));
+        count++;
+      }
+    } catch(e) {
+      console.warn('File upload failed:', f.name, e.message);
+    }
+  }
+  renderConfigTable(window._configTab || 'all');
+  var recentFiles = store.files.slice().reverse().slice(0, 10);
+  var listEl = document.getElementById('recentFileList');
+  if (listEl) {
+    listEl.innerHTML = recentFiles.map(function(f){ return '<div class="file-item"><span class="name">'+f.name+'</span><span class="size">'+f.size+'</span><span class="meta">'+getBaselineName(f.baselineId)+' · '+f.uploaded+'</span></div>'; }).join('');
+  }
+  if (count > 0) toast(count+' 个文件已上传到 '+getBaselineName(baselineId));
+  var zone = document.getElementById('configDropZone');
+  if (zone) { var inp = zone.querySelector('input'); if (inp) inp.value = ''; }
+}
+
+function downloadFile(name) {
+  toast('文件下载功能（演示），文件：'+name);
+}
+
+// ============================
+//  CONFIG MANAGEMENT — Page render (continued)
+// ============================
+function render_config_after() { /* placeholder for future hooks */ }
+function render_change(root) {
+  var statuses = ['待评审','评审中','实施中','已关闭'];
+  root.innerHTML =
+    '<div class="toolbar">'+
+      '<button class="btn btn-ai btn-sm" onclick="aiQuick(\'analyzeImpact\');toggleAI()">&#10031; AI影响分析</button>'+
+      '<button class="btn btn-primary btn-sm" style="margin-left:auto" onclick="openChangeModal()">+ 新建变更请求</button>'+
+    '</div>'+
+    '<div class="kanban">'+
+      statuses.map(function(s){ return '<div class="kanban-col"><h3>'+s+' ('+store.changes.filter(function(c){return c.status===s;}).length+')</h3>'+
+        store.changes.filter(function(c){return c.status===s;}).map(function(c){ return '<div class="kanban-card" onclick="openChangeDetail(\''+c.id+'\')"><div class="title">'+c.id+': '+c.title+'</div><div class="meta"><span class="tag '+(c.urgency==='紧急'?'tag-red':'tag-yellow')+'">'+c.urgency+'</span> '+c.applicant+' · '+c.created+'<br>'+(c.baselineId?getBaselineName(c.baselineId):'<span style="color:#999">未关联基线</span>')+'</div></div>'; }).join('')+
+      '</div>'; }).join('')+
+    '</div>';
+}
+
+function openChangeModal() {
+  var overlay = openModal(
+    '<h2>+ 新建变更请求 (ECR)</h2>'+
+    '<label>标题</label><input id="crTitle" placeholder="变更标题...">'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+
+      '<div><label>类型</label><select id="crType"><option>ECR</option><option>ECN</option></select></div>'+
+      '<div><label>紧急度</label><select id="crUrgency"><option>普通</option><option>紧急</option></select></div>'+
+    '</div>'+
+    '<label>关联基线 <span style="color:red">*</span></label><select id="crBaseline"><option value="">— 请选择基线 —</option>'+getBaselineOptions('')+'</select>'+
+    '<label>影响范围</label><textarea id="crScope" placeholder="描述影响的ECU、接口、标定数据..."></textarea>'+
+    '<label>变更原因</label><textarea id="crReason" placeholder="描述变更原因..."></textarea>'+
+    '<div class="modal-actions">'+
+      '<button class="btn btn-outline" onclick="this.closest(\'.modal-overlay\').remove()">取消</button>'+
+      '<button class="btn btn-primary" onclick="createChange()">提交</button>'+
+    '</div>'
+  );
+}
+
+async function createChange() {
+  var title = document.getElementById('crTitle').value.trim();
+  if (!title) { toast('请输入标题', true); return; }
+  var c = { id:'ECR-'+today.replace(/-/g,''), title:title, type:document.getElementById('crType').value, urgency:document.getElementById('crUrgency').value, status:'待评审', applicant:'当前用户', baselineId:document.getElementById('crBaseline').value, created:today };
+  try {
+    var created = await apiPost('/changes', { id:c.id, title:c.title, type:c.type, urgency:c.urgency, status:c.status, applicant:c.applicant, baselineId:c.baselineId||null, createdDate:c.created });
+    store.changes.push(mapChange(created));
+  } catch(e) {
+    console.warn('API save failed, using local store:', e.message);
+    store.changes.push(c);
+  }
+  document.querySelectorAll('#modalsContainer .modal-overlay').forEach(function(o){ o.remove(); });
+  renderPage('change');
+  toast('变更请求已创建');
+}
+
+function openChangeDetail(cid) {
+  var c = store.changes.find(function(x){ return x.id===cid; });
+  if (!c) return;
+  var linkedVersions = store.versions.filter(function(v){ return v.baselineId===c.baselineId; });
+  var overlay = openModal(
+    '<h2>'+c.id+': '+c.title+'</h2>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:16px">'+
+      '<div><strong>类型：</strong>'+c.type+'</div><div><strong>紧急度：</strong>'+getStatusTag(c.urgency==='紧急'?'评审中':'已关闭')+'</div>'+
+      '<div><strong>状态：</strong>'+getStatusTag(c.status)+'</div><div><strong>申请人：</strong>'+c.applicant+'</div>'+
+      '<div><strong>关联基线：</strong>'+(c.baselineId?getBaselineName(c.baselineId):'<span class="tag tag-gray">未关联</span>')+'</div>'+
+    '</div>'+
+    (linkedVersions.length ? '<div class="detail-section"><h4>关联版本 ('+linkedVersions.length+')</h4>'+linkedVersions.map(function(v){return '<div style="font-size:12px;padding:4px 0">'+v.name+' '+getStatusTag(v.status)+'</div>';}).join('')+'</div>' : '')+
+    '<div class="modal-actions"><button class="btn btn-outline" onclick="this.closest(\'.modal-overlay\').remove()">关闭</button><button class="btn btn-ai btn-sm" onclick="this.closest(\'.modal-overlay\').remove();aiQuick(\'analyzeImpact\');toggleAI()">&#10031; AI影响分析</button></div>'
+  );
+}
+
+// ============================
+//  RELEASE MANAGEMENT
+// ============================
+function render_release(root) {
+  root.innerHTML =
+    '<div class="toolbar">'+
+      '<button class="btn btn-ai btn-sm" onclick="aiQuick(\'generateReleaseNote\');toggleAI()">&#10031; AI生成Release Note</button>'+
+      '<button class="btn btn-primary btn-sm" style="margin-left:auto" onclick="openReleaseModal()">+ 编排发布包</button>'+
+    '</div>'+
+    '<div class="panel"><div class="panel-header"><h2>发布包列表</h2></div><div class="panel-body" style="overflow-x:auto"><table><thead><tr><th>发布包名称</th><th>类型</th><th>包含ECU</th><th>关联基线</th><th>状态</th><th>操作</th></tr></thead><tbody>'+
+      store.releases.map(function(r){ return '<tr><td><strong>'+r.name+'</strong></td><td>'+getTypeTag(r.type)+'</td><td>'+r.ecuCount+'</td><td>'+r.baselineIds.map(function(bid){return '<span class="tag tag-blue" style="margin-right:4px">'+getBaselineName(bid)+'</span>';}).join('')+'</td><td>'+getStatusTag(r.status)+'</td><td><button class="btn btn-xs btn-outline">Release Note</button></td></tr>'; }).join('')+
+    '</tbody></table></div></div>'+
+    '<div class="grid-2">'+
+      '<div class="panel"><div class="panel-header"><h2>准出条件检查清单</h2></div><div class="panel-body"><table><thead><tr><th>检查项</th><th>A_Vehicle_OTA_20260430</th></tr></thead><tbody>'+
+        '<tr><td>测试通过率 ≥ 95%</td><td><span class="tag tag-green">98.2%</span></td></tr>'+
+        '<tr><td>严重缺陷关闭率 100%</td><td><span class="tag tag-green">100%</span></td></tr>'+
+        '<tr><td>需求覆盖率 ≥ 90%</td><td><span class="tag tag-green">94%</span></td></tr>'+
+        '<tr><td>安全分析完成</td><td><span class="tag tag-green">已完成</span></td></tr>'+
+        '<tr><td>回归测试通过</td><td><span class="tag tag-green">通过</span></td></tr>'+
+        '<tr><td>RXSWIN已分配</td><td><span class="tag tag-green">已分配</span></td></tr>'+
+      '</tbody></table></div></div>'+
+      '<div class="panel"><div class="panel-header"><h2>OTA发布策略</h2></div><div class="panel-body"><table><thead><tr><th>OTA包</th><th>灰度比例</th><th>回滚方案</th></tr></thead><tbody>'+
+        '<tr><td>A_Vehicle_OTA_20260430</td><td>5% → 20% → 100%</td><td>版本 3.1.5</td></tr>'+
+        '<tr><td>A_Vehicle_ADAS_Hotfix</td><td>直接全量</td><td>版本 3.2.0</td></tr>'+
+      '</tbody></table></div></div>'+
+    '</div>';
+}
+
+function openReleaseModal() {
+  var overlay = openModal(
+    '<h2>+ 编排发布包</h2>'+
+    '<label>发布包名称</label><input id="relName" placeholder="例如：A_Vehicle_OTA_20260501">'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+
+      '<div><label>类型</label><select id="relType"><option>OTA</option><option>基线</option><option>Hotfix</option></select></div>'+
+      '<div><label>包含ECU数</label><input id="relEcuCount" type="number" value="1"></div>'+
+    '</div>'+
+    '<label>关联基线 <span style="color:red">*</span>（可多选，Ctrl+点击）</label><select id="relBaselines" multiple style="height:120px">'+getBaselineOptions('')+'</select>'+
+    '<label>备注</label><textarea id="relDesc" placeholder="发布说明..."></textarea>'+
+    '<div class="modal-actions">'+
+      '<button class="btn btn-outline" onclick="this.closest(\'.modal-overlay\').remove()">取消</button>'+
+      '<button class="btn btn-primary" onclick="createRelease()">确认创建</button>'+
+    '</div>'
+  );
+}
+
+async function createRelease() {
+  var name = document.getElementById('relName').value.trim();
+  if (!name) { toast('请输入发布包名称', true); return; }
+  var sel = document.getElementById('relBaselines');
+  var selectedIds = [];
+  for (var i=0; i<sel.options.length; i++) { if (sel.options[i].selected) selectedIds.push(sel.options[i].value); }
+  var r = { id:genId('REL'), name:name, type:document.getElementById('relType').value, ecuCount:parseInt(document.getElementById('relEcuCount').value)||1, version:'1.0.0', created:today, status:'准出通过', baselineIds:selectedIds };
+  try {
+    var created = await apiPost('/releases', { id:r.id, name:r.name, type:r.type, ecuCount:r.ecuCount, version:r.version, status:r.status, baselineIds:r.baselineIds, createdDate:r.created });
+    store.releases.push(mapRelease(created));
+  } catch(e) {
+    console.warn('API save failed, using local store:', e.message);
+    store.releases.push(r);
+  }
+  document.querySelectorAll('#modalsContainer .modal-overlay').forEach(function(o){ o.remove(); });
+  renderPage('release');
+  toast('发布包 '+name+' 已创建（关联 '+selectedIds.length+' 个基线）');
+}
+
+// ============================
+//  TRACEABILITY
+// ============================
+function render_traceability(root) {
+  root.innerHTML =
+    '<div class="panel"><div class="panel-header"><h2>全链路追溯视图</h2><button class="btn btn-ai btn-sm" onclick="aiQuick(\'traceCheck\');toggleAI()">&#10031; AI追溯检查</button></div><div class="panel-body" style="overflow-x:auto"><table><thead><tr><th>需求ID</th><th>&#8594;</th><th>设计文档</th><th>&#8594;</th><th>源码提交</th><th>&#8594;</th><th>测试用例</th><th>&#8594;</th><th>发布版本</th></tr></thead><tbody>'+
+      '<tr><td><span class="tag tag-blue">REQ-1001<br>ACC自适应巡航</span></td><td>&#8594;</td><td>DES-ADAS-001</td><td>&#8594;</td><td><code>a3f2b1c</code><br>2026-03-15</td><td>&#8594;</td><td>TC-ADAS-001~050</td><td>&#8594;</td><td><span class="tag tag-green">ADAS 3.2.1</span></td></tr>'+
+      '<tr><td><span class="tag tag-blue">REQ-2003<br>BCM灯光控制</span></td><td>&#8594;</td><td>DES-Body-003</td><td>&#8594;</td><td><code>e7d4a2f</code><br>2026-04-10</td><td>&#8594;</td><td>TC-Body-021~040</td><td>&#8594;</td><td><span class="tag tag-green">BCM 2.3.1</span></td></tr>'+
+      '<tr><td><span class="tag tag-red">REQ-3001<br>AEB自动紧急制动</span></td><td>&#8594;</td><td>DES-ADAS-005<br><span class="tag tag-red">ASIL-D</span></td><td>&#8594;</td><td><code>b8c2e1d</code><br>2026-04-20</td><td>&#8594;</td><td>TC-ADAS-101~200 <span class="tag tag-yellow" style="display:inline-block;margin-left:4px">缺2个</span></td><td>&#8594;</td><td><span class="tag tag-yellow">ADAS 3.3.0-rc1</span></td></tr>'+
+    '</tbody></table></div></div>'+
+    '<div class="grid-2">'+
+      '<div class="panel"><div class="panel-header"><h2>VIN追溯查询</h2></div><div class="panel-body"><div style="display:flex;gap:8px;margin-bottom:16px"><input class="search-input" placeholder="输入VIN码查询..." style="flex:1"><button class="btn btn-primary">查询</button></div><table><thead><tr><th>ECU</th><th>软件版本</th><th>型式认证</th></tr></thead><tbody>'+
+        '<tr><td>ADAS_DCU</td><td>3.2.1</td><td><span class="tag tag-green">有效</span></td></tr>'+
+        '<tr><td>BCM</td><td>2.3.1</td><td><span class="tag tag-green">有效</span></td></tr>'+
+      '</tbody></table></div></div>'+
+      '<div class="panel"><div class="panel-header"><h2>SUMS合规状态</h2></div><div class="panel-body"><table><thead><tr><th>UNECE R156要求</th><th>状态</th></tr></thead><tbody>'+
+        '<tr><td>RXSWIN唯一标识</td><td><span class="tag tag-green">已建立</span></td></tr>'+
+        '<tr><td>软件版本→型式认证追溯</td><td><span class="tag tag-green">完整</span></td></tr>'+
+        '<tr><td>OTA更新验证机制</td><td><span class="tag tag-green">已建立</span></td></tr>'+
+        '<tr><td>OTA回滚能力</td><td><span class="tag tag-green">已验证</span></td></tr>'+
+        '<tr><td>软件更新记录存档</td><td><span class="tag tag-green">10年存档</span></td></tr>'+
+      '</tbody></table></div></div>'+
+    '</div>';
+}
+
+// ============================
+//  STANDARDS
+// ============================
+function render_standards(root) {
+  root.innerHTML =
+    '<div class="panel"><div class="panel-header"><h2>关键标准与法规参考</h2></div><div class="panel-body"><table><thead><tr><th>标准/法规</th><th>与版本管理的关系</th><th>关键要求</th></tr></thead><tbody>'+
+      '<tr><td><strong>ASPICE SUP.8</strong></td><td>配置管理过程域</td><td>BP1-BP7：策略→识别→分支→控制→基线→报告→审计</td></tr>'+
+      '<tr><td><strong>ISO 26262 Part 8 Ch.8</strong></td><td>功能安全配置管理</td><td>ASIL等级决定变更审批严格度，HARA/FMEA可追溯</td></tr>'+
+      '<tr><td><strong>UNECE R156</strong></td><td>SUMS强制认证</td><td>RXSWIN + 型式认证追溯 + OTA回滚 + 记录存档</td></tr>'+
+      '<tr><td><strong>UNECE R155</strong></td><td>CSMS网络安全</td><td>软件完整性验证，防篡改版本管理</td></tr>'+
+      '<tr><td><strong>IATF 16949</strong></td><td>汽车质量管理</td><td>产品配置管理要求，变更管理流程</td></tr>'+
+      '<tr><td><strong>EU GPSR 2023/988</strong></td><td>产品技术文档存档</td><td>10年存档要求</td></tr>'+
+      '<tr><td><strong>EU PLD 2024/2853</strong></td><td>举证责任倒置</td><td>版本追溯链作为法律证据</td></tr>'+
+    '</tbody></table></div></div>';
+}
+
+// ============================
+//  FILE UPLOAD
+// ============================
+function handleFiles(fileList, baselineId) {
+  for (var i=0; i<fileList.length; i++) {
+    var f = fileList[i];
+    var sizeStr = f.size < 1024*1024 ? (f.size/1024).toFixed(1)+' KB' : (f.size/(1024*1024)).toFixed(1)+' MB';
+    var typeCat = f.name.match(/\.(bin|hex|s19)$/i) ? '标定' : f.name.match(/\.(pdf|doc|docx|xlsx|md|txt)$/i) ? '文档' : f.name.match(/\.(c|cpp|h|py|java)$/i) ? '源码' : '二进制';
+    store.files.push({ name:f.name, size:sizeStr, type:typeCat, baselineId:baselineId, uploaded:today });
+    refreshFileList(baselineId);
+  }
+  toast(fileList.length+' 个文件已上传到基线 '+getBaselineName(baselineId));
+}
+
+function handleDrop(e, baselineId) {
+  e.preventDefault();
+  e.target.classList.remove('drag-over');
+  handleFiles(e.dataTransfer.files, baselineId);
+}
+
+function refreshFileList(baselineId) {
+  var listEl = document.getElementById('fileList-'+baselineId);
+  if (!listEl) return;
+  var files = store.files.filter(function(f){ return f.baselineId===baselineId; });
+  listEl.innerHTML = files.map(function(f){ return '<div class="file-item"><span class="name">'+f.name+'</span><span class="size">'+f.size+'</span><span class="meta">'+f.uploaded+'</span></div>'; }).join('');
+}
+
+// ============================
+//  UTILS
+// ============================
+function filterTableLive(el, tableId) {
+  var filter = el.value.toLowerCase();
+  var rows = document.querySelectorAll('#'+tableId+' tbody tr:not(.detail-row)');
+  rows.forEach(function(row) {
+    row.style.display = row.textContent.toLowerCase().includes(filter) ? '' : 'none';
+  });
+}
+
+// ============================
+//  INIT
+// ============================
+(async function init() {
+  await loadStore();
+  renderPage('dashboard');
+  updateBadges();
+  console.log('VSMS initialized — Versions:', store.versions.length, '| Baselines:', store.baselines.length, '| CIs:', store.configItems.length, '| Changes:', store.changes.length, '| Releases:', store.releases.length, '| Files:', store.files.length);
+})();
+
+function updateBadges() {
+  var pendingReview = store.baselines.filter(function(b){ return b.status==='评审中'; }).length;
+  var pendingCR = store.changes.filter(function(c){ return c.status!=='已关闭'; }).length;
+  var blBadge = document.getElementById('badgeBaseline');
+  var chBadge = document.getElementById('badgeChange');
+  if (blBadge) { blBadge.textContent = pendingReview || '0'; blBadge.style.display = pendingReview ? '' : 'none'; }
+  if (chBadge) { chBadge.textContent = pendingCR || '0'; chBadge.style.display = pendingCR ? '' : 'none'; }
+}
+
+// Auto-update time
+setInterval(function(){
+  var now = new Date();
+  document.getElementById('headerTime').textContent = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+}, 30000);
+</script>
+</body>
+</html>

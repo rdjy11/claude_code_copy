@@ -1,0 +1,431 @@
+' ============================================================================
+' AED (Automatic Exterior Lighting) 系统架构设计
+' 在 VSCode 中按 Alt+D 预览, Ctrl+→/← 切换图页
+' ============================================================================
+
+' ============================================================================
+' 1. 用例图 (Use Case Diagram)
+' ============================================================================
+@startuml AED_UseCase
+title AED 自动外灯系统 — 用例图
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor Driver as D
+actor "Light Sensor" as LS <<system>>
+actor "Rain Sensor" as RS <<system>>
+actor "Body Control Module" as BCM <<system>>
+actor "Instrument Cluster" as IC <<system>>
+
+rectangle "AED System" {
+  usecase (UC01\n自动控制近光灯) as UC01
+  usecase (UC02\n自动控制远光灯) as UC02
+  usecase (UC03\n自动控制日行灯) as UC03
+  usecase (UC04\n自动控制位置灯) as UC04
+  usecase (UC05\n自动控制雾灯) as UC05
+  usecase (UC06\n转弯辅助照明) as UC06
+  usecase (UC07\n回家/离家照明) as UC07
+  usecase (UC08\n手动超控) as UC08
+  usecase (UC09\n灯光状态上报) as UC09
+  usecase (UC10\n故障诊断与降级) as UC10
+}
+
+' Driver associations
+D --> UC01
+D --> UC08
+UC08 ..> UC01 : <<extend>>
+UC08 ..> UC02 : <<extend>>
+
+' Sensor associations
+LS --> UC01 : ambient light level
+LS --> UC02 : ambient light level
+LS --> UC03 : ambient light level
+RS --> UC05 : rain detection
+
+' System associations
+UC09 --> BCM : CAN/LIN
+UC09 --> IC : CAN
+
+' Internal relationships
+UC02 -[hidden]left-> UC01
+UC01 ..> UC03 : <<include>>
+UC01 ..> UC04 : <<include>>
+UC02 ..> UC01 : <<extend>>
+UC05 ..> UC01 : <<extend>>
+UC06 ..> UC01 : <<include>>
+UC07 ..> UC01 : <<extend>>
+UC10 ..> UC09 : <<include>>
+@enduml
+
+' ============================================================================
+' 2. 活动图 (Activity Diagram) — 自动近光灯控制逻辑
+' ============================================================================
+@startuml AED_Activity
+title AED 系统 — 自动近光灯控制活动图
+
+|Driver|
+start
+:车辆上电 (IGN ON);
+
+|AED Controller|
+:系统自检;
+if (自检通过?) then (否)
+  :进入降级模式\n(Degraded Mode);
+  :点亮位置灯\n(安全状态);
+  :上报 DTC 故障码;
+  stop
+else (是)
+endif
+
+:LIN 唤醒光照传感器;
+:读取环境光强 (lux);
+
+|Light Sensor|
+:采集光照强度;
+:滤波处理\n(50ms 滑动窗口);
+
+|AED Controller|
+if (光强 < 阈值_近光灯?) then (是, < 1000 lux)
+  if (光强 < 阈值_夜间?) then (是, < 400 lux)
+    :请求点亮近光灯 + 位置灯;
+  else (黄昏, 400-1000 lux)
+    :请求点亮日行灯;
+  endif
+else (否, > 1000 lux)
+  :请求关闭所有外灯;
+endif
+
+:读取雨量传感器状态;
+
+|Rain Sensor|
+:采集雨量;
+
+|AED Controller|
+if (雨量 > 阈值?) then (是, Wiping Active)
+  :强制点亮近光灯\n(雨天法规要求);
+endif
+
+:读取车速信号 (CAN);
+
+if (车速 > 0?) then (是)
+  :确认行驶状态;
+else (否)
+  :进入驻车状态;
+  if (光强 < 阈值_隧道?) then (是)
+    :立即点亮近光灯\n(隧道/地库快速响应);
+  endif
+endif
+
+|Driver|
+if (手动超控?) then (是)
+  :旋转灯光组合开关;
+  :超控自动模式\n(优先级高于自动);
+endif
+
+|AED Controller|
+:综合仲裁 (自动/手动/故障);
+:输出灯光控制指令 (CAN/LIN);
+
+|BCM|
+:执行灯光驱动;
+:点亮/熄灭对应灯具;
+:读取灯具电流反馈;
+
+|AED Controller|
+if (电流异常?) then (是)
+  :诊断故障
+  - 断路
+  - 短路
+  - 过温;
+  :记录 DTC;
+  :触发降级/替代策略;
+else (否)
+  :正常状态维护;
+endif
+
+:上报灯光状态到网关;
+
+|Instrument Cluster|
+:显示灯光指示灯;
+
+stop
+@enduml
+
+' ============================================================================
+' 3. BDD — 块定义图 (Block Definition Diagram)
+' ============================================================================
+@startuml AED_BDD
+title AED 系统 — 块定义图 (BDD)
+
+skinparam class {
+  BorderColor #333333
+  BackgroundColor #F5F5F5
+}
+
+package "AED System" #EEF2F7 {
+
+  class "«block»\nAedController" as AedCtrl #FFFACD {
+    .. Value Properties ..
+    + ambientLightThreshold : Real = 1000 [lux]
+    + nightLightThreshold : Real = 400 [lux]
+    + tunnelBoostThreshold : Real = 500 [lux]
+    + rainForceThreshold : Integer = 2
+    + debounceTime : Real = 2000 [ms]
+    + selfCheckTimeout : Real = 500 [ms]
+    .. State ..
+    + currentMode : LightingMode
+    + degradedActive : Boolean = false
+  }
+
+  class "«block»\nLightSensor" as LightSensor #E0F0FF {
+    + sensitivity : Real = 1.0
+    + filterWindow : Real = 50 [ms]
+    + outputRange : Real = 0..200000 [lux]
+  }
+
+  class "«block»\nRainSensor" as RainSensor #E0F0FF {
+    + wipingLevel : Integer = 0..4
+    + sensitivity : Integer = 0..5
+  }
+
+  class "«block»\nVehicleSpeedSensor" as SpeedSensor #E0F0FF {
+    + resolution : Real = 0.1 [km/h]
+    + updateRate : Real = 20 [Hz]
+  }
+
+  class "«block»\nHeadlight" as Headlight #FFE0E0 {
+    + nominalPower : Real = 55 [W]
+    + type : Halogen | LED | Xenon
+    + feedbackCurrent : Real [mA]
+  }
+
+  class "«block»\nPositionLight" as PosLight #FFE0E0 {
+    + nominalPower : Real = 5 [W]
+  }
+
+  class "«block»\nDaytimeRunningLight" as DRL #FFE0E0 {
+    + nominalPower : Real = 15 [W]
+    + dimmingEnabled : Boolean = false
+  }
+
+  class "«block»\nFogLight" as FogLight #FFE0E0 {
+    + nominalPower : Real = 35 [W]
+    + corneringEnabled : Boolean = true
+  }
+
+  class "«block»\nTurnSignalLight" as TurnLight #FFE0E0 {
+    + nominalPower : Real = 21 [W]
+    + flashFrequency : Real = 1.5 [Hz]
+  }
+
+  class "«block»\nBodyControlModule" as BCM #EEEEEE {
+    + signalUpdateRate : Real = 100 [Hz]
+  }
+
+  class "«block»\nHeadlightSwitch" as Switch #EEEEEE {
+    + position : OFF | AUTO | PARK | LOW | HIGH
+    + overrideFlag : Boolean
+  }
+}
+
+' 外部参与者
+class "«external»\nDriver" as Driver #CCCCCC
+
+' 组合关系
+AedCtrl *-- "1" LightSensor : lightSensor
+AedCtrl *-- "1" RainSensor : rainSensor
+AedCtrl *-- "1" SpeedSensor : speedSensor
+AedCtrl *-- "2" Headlight : leftHeadlight\nrightHeadlight
+AedCtrl *-- "4" PosLight : frontLeft/frontRight\nrearLeft/rearRight
+AedCtrl *-- "2" DRL : leftDrl\nrightDrl
+AedCtrl *-- "2" FogLight : frontFog\nrearFog
+AedCtrl *-- "4" TurnLight : turnSignals
+
+' 引用关系
+AedCtrl o-- "1" Switch : ref switch
+AedCtrl o-- "1" BCM : ref bcm
+AedCtrl o-- "1" Driver : ref driver
+@enduml
+
+' ============================================================================
+' 4. 参数图 (Parametric Diagram) — 光照阈值约束模型
+' ============================================================================
+@startuml AED_Parametric
+title AED — Parametric Diagram: Lighting Trigger Constraints
+
+skinparam classBackgroundColor #FFEEDD
+skinparam classBorderColor #996633
+skinparam noteBackgroundColor #FFFFCC
+skinparam noteBorderColor #CCAA00
+
+class AmbientLightDecision << (C,#FFEEDD) constraint>> {
+  + ambientLight : Real
+  + lightCommand : LightingMode
+}
+note right of AmbientLightDecision
+  ambientLight < 400 => LOW_BEAM
+  ambientLight < 1000 => DRL
+  else => OFF
+end note
+
+class RainOverride << (C,#FFEEDD) constraint>> {
+  + rainLevel : Integer
+  + forceLowBeam : Boolean
+}
+note right of RainOverride
+  forceLowBeam = (rainLevel >= 2)
+end note
+
+class SpeedOverride << (C,#FFEEDD) constraint>> {
+  + vehicleSpeed : Real
+  + tunnelDetected : Boolean
+}
+note right of SpeedOverride
+  tunnelDetected = (vehicleSpeed > 0)
+  AND (lightDropRate > 500 lux/s)
+end note
+
+class ManualOverride << (C,#FFEEDD) constraint>> {
+  + switchPosition : SwitchPosition
+  + autoModeActive : Boolean
+}
+note right of ManualOverride
+  autoModeActive = (switchPosition == AUTO)
+end note
+
+class DegradationDecision << (C,#FFEEDD) constraint>> {
+  + selfCheckPassed : Boolean
+  + lightFaultActive : Boolean
+  + degradedMode : Boolean
+}
+note right of DegradationDecision
+  degradedMode = (!selfCheckPassed)
+  OR lightFaultActive
+  safeState = POSITION_LIGHT_ON
+end note
+
+class FinalArbitration << (C,#FFEEDD) constraint>> {
+  + autoCommand : LightingMode
+  + manualCommand : LightingMode
+  + degradedCommand : LightingMode
+  + rainForce : Boolean
+  + finalCommand : LightingMode
+}
+note right of FinalArbitration
+  **Arbitration Priority:**
+  1. degradedMode => degradedCmd
+  2. !autoModeActive => manualCmd
+  3. rainForce => LOW_BEAM
+  4. default => autoCommand
+end note
+
+enum LightingMode <<enumeration>> {
+  OFF = 0
+  DRL = 1
+  POSITION = 2
+  LOW_BEAM = 3
+  HIGH_BEAM = 4
+  FOG = 5
+}
+
+AmbientLightDecision -down-> FinalArbitration : autoCommand
+RainOverride -down-> FinalArbitration : rainForce
+SpeedOverride -down-> AmbientLightDecision : <<influence>>
+ManualOverride -down-> FinalArbitration : autoModeActive
+DegradationDecision -down-> FinalArbitration : degradedMode
+FinalArbitration ..> LightingMode
+@enduml
+
+' ============================================================================
+' 5. 时序图 (Sequence Diagram) — 隧道场景自动灯光时序
+' ============================================================================
+@startuml AED_Sequence
+title AED 系统 — 时序图：隧道进入→驶出完整交互
+
+participant "Driver" as D
+participant "Headlight\nSwitch" as SW
+participant "Vehicle\nSpeed" as VS
+participant "Light\nSensor" as LS
+participant "AED\nController" as AED
+participant "BCM\n(Light Driver)" as BCM
+participant "Headlight\n(Low Beam)" as HL
+participant "DRL" as DRL_L
+participant "Instrument\nCluster" as IC
+
+== 初始状态：日间行驶 ==
+
+D -> SW : 开关置于 AUTO 位
+SW --> AED : switchPosition = AUTO
+AED -> AED : autoModeActive = true
+
+VS -> AED : vehicleSpeed = 80 [km/h]\n(周期性 CAN 报文 20Hz)
+
+LS -> AED : ambientLight = 50000 [lux]
+AED -> BCM : lightCommand = OFF
+BCM -> HL : off
+BCM -> DRL_L : on (日行灯法规)
+
+== 隧道入口：光照骤降 ==
+
+LS -> AED : ambientLight = 8000 [lux]
+AED -> AED : 光强下降但 >1000\n维持 DRL
+
+LS -> AED : ambientLight = 350 [lux] (< 400 lux)
+note right #FFAAAA
+  阈值判定窗口
+  - 光强 < 400 lux → 夜间
+  - debounce 2000ms 防误触发
+  - 隧道检测: 下降速率 > 500 lux/s
+end note
+AED -> AED : 启动 debounce timer [2000ms]
+AED -> AED : debounce 到期, 确认进入夜间
+
+AED -> BCM : lightCommand = LOW_BEAM
+BCM -> HL : on
+BCM -> DRL_L : dim (近光灯亮时 DRL 降至 50%)
+AED -> IC : CAN: 近光灯指示灯 ON
+
+== 隧道内行驶 ==
+
+loop 每 50ms
+  LS -> AED : ambientLight ≈ 100 [lux] (稳定)
+  AED -> AED : lightCommand 保持不变
+  AED -> BCM : heartbeat (无变化)
+end
+
+== 隧道出口：光照恢复 ==
+
+LS -> AED : ambientLight = 8000 [lux] (> 1000)
+note right #AAFFAA
+  Debounce 2s 后再切换
+  避免隧道口忽明忽暗时闪烁
+end note
+AED -> AED : debounce [2000ms] 计时...
+AED -> AED : 确认出隧道, 光强稳定
+
+AED -> BCM : lightCommand = DRL (日行灯模式)
+BCM -> HL : off
+BCM -> DRL_L : on (恢复全亮)
+AED -> IC : CAN: 近光灯指示灯 OFF
+
+== 故障场景：近光灯断路 ==
+
+BCM -> AED : feedbackCurrent = 0 [mA]\n(expected: 4500±500 mA)
+AED -> AED : currentFault = true\n(DTC: B1A32-11 近光灯断路)
+AED -> BCM : lightCommand = DEGRADED\n→ 强制点亮位置灯 (安全状态)
+AED -> IC : DTC 故障灯 + 文字提示
+note over AED, IC #FFFFAA
+  ISO 26262 ASIL-A
+  安全状态: 至少保留位置灯
+  降级后 500ms 内切换完成
+  故障恢复需 IGN OFF→ON 重置
+end note
+
+@enduml
+' ============================================================================
+' 渲染说明:
+'   VSCode 中按 Alt+D 打开 PlantUML 预览
+'   按 Ctrl+→ / Ctrl+← 在不同图页之间切换
+'   或使用鼠标滚轮在页面间切换
+' ============================================================================

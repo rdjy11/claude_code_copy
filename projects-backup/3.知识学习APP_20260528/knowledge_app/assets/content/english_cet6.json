@@ -1,0 +1,196 @@
+{
+  "course_id": "cet6",
+  "course_name": "CET6 核心词汇",
+  "subject_id": "english",
+  "structure_type": "flat",
+  "chapters": [
+    {
+      "id": "cet6_high",
+      "title": "高频动词",
+      "knowledge_points": [
+        {
+          "id": "cet6_001",
+          "title": "abandon",
+          "content_type": "markdown",
+          "content": "## abandon /əˈbændən/\n\n**词性**：v. **释义**：放弃，抛弃\n\n**例句**：\n> The captain refused to abandon the sinking ship.\n> 船长拒绝放弃正在下沉的船。\n\n**搭配**：\n- abandon oneself to... 沉溺于；放纵\n- abandon hope 放弃希望\n\n**近义词**：give up, desert, forsake\n**反义词**：maintain, keep, retain",
+          "key_concepts": ["放弃", "抛弃", "abandon oneself to"],
+          "quizzes": [
+            {
+              "id": "cet6_q001",
+              "type": "single_choice",
+              "question": "The firefighters refused to ______ the burning building until everyone was rescued.",
+              "options": [
+                {"key": "A", "text": "abandon"},
+                {"key": "B", "text": "abolish"},
+                {"key": "C", "text": "absorb"},
+                {"key": "D", "text": "abuse"}
+              ],
+              "answer": "A",
+              "explanation": "abandon 意为\"放弃、离开\"，符合句意\"消防员拒绝放弃燃烧的建筑，直到所有人都被救出\"。abolish（废除）、absorb（吸收）、abuse（滥用）均不符合语境。"
+            }
+          ]
+        },
+        {
+          "id": "cet6_002",
+          "title": "abolish",
+          "content_type": "markdown",
+          "content": "## abolish /əˈbɒlɪʃ/\n\n**词性**：v. **释义**：废除，废止（法律、制度等）\n\n**例句**：\n> Slavery was abolished in the United States in 1865.\n> 美国于 1865 年废除了奴隶制。\n\n**近义词**：eliminate, do away with\n**反义词**：establish, institute",
+          "key_concepts": ["废除", "废止", "eliminate"],
+          "quizzes": [
+            {
+              "id": "cet6_q002",
+              "type": "single_choice",
+              "question": "Many people believe that the death penalty should be ______.",
+              "options": [
+                {"key": "A", "text": "absorbed"},
+                {"key": "B", "text": "abolished"},
+                {"key": "C", "text": "abandoned"},
+                {"key": "D", "text": "abused"}
+              ],
+              "answer": "B",
+              "explanation": "abolish 意为\"废除\"，与\"death penalty（死刑）\"搭配最恰当，表示\"废除死刑\"。abandon（放弃具体事物）、absorb（吸收）、abuse（滥用）均不合适。"
+            }
+          ]
+        },
+        {
+          "id": "cet6_003",
+          "title": "abstract",
+          "content_type": "markdown",
+          "content": "## abstract /ˈæbstrækt/\n\n**词性**：adj. / n. / v.\n- adj. 抽象的；理论的\n- n. 摘要；抽象概念\n- v. 提取；抽象化\n\n**例句**：\n> Beauty is an abstract concept.\n> 美是一个抽象的概念。\n\n**搭配**：\n- in the abstract 抽象地；理论上\n- abstract thinking 抽象思维",
+          "key_concepts": ["抽象的", "摘要", "abstract thinking"],
+          "quizzes": [
+            {
+              "id": "cet6_q003",
+              "type": "single_choice",
+              "question": "The concept of justice is rather ______ and difficult to define precisely.",
+              "options": [
+                {"key": "A", "text": "concrete"},
+                {"key": "B", "text": "abstract"},
+                {"key": "C", "text": "specific"},
+                {"key": "D", "text": "tangible"}
+              ],
+              "answer": "B",
+              "explanation": "abstract 意为\"抽象的\"，与句中的\"difficult to define precisely（难以精确定义）\"呼应。concrete/specific/tangible 都表示\"具体的、有形的\"，与句意相反。"
+            }
+          ]
+        },
+        {
+          "id": "cet6_004",
+          "title": "accelerate",
+          "content_type": "markdown",
+          "content": "## accelerate /əkˈseləreɪt/\n\n**词性**：v. **释义**：加速；促进\n\n**例句**：\n> The government took measures to accelerate economic growth.\n> 政府采取措施加速经济增长。\n\n**近义词**：speed up, quicken, hasten\n**反义词**：decelerate, slow down",
+          "key_concepts": ["加速", "促进", "speed up"],
+          "quizzes": [
+            {
+              "id": "cet6_q004",
+              "type": "single_choice",
+              "question": "The driver stepped on the gas pedal to ______ the car.",
+              "options": [
+                {"key": "A", "text": "decelerate"},
+                {"key": "B", "text": "accelerate"},
+                {"key": "C", "text": "accompany"},
+                {"key": "D", "text": "accumulate"}
+              ],
+              "answer": "B",
+              "explanation": "accelerate 意为\"加速\"，踩油门(gas pedal)的目的是加速。decelerate（减速）是反义词，accompany（陪伴）、accumulate（积累）不符合语境。"
+            }
+          ]
+        },
+        {
+          "id": "cet6_005",
+          "title": "accompany",
+          "content_type": "markdown",
+          "content": "## accompany /əˈkʌmpəni/\n\n**词性**：v. **释义**：陪伴；伴随；为...伴奏\n\n**例句**：\n> She accompanied her friend to the airport.\n> 她陪朋友去了机场。\n\n**搭配**：\n- be accompanied by... 由...陪同/伴随\n- accompany sb. on + 乐器 用某种乐器为某人伴奏",
+          "key_concepts": ["陪伴", "伴随", "伴奏"],
+          "quizzes": [
+            {
+              "id": "cet6_q005",
+              "type": "single_choice",
+              "question": "High fever is often ______ by a headache.",
+              "options": [
+                {"key": "A", "text": "accompanied"},
+                {"key": "B", "text": "accelerated"},
+                {"key": "C", "text": "accomplished"},
+                {"key": "D", "text": "accounted"}
+              ],
+              "answer": "A",
+              "explanation": "be accompanied by 意为\"由...伴随\"，高烧常伴随头痛。accelerate（加速）、accomplish（完成）、account（解释）均不符合。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cet6_noun",
+      "title": "高频名词",
+      "knowledge_points": [
+        {
+          "id": "cet6_006",
+          "title": "access",
+          "content_type": "markdown",
+          "content": "## access /ˈækses/\n\n**词性**：n. / v.\n- n. 通道；进入权；访问（权限）\n- v. 访问；存取（数据）\n\n**例句**：\n> Students have free access to the library.\n> 学生可以免费进入图书馆。\n\n**搭配**：\n- have access to... 有权使用/进入...\n- internet access 互联网接入",
+          "key_concepts": ["进入", "访问", "access to"],
+          "quizzes": [
+            {
+              "id": "cet6_q006",
+              "type": "single_choice",
+              "question": "Only authorized personnel have ______ to the confidential files.",
+              "options": [
+                {"key": "A", "text": "access"},
+                {"key": "B", "text": "excess"},
+                {"key": "C", "text": "assess"},
+                {"key": "D", "text": "process"}
+              ],
+              "answer": "A",
+              "explanation": "have access to 是固定搭配，意为\"有权使用/访问\"。excess（过量）、assess（评估）、process（过程/处理）均不符合固定搭配习惯。"
+            }
+          ]
+        },
+        {
+          "id": "cet6_007",
+          "title": "accommodation",
+          "content_type": "markdown",
+          "content": "## accommodation /əˌkɒməˈdeɪʃn/\n\n**词性**：n. **释义**：住宿；膳宿；适应；调和\n\n**例句**：\n> The university provides accommodation for all first-year students.\n> 大学为所有大一学生提供住宿。\n\n**短语**：\n- make accommodations for... 为...做出调整/迁就",
+          "key_concepts": ["住宿", "膳宿", "适应"],
+          "quizzes": [
+            {
+              "id": "cet6_q007",
+              "type": "single_choice",
+              "question": "When studying abroad, finding suitable ______ is often the first challenge.",
+              "options": [
+                {"key": "A", "text": "accommodation"},
+                {"key": "B", "text": "recommendation"},
+                {"key": "C", "text": "communication"},
+                {"key": "D", "text": "demonstration"}
+              ],
+              "answer": "A",
+              "explanation": "accommodation 意为\"住宿\"，留学时的首要挑战是找住宿。recommendation（推荐）、communication（交流）、demonstration（展示）不符合句意。"
+            }
+          ]
+        },
+        {
+          "id": "cet6_008",
+          "title": "acknowledgement",
+          "content_type": "markdown",
+          "content": "## acknowledgement /əkˈnɒlɪdʒmənt/\n\n**词性**：n. **释义**：承认；确认；感谢\n\n**例句**：\n> He received an award in acknowledgement of his outstanding contribution.\n> 他获得了表彰，以承认他的杰出贡献。\n\n**短语**：\n- in acknowledgement of... 为感谢/认可...\n- acknowledgement of receipt 收件确认",
+          "key_concepts": ["承认", "确认", "感谢"],
+          "quizzes": [
+            {
+              "id": "cet6_q008",
+              "type": "single_choice",
+              "question": "The report is a clear ______ of the seriousness of the environmental crisis.",
+              "options": [
+                {"key": "A", "text": "acknowledgement"},
+                {"key": "B", "text": "achievement"},
+                {"key": "C", "text": "adjustment"},
+                {"key": "D", "text": "advancement"}
+              ],
+              "answer": "A",
+              "explanation": "acknowledgement 意为\"承认\"，该报告是对环境危机严重性的明确承认。achievement（成就）、adjustment（调整）、advancement（进步）在此语境中不够贴切。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

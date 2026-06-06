@@ -8,7 +8,7 @@
 | 2 | 版本管理系统 (VSMS) | Flask+SPA: 基线/版本/配置/变更/发布/追溯 |
 | 3 | 知识学习APP | Flutter: lib/ test/ assets/ docs (已排除 build/) |
 | 4 | 论文配图版 | MBSE+PLE: 审稿→改稿→Word→SysML配图→SVG |
-| 5 | AIVAS智能汽车架构系统 | 待单独备份 (排除 venv/node_modules) |
+| 5 | AIVAS智能汽车架构系统 | AI-Native架构开发平台 (FastAPI+React+10 Agent+Neo4j) |
 | — | diagrams | 论文配图 PNG/SVG/PlantUML + AED架构设计 |
 | — | MBSE_PLE_Revised_Paper | 修订版论文 .docx |
 

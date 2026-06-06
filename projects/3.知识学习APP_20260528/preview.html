@@ -3,696 +3,385 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>知识学习 APP v1.1 - 界面预览</title>
+<title>知识学习 APP v1.3.0 — 界面预览</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif; background:#f0f2f5; display:flex; justify-content:center; align-items:center; min-height:100vh; padding:20px; }
-.phone { width:390px; height:844px; background:#fff; border-radius:40px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.3); position:relative; display:flex; flex-direction:column; }
-.status-bar { height:44px; background:#1565C0; display:flex; align-items:center; justify-content:space-between; padding:0 24px; color:#fff; font-size:12px; font-weight:600; }
-.app-bar { height:56px; background:#1565C0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px; font-weight:700; letter-spacing:1px; position:relative; }
-.app-bar .back { position:absolute; left:12px; background:none; border:none; color:#fff; font-size:22px; cursor:pointer; padding:8px; display:none; }
-.content { flex:1; overflow-y:auto; background:#fafafa; position:relative; }
-.nav-bar { height:64px; background:#fff; border-top:1px solid #e0e0e0; display:flex; align-items:center; padding-bottom:8px; }
-.nav-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; color:#999; transition:color .2s; font-size:11px; }
-.nav-item.active { color:#1565C0; }
-.nav-item .icon { font-size:22px; }
-.btn { display:inline-block; padding:10px 24px; border:2px solid #1565C0; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; color:#1565C0; background:#fff; transition:all .15s; margin:4px; }
-.btn:hover { background:#e3f2fd; }
-.btn.primary { background:#1565C0; color:#fff; }
-.screen-label { text-align:center; padding:8px; font-size:11px; color:#aaa; background:#f8f8f8; border-bottom:1px solid #eee; display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; }
-.screen-label span { background:#1565C0; color:#fff; padding:2px 10px; border-radius:10px; font-size:11px; }
-
-/* 首页 */
-.home-header { background:linear-gradient(135deg,#1565C0,#1e88e5); padding:24px 20px 32px; display:flex; flex-direction:column; align-items:center; }
-.ring-wrap { position:relative; width:120px; height:120px; }
-.ring-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; }
-.ring-text .pct { font-size:24px; font-weight:800; color:#fff; }
-.ring-text .lbl { font-size:11px; color:rgba(255,255,255,.7); }
-.home-subtitle { color:rgba(255,255,255,.8); font-size:13px; margin-top:12px; }
-.subject-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:16px; }
-.subject-card { background:#fff; border-radius:14px; padding:18px; box-shadow:0 2px 8px rgba(0,0,0,.06); cursor:pointer; transition:transform .15s; }
-.subject-card:active { transform:scale(.97); }
-.subject-card .top { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
-.s-icon { width:32px; height:32px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
-.s-icon.math { background:#e3f2fd; color:#1565C0; }
-.s-icon.eng { background:#fce4ec; color:#c62828; }
-.s-icon.chn { background:#e8f5e9; color:#2e7d32; }
-.s-icon.pol { background:#fff3e0; color:#e65100; }
-.subject-card .s-name { font-size:15px; font-weight:700; color:#333; }
-.subject-card .arrow { margin-left:auto; color:#ccc; font-size:18px; }
-.progress-mini { height:6px; background:#eee; border-radius:3px; overflow:hidden; margin-bottom:8px; }
-.progress-mini .fill { height:100%; background:#1565C0; border-radius:3px; transition:width .5s; }
-.subject-card .meta { display:flex; justify-content:space-between; font-size:11px; }
-.subject-card .meta .courses { color:#999; }
-.subject-card .meta .acc { font-weight:600; }
-.acc-good { color:#2e7d32; }
-
-/* 词汇页 */
-.vocab-header { background:#fff; padding:12px 16px; border-bottom:1px solid #eee; position:sticky; top:0; z-index:10; }
-.vocab-header .course-info { font-size:12px; color:#999; margin-bottom:8px; }
-.vocab-header .word-count { color:#c62828; font-weight:600; }
-.alpha-tabs { display:flex; overflow-x:auto; gap:2px; padding:4px 0; scrollbar-width:none; }
-.alpha-tabs::-webkit-scrollbar { display:none; }
-.alpha-tab { min-width:22px; height:26px; display:flex; align-items:center; justify-content:center; border:none; background:#f5f5f5; color:#666; font-size:11px; font-weight:700; border-radius:13px; cursor:pointer; flex-shrink:0; }
-.alpha-tab.active { background:#c62828; color:#fff; }
-.alpha-tab.empty { opacity:.3; cursor:default; }
-.vocab-chapter { background:#fff; margin:8px 12px; border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.04); }
-.vocab-chapter .ch-header { padding:12px 16px; background:#fafafa; font-weight:700; font-size:14px; color:#c62828; border-bottom:1px solid #f0f0f0; cursor:pointer; display:flex; justify-content:space-between; }
-.vocab-chapter .ch-count { font-size:11px; color:#999; font-weight:400; }
-.word-item { padding:10px 16px; border-bottom:1px solid #f5f5f5; cursor:pointer; display:flex; align-items:center; gap:12px; }
-.word-item:last-child { border-bottom:none; }
-.word-item:active { background:#fce4ec; }
-.word-item .w-num { color:#ccc; font-size:10px; min-width:20px; text-align:right; }
-.word-item .w-eng { font-size:14px; font-weight:600; color:#333; min-width:90px; }
-.word-item .w-phonetic { font-size:10px; color:#999; margin-left:auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px; }
-.word-item .w-arrow { color:#ddd; font-size:14px; }
-
-/* 单词详情学习页 */
-.study-content { padding:16px; }
-.study-content h2 { font-size:20px; margin-bottom:4px; color:#333; }
-.study-content .phonetic-big { font-size:15px; color:#666; margin-bottom:16px; }
-.study-content .meaning-box { background:#f8f9fa; border-left:4px solid #c62828; padding:14px 16px; border-radius:0 8px 8px 0; margin:12px 0; line-height:1.7; font-size:14px; }
-.concepts { display:flex; flex-wrap:wrap; gap:6px; margin:16px 0; }
-.concept-chip { background:#fce4ec; color:#c62828; padding:6px 14px; border-radius:16px; font-size:12px; font-weight:500; }
-.start-btn { width:100%; padding:14px; background:#1565C0; color:#fff; border:none; border-radius:12px; font-size:15px; font-weight:600; cursor:pointer; margin-top:8px; }
-
-/* 习题区 */
-.quiz-section { background:#f5f5f5; border-radius:16px 16px 0 0; padding:16px; flex:1; }
-.quiz-progress { display:flex; justify-content:space-between; font-size:12px; color:#888; margin-bottom:12px; }
-.quiz-question { font-size:15px; color:#333; margin-bottom:16px; line-height:1.6; font-weight:500; }
-.option { background:#fff; border:2px solid #e0e0e0; border-radius:10px; padding:14px; margin-bottom:8px; cursor:pointer; display:flex; align-items:center; gap:10px; transition:all .15s; }
-.option.selected { border-color:#1565C0; background:#e3f2fd; }
-.option.correct { border-color:#2e7d32; background:#e8f5e9; }
-.option.wrong { border-color:#c62828; background:#ffebee; }
-.option .key { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; background:#eee; color:#666; flex-shrink:0; }
-.option.selected .key { background:#1565C0; color:#fff; }
-.option.correct .key { background:#2e7d32; color:#fff; }
-.option.wrong .key { background:#c62828; color:#fff; }
-.submit-btn { width:100%; padding:14px; border:none; border-radius:12px; font-size:15px; font-weight:600; cursor:pointer; margin-top:8px; }
-.submit-btn.active { background:#1565C0; color:#fff; }
-.submit-btn.disabled { background:#e0e0e0; color:#999; cursor:default; }
-.quiz-nav { display:flex; justify-content:space-between; margin-top:12px; }
-.quiz-nav button { background:none; border:none; color:#1565C0; font-size:13px; cursor:pointer; padding:8px 16px; }
-
-/* 弹窗 */
-.modal-overlay { position:absolute; inset:0; background:rgba(0,0,0,.4); display:none; align-items:flex-end; z-index:100; }
-.modal-sheet { background:#fff; width:100%; border-radius:20px 20px 0 0; padding:24px; animation:slideUp .3s; }
-@keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
-.modal-title { font-size:20px; font-weight:800; margin:8px 0 12px; }
-.modal-answer { font-weight:600; color:#1565C0; margin-bottom:8px; }
-.modal-exp { font-size:13px; color:#666; line-height:1.6; margin-bottom:20px; }
-.modal-btn { width:100%; padding:14px; background:#1565C0; color:#fff; border:none; border-radius:12px; font-size:15px; font-weight:600; cursor:pointer; }
-
-/* 进度页 */
-.progress-page { padding:16px; }
-.progress-page .ring-center { display:flex; justify-content:center; padding:20px 0; }
-.stat-card { background:#fff; border-radius:14px; padding:16px; margin-top:16px; box-shadow:0 1px 4px rgba(0,0,0,.04); }
-.stat-card h3 { font-size:14px; margin-bottom:12px; color:#333; }
-.stat-row { display:flex; justify-content:space-between; padding:6px 0; font-size:13px; color:#666; }
-.stat-row .val { font-weight:600; color:#333; }
-.progress-item { margin:12px 0; }
-.progress-label { display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px; }
-.progress-label .name { font-weight:600; }
-.progress-bar { height:8px; background:#eee; border-radius:4px; overflow:hidden; }
-.progress-bar .fill { height:100%; border-radius:4px; }
-
-/* 章节树(微积分/马原) */
-.chapter-card { background:#fff; margin:8px 12px; border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.04); }
-.chapter-card .ch-header { padding:14px 16px; display:flex; align-items:center; gap:10px; font-weight:600; font-size:14px; border-bottom:1px solid #f0f0f0; }
-.chapter-card .ch-icon { color:#1565C0; font-size:18px; }
-.section-item { padding:10px 16px 10px 40px; font-size:13px; color:#555; border-bottom:1px solid #f5f5f5; font-weight:600; display:flex; align-items:center; gap:6px; }
-.kp-item { padding:10px 16px 10px 52px; font-size:13px; cursor:pointer; display:flex; align-items:center; gap:8px; justify-content:space-between; }
-.kp-item:active { background:#f5f5f5; }
-.kp-item .dot { font-size:6px; color:#1565C0; margin-right:-4px; }
-.q-count { font-size:11px; color:#999; background:#f5f5f5; padding:2px 8px; border-radius:10px; }
-.formula { background:#f8f9fa; border-left:4px solid #1565C0; padding:12px 16px; margin:12px 0; border-radius:0 8px 8px 0; font-family:'Times New Roman',serif; font-size:15px; color:#1a237e; text-align:center; }
-
-/* 语文诗词页 */
-.poem-box { background:linear-gradient(135deg,#f1f8e9,#e8f5e9); padding:20px; margin:12px 16px; border-radius:12px; border-left:4px solid #2e7d32; }
-.poem-box h3 { font-size:16px; color:#1b5e20; margin-bottom:8px; }
-.poem-box .author { font-size:12px; color:#666; margin-bottom:12px; }
-.poem-box .poem-text { font-size:14px; line-height:2.2; color:#333; }
-.analysis { padding:12px 20px 16px; }
-.analysis h4 { font-size:13px; color:#333; margin-bottom:6px; }
-.analysis p { font-size:13px; color:#666; line-height:1.7; }
-
-/* 搜索框 */
-.search-box { margin:8px 16px; position:relative; }
-.search-box input { width:100%; padding:10px 16px 10px 36px; border:1px solid #e0e0e0; border-radius:20px; font-size:13px; outline:none; background:#f5f5f5; }
-.search-box input:focus { border-color:#c62828; }
-.search-box .search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:14px; color:#999; }
-
-/* 版本信息 */
-.version-tag { background:#e8f5e9; color:#2e7d32; padding:2px 8px; border-radius:8px; font-size:10px; font-weight:700; }
-
-/* 隐藏/显示 */
-.hidden { display:none !important; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;background:#f0f2f5;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.phone{width:390px;height:844px;background:#fff;border-radius:40px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;display:flex;flex-direction:column}
+.status-bar{height:44px;background:#1565C0;display:flex;align-items:center;justify-content:space-between;padding:0 24px;color:#fff;font-size:12px;font-weight:600}
+.app-bar{height:56px;background:#1565C0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:700;position:relative}
+.app-bar .back{position:absolute;left:12px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:8px;display:none}
+.content{flex:1;overflow-y:auto;background:#fafafa;position:relative}
+.nav-bar{height:64px;background:#fff;border-top:1px solid #e0e0e0;display:flex;align-items:center;padding-bottom:8px}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:#999;font-size:11px}
+.nav-item.active{color:#1565C0}
+.nav-item .icon{font-size:22px}
+.screen-label{text-align:center;padding:6px;font-size:10px;color:#aaa;background:#f8f8f8;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.screen-label span{background:#1565C0;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px}
+.vtag{background:#e8f5e9!important;color:#2e7d32!important}
+/* Home */
+.home-header{background:linear-gradient(135deg,#1565C0,#1e88e5);padding:20px 20px 28px;display:flex;flex-direction:column;align-items:center}
+.ring-wrap{position:relative;width:110px;height:110px}
+.ring-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.ring-text .pct{font-size:22px;font-weight:800;color:#fff}
+.ring-text .lbl{font-size:10px;color:rgba(255,255,255,.7)}
+.home-subtitle{color:rgba(255,255,255,.8);font-size:12px;margin-top:10px}
+.subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+.subject-card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,.05);cursor:pointer;transition:transform .15s}
+.subject-card:active{transform:scale(.97)}
+.subject-card .top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.s-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
+.s-icon.math{background:#e3f2fd;color:#1565C0}
+.s-icon.eng{background:#fce4ec;color:#c62828}
+.s-icon.chn{background:#e8f5e9;color:#2e7d32}
+.s-icon.pol{background:#fff3e0;color:#e65100}
+.subject-card .s-name{font-size:14px;font-weight:700;color:#333}
+.subject-card .arrow{margin-left:auto;color:#ccc;font-size:16px}
+.progress-mini{height:5px;background:#eee;border-radius:3px;overflow:hidden;margin-bottom:6px}
+.progress-mini .fill{height:100%;background:#1565C0;border-radius:3px}
+.subject-card .meta{font-size:10px;color:#999}
+/* Chapter tree */
+.chapter-card{background:#fff;margin:6px 10px;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.chapter-card .ch-header{padding:10px 14px;display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px;border-bottom:1px solid #f0f0f0;cursor:pointer}
+.chapter-card .ch-header .ch-icon{color:#1565C0;font-size:16px}
+.chapter-card .ch-count{font-size:10px;color:#999;font-weight:400;margin-left:auto}
+.section-item{padding:8px 14px 8px 36px;font-size:12px;color:#555;font-weight:600}
+.kp-item{padding:8px 14px 8px 48px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f9f9f9}
+.kp-item:last-child{border-bottom:none}
+.kp-item:active{background:#e3f2fd}
+.q-count{font-size:10px;color:#999;background:#f5f5f5;padding:1px 7px;border-radius:8px}
+.course-info{padding:6px 14px;font-size:11px;color:#999}
+.formula{background:#f5f7fa;border-left:4px solid #1565C0;padding:10px 14px;margin:10px 0;border-radius:0 8px 8px 0;font-family:'Times New Roman',serif;font-size:14px;color:#1a237e;text-align:center}
+.concepts{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
+.concept-chip{background:#e3f2fd;color:#1565C0;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:500}
+.study-content{padding:14px}
+.study-content h2{font-size:17px;margin-bottom:6px;color:#333}
+.study-content h3{font-size:14px;margin:10px 0 4px;color:#444}
+.study-content p{font-size:12px;line-height:1.7;color:#555;margin-bottom:6px}
+.start-btn{width:100%;padding:12px;background:#1565C0;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-top:6px}
+.start-btn:active{background:#0d47a1}
+/* Quiz */
+.quiz-area{background:#fff;border-radius:14px 14px 0 0;padding:14px;margin-top:10px;box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+.quiz-progress{display:flex;justify-content:space-between;font-size:11px;color:#888;margin-bottom:10px}
+.quiz-question{font-size:14px;color:#333;margin-bottom:14px;line-height:1.5;font-weight:500}
+.option{background:#fafafa;border:2px solid #e8e8e8;border-radius:10px;padding:12px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:13px;transition:all .15s}
+.option.selected{border-color:#1565C0;background:#e8eaf6}
+.option.correct{border-color:#2e7d32;background:#e8f5e9}
+.option.wrong{border-color:#c62828;background:#ffebee}
+.option .key{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;background:#e0e0e0;color:#666;flex-shrink:0}
+.option.selected .key{background:#1565C0;color:#fff}
+.option.correct .key{background:#2e7d32;color:#fff}
+.option.wrong .key{background:#c62828;color:#fff}
+.submit-btn{width:100%;padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-top:6px}
+.submit-btn.active{background:#1565C0;color:#fff}
+.submit-btn.disabled{background:#e0e0e0;color:#999;cursor:default}
+.quiz-nav{display:flex;justify-content:space-between;margin-top:10px}
+.quiz-nav button{background:none;border:none;color:#1565C0;font-size:12px;cursor:pointer;padding:6px 12px}
+/* Modal */
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:100}
+.modal-sheet{background:#fff;width:100%;border-radius:18px 18px 0 0;padding:22px;animation:slideUp .3s}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-title{font-size:18px;font-weight:800;margin:6px 0 10px}
+.modal-answer{font-weight:600;color:#1565C0;margin-bottom:6px}
+.modal-exp{font-size:12px;color:#666;line-height:1.6;margin-bottom:16px}
+.modal-btn{width:100%;padding:12px;background:#1565C0;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
-
 <div class="phone" id="app">
-  <div class="status-bar"><span class="time">9:41</span><span class="icons">📶 📡 🔋</span></div>
-  <div class="screen-label">
-    <span id="screenBadge">首页</span>
-    <button class="btn" onclick="switchScreen('home')" style="font-size:10px;padding:3px 8px;">首页</button>
-    <button class="btn" onclick="switchScreen('subject-eng')" style="font-size:10px;padding:3px 8px;">英语</button>
-    <button class="btn" onclick="switchScreen('progress')" style="font-size:10px;padding:3px 8px;">进度</button>
-    <span class="version-tag">v1.1</span>
-  </div>
-  <div class="app-bar" id="appBar">
-    <button class="back" id="backBtn" onclick="goHome()">←</button>
-    <span id="barTitle">知识学习</span>
-  </div>
-  <div class="content" id="appContent">
+<div class="status-bar"><span>9:41</span><span>📶 📡 🔋</span></div>
+<div class="screen-label">
+<span id="screenBadge">首页</span>
+<a href="javascript:switchScreen('home')" style="font-size:10px;color:#1565C0;text-decoration:none;">首页</a>
+<a href="javascript:switchScreen('subject-math')" style="font-size:10px;color:#1565C0;text-decoration:none;">数学</a>
+<a href="javascript:switchScreen('subject-eng')" style="font-size:10px;color:#c62828;text-decoration:none;">英语</a>
+<a href="javascript:switchScreen('subject-chn')" style="font-size:10px;color:#2e7d32;text-decoration:none;">语文</a>
+<a href="javascript:switchScreen('subject-pol')" style="font-size:10px;color:#e65100;text-decoration:none;">政治</a>
+<a href="javascript:switchScreen('progress')" style="font-size:10px;color:#1565C0;text-decoration:none;">进度</a>
+<span class="vtag">v1.3.0</span>
+</div>
+<div class="app-bar" id="appBar"><button class="back" id="backBtn" onclick="goHome()">←</button><span id="barTitle">知识学习</span></div>
+<div class="content" id="appContent">
 
-    <!-- ====== 首页 ====== -->
-    <div id="homeScreen">
-      <div class="home-header">
-        <div class="ring-wrap"><canvas id="ringCanvas"></canvas><div class="ring-text"><div class="pct" id="totalPct">0%</div><div class="lbl">总进度</div></div></div>
-        <div class="home-subtitle">坚持学习，每天进步</div>
-      </div>
-      <div class="subject-grid">
-        <div class="subject-card" onclick="switchScreen('subject-math')">
-          <div class="top"><div class="s-icon math">𝑓</div><span class="s-name">数学</span><span class="arrow">›</span></div>
-          <div class="progress-mini"><div class="fill" style="width:15%"></div></div>
-          <div class="meta"><span class="courses">微积分 · 4知识点 · 12题</span><span class="acc acc-good">72%</span></div>
-        </div>
-        <div class="subject-card" onclick="switchScreen('subject-eng')">
-          <div class="top"><div class="s-icon eng">A</div><span class="s-name">英语</span><span class="arrow">›</span></div>
-          <div class="progress-mini"><div class="fill" style="width:7%"></div></div>
-          <div class="meta"><span class="courses">CET6词汇 · 2983词 · 8题</span><span class="acc acc-good">60%</span></div>
-        </div>
-        <div class="subject-card" onclick="switchScreen('subject-chn')">
-          <div class="top"><div class="s-icon chn">文</div><span class="s-name">语文</span><span class="arrow">›</span></div>
-          <div class="progress-mini"><div class="fill" style="width:20%"></div></div>
-          <div class="meta"><span class="courses">必背诗文 · 3篇 · 6题</span><span class="acc acc-good">83%</span></div>
-        </div>
-        <div class="subject-card" onclick="switchScreen('subject-pol')">
-          <div class="top"><div class="s-icon pol">政</div><span class="s-name">政治</span><span class="arrow">›</span></div>
-          <div class="progress-mini"><div class="fill" style="width:10%"></div></div>
-          <div class="meta"><span class="courses">马原 · 3知识点 · 7题</span><span class="acc acc-good">67%</span></div>
-        </div>
-      </div>
-    </div>
+<!-- HOME -->
+<div id="homeScreen">
+<div class="home-header"><div class="ring-wrap"><canvas id="ringCanvas"></canvas><div class="ring-text"><div class="pct">24%</div><div class="lbl">总进度</div></div></div><div class="home-subtitle">坚持学习，每天进步</div></div>
+<div class="subject-grid">
+<div class="subject-card" onclick="switchScreen('subject-math')"><div class="top"><div class="s-icon math">𝑓</div><span class="s-name">数学</span><span class="arrow">›</span></div><div class="progress-mini"><div class="fill" style="width:20%"></div></div><div class="meta">微积分 · 8章 · 65题</div></div>
+<div class="subject-card" onclick="switchScreen('subject-eng')"><div class="top"><div class="s-icon eng">A</div><span class="s-name">英语</span><span class="arrow">›</span></div><div class="progress-mini"><div class="fill" style="width:7%"></div></div><div class="meta">CET6词汇 · 2983词 · 47题</div></div>
+<div class="subject-card" onclick="switchScreen('subject-chn')"><div class="top"><div class="s-icon chn">文</div><span class="s-name">语文</span><span class="arrow">›</span></div><div class="progress-mini"><div class="fill" style="width:33%"></div></div><div class="meta">必背诗文 · 3篇 · 6题</div></div>
+<div class="subject-card" onclick="switchScreen('subject-pol')"><div class="top"><div class="s-icon pol">政</div><span class="s-name">政治</span><span class="arrow">›</span></div><div class="progress-mini"><div class="fill" style="width:33%"></div></div><div class="meta">马原 · 3知识点 · 7题</div></div>
+</div></div>
 
-    <!-- ====== 英语学科页 (CET6 词汇表 - 完整版) ====== -->
-    <div id="subjectEngScreen" class="hidden">
-      <div class="vocab-header">
-        <div class="course-info">📖 CET6 核心词汇 &nbsp;<span class="word-count" id="wordCount">2983</span> 词 &nbsp;|&nbsp; A-Z 共 25 章</div>
-        <div class="alpha-tabs" id="alphaTabs"></div>
-      </div>
-      <div class="search-box"><span class="search-icon">🔍</span><input type="text" id="wordSearch" placeholder="搜索单词..." oninput="filterWords()"></div>
-      <div id="vocabList"></div>
-      <div id="noResult" style="text-align:center;padding:40px;color:#999;display:none;">未找到匹配的单词</div>
-    </div>
+<!-- MATH SUBJECT — all 8 chapters -->
+<div id="subjectMathScreen" class="hidden">
+<div class="course-info">📐 微积分 · 机械工业出版社 · <b>8章 23节 35知识点 65题</b></div>
+<div class="chapter-card"><div class="ch-header" onclick="toggleChapter(this)"><span class="ch-icon">📖</span> 第一章 函数与极限 <span class="ch-count">7知识点 · 15题</span></div>
+<div class="section-item">📄 1.1 函数的概念与性质</div>
+<div class="kp-item" onclick="startStudy('calc_kp001','函数的定义与表示','<h2>函数的定义</h2><p>设X和Y是两个非空集合，若存在对应法则f使X中每个x对应Y中唯一y，则称f为<b>函数</b>：</p><div class=formula>y = f(x), x∈X</div><p><b>定义域</b>：x的取值范围。<b>值域</b>：全体f(x)取值。</p><p>三种表示法：解析法（公式法）、列表法、图像法。</p><div class=concepts><span class=concept-chip>定义域</span><span class=concept-chip>值域</span><span class=concept-chip>对应法则</span></div>','calc')">函数的定义与表示 <span class="q-count">3题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp002','函数的奇偶性','<h2>函数的奇偶性</h2><p><b>偶函数</b>：f(-x)=f(x)，图像关于y轴对称。常见：y=x², y=cosx。</p><p><b>奇函数</b>：f(-x)=-f(x)，图像关于原点对称。f(0)有定义时必为0。常见：y=x³, y=sinx。</p><p><b>周期性</b>：f(x+T)=f(x)，T>0为周期。</p><div class=concepts><span class=concept-chip>偶函数</span><span class=concept-chip>奇函数</span><span class=concept-chip>周期</span></div>','calc2')">函数的奇偶性 <span class="q-count">2题</span></div>
+<div class="section-item">📄 1.2 数列的极限</div>
+<div class="kp-item" onclick="startStudy('calc_kp004','数列极限','<h2>数列极限（ε-N定义）</h2><p>若对任意ε>0，总存在N，使n>N时|x_n-a|<ε，则称a为极限。</p><div class=formula>lim x_n = a (n→∞)</div><p><b>收敛数列性质</b>：唯一性、有界性、保号性、四则运算法则、夹逼准则。</p><div class=concepts><span class=concept-chip>ε-N定义</span><span class=concept-chip>收敛</span><span class=concept-chip>夹逼准则</span></div>','calc3')">数列极限的定义 <span class="q-count">2题</span></div>
+<div class="section-item">📄 1.3 函数的极限</div>
+<div class="kp-item" onclick="startStudy('calc_kp005','函数极限','<h2>函数极限与左右极限</h2><p><b>ε-δ定义</b>：∀ε>0, ∃δ>0, 0<|x-x₀|<δ ⇒ |f(x)-A|<ε</p><p><b>左右极限</b>：双侧极限存在 ⟺ 左右极限相等。</p><p><b>重要极限</b>：lim(sinx/x)=1 (x→0)</p><div class=concepts><span class=concept-chip>ε-δ定义</span><span class=concept-chip>左右极限</span><span class=concept-chip>重要极限</span></div>','calc4')">函数极限与左右极限 <span class="q-count">2题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp006','无穷小与无穷大','<h2>无穷小与无穷大</h2><p><b>无穷小比较</b>：lim(β/α)=0→β=o(α)；lim(β/α)=c≠0→同阶；lim(β/α)=1→等价</p><p><b>等价无穷小(x→0)</b>：sinx~x, tanx~x, 1-cosx~x²/2, ln(1+x)~x, eˣ-1~x</p><p><b>重要极限</b>：lim(1+x)^(1/x)=e (x→0)</p><div class=concepts><span class=concept-chip>高阶无穷小</span><span class=concept-chip>等价无穷小</span><span class=concept-chip>两个重要极限</span></div>','calc5')">无穷小与无穷大 <span class="q-count">2题</span></div>
+<div class="section-item">📄 1.4 函数的连续性</div>
+<div class="kp-item" onclick="startStudy('calc_kp007','连续与间断','<h2>函数的连续与间断</h2><p><b>连续三条件</b>：f(x₀)有定义、极限存在、极限值=f(x₀)。</p><p><b>间断点</b>：第一类（可去/跳跃）、第二类（无穷/振荡）。</p><p><b>零点定理</b>：f(a)f(b)<0 ⇒ ∃ξ使f(ξ)=0。</p><div class=concepts><span class=concept-chip>连续</span><span class=concept-chip>零点定理</span><span class=concept-chip>介值定理</span></div>','calc6')">连续与间断 <span class="q-count">2题</span></div>
+</div>
+<div class="chapter-card"><div class="ch-header" onclick="toggleChapter(this)"><span class="ch-icon">📖</span> 第二章 导数与微分 <span class="ch-count">4知识点 · 7题</span></div>
+<div class="section-item">📄 2.1 导数的概念</div>
+<div class="kp-item" onclick="startStudy('calc_kp008','导数的定义','<h2>导数的定义与几何意义</h2><p>f\'(x₀)=lim[f(x₀+Δx)-f(x₀)]/Δx</p><p><b>几何意义</b>：切线斜率。切线方程：y-f(x₀)=f\'(x₀)(x-x₀)。</p><p><b>可导与连续</b>：可导⇒连续；连续⇏可导（如y=|x|在x=0）。</p><p><b>求导公式</b>：(xⁿ)\'=nxⁿ⁻¹, (eˣ)\'=eˣ, (lnx)\'=1/x</p><div class=concepts><span class=concept-chip>导数</span><span class=concept-chip>切线斜率</span><span class=concept-chip>求导公式</span></div>','calc7')">导数的定义与几何意义 <span class="q-count">2题</span></div>
+<div class="section-item">📄 2.2 求导法则</div>
+<div class="kp-item" onclick="startStudy('calc_kp009','求导法则','<h2>四则运算求导与链式法则</h2><p>(uv)\'=u\'v+uv\'，(u/v)\'=(u\'v-uv\')/v²</p><p><b>链式法则</b>：dy/dx=f\'[g(x)]·g\'(x)，由外到内逐层求导。</p><p>例：y=ln(cosx)，y\'=-tanx。</p><div class=concepts><span class=concept-chip>乘法法则</span><span class=concept-chip>链式法则</span><span class=concept-chip>隐函数求导</span></div>','calc8')">求导法则与链式法则 <span class="q-count">2题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp010','高阶导数','<h2>高阶导数</h2><p>f\'\'(x)=d²y/dx²为二阶导数。n阶记作f⁽ⁿ⁾(x)。</p><p><b>常见公式</b>：(eˣ)⁽ⁿ⁾=eˣ；(sinx)⁽ⁿ⁾=sin(x+nπ/2)</p><p><b>莱布尼茨公式</b>：(uv)⁽ⁿ⁾=ΣC(n,k)u⁽ⁿ⁻ᵏ⁾v⁽ᵏ⁾</p><div class=concepts><span class=concept-chip>二阶导数</span><span class=concept-chip>莱布尼茨公式</span></div>','calc9')">高阶导数 <span class="q-count">1题</span></div>
+<div class="section-item">📄 2.3 函数的微分</div>
+<div class="kp-item" onclick="startStudy('calc_kp011','微分','<h2>微分的概念与应用</h2><p>dy=f\'(x₀)dx。一元函数：可导⟺可微。</p><p><b>几何意义</b>：dy是切线增量，Δy≈dy(|Δx|很小时)。</p><p><b>近似计算</b>：f(x₀+Δx)≈f(x₀)+f\'(x₀)Δx。例：√4.01≈2.0025。</p><div class=concepts><span class=concept-chip>微分</span><span class=concept-chip>近似计算</span></div>','calc10')">微分的概念与应用 <span class="q-count">2题</span></div>
+</div>
+<div class="chapter-card"><div class="ch-header" onclick="toggleChapter(this)"><span class="ch-icon">📖</span> 第三章 中值定理与导数应用 <span class="ch-count">4知识点 · 8题</span></div>
+<div class="section-item">📄 3.1 微分中值定理</div>
+<div class="kp-item" onclick="startStudy('calc_kp012','中值定理','<h2>中值定理</h2><p><b>罗尔定理</b>：f(a)=f(b) ⇒ ∃ξ使f\'(ξ)=0。</p><p><b>拉格朗日定理</b>：f\'(ξ)=[f(b)-f(a)]/(b-a)。几何意义：切线平行弦。</p><p><b>柯西定理</b>：f\'(ξ)/g\'(ξ)=[f(b)-f(a)]/[g(b)-g(a)]。</p><div class=concepts><span class=concept-chip>罗尔定理</span><span class=concept-chip>Lagrange</span><span class=concept-chip>Cauchy</span></div>','calc11')">罗尔定理与拉格朗日中值定理 <span class="q-count">2题</span></div>
+<div class="section-item">📄 3.2 洛必达法则</div>
+<div class="kp-item" onclick="startStudy('calc_kp013','洛必达法则','<h2>洛必达法则</h2><p>0/0或∞/∞型：lim[f(x)/g(x)]=lim[f\'(x)/g\'(x)]。</p><p>可转化类型：0·∞→化为分式；∞-∞→通分；0⁰,∞⁰,1^∞→取对数。</p><div class=concepts><span class=concept-chip>0/0型</span><span class=concept-chip>∞/∞型</span><span class=concept-chip>不定式</span></div>','calc12')">洛必达法则 <span class="q-count">2题</span></div>
+<div class="section-item">📄 3.3 单调性与极值</div>
+<div class="kp-item" onclick="startStudy('calc_kp014','极值','<h2>单调性与极值</h2><p>f\'(x)>0递增；f\'(x)<0递减。</p><p><b>极值判别</b>：第一充分条件（看一阶变号）；第二充分条件（看二阶符号）。</p><p>f\'(x₀)=0是必要条件，非充分！反例：y=x³在x=0。</p><div class=concepts><span class=concept-chip>驻点</span><span class=concept-chip>极大极小</span><span class=concept-chip>二阶判别</span></div>','calc13')">单调性与极值 <span class="q-count">2题</span></div>
+<div class="section-item">📄 3.4 凹凸性与渐近线</div>
+<div class="kp-item" onclick="startStudy('calc_kp015','凹凸性','<h2>凹凸性、拐点与渐近线</h2><p>f\'\'(x)>0→凹(下凸∪)；f\'\'(x)<0→凸(上凸∩)。拐点处f\'\'变号。</p><p><b>渐近线</b>：水平y=A、垂直x=x₀、斜y=kx+b。</p><div class=concepts><span class=concept-chip>凹凸性</span><span class=concept-chip>拐点</span><span class=concept-chip>渐近线</span></div>','calc14')">凹凸性与渐近线 <span class="q-count">2题</span></div>
+</div>
+<div class="chapter-card"><div class="ch-header" onclick="toggleChapter(this)"><span class="ch-icon">📖</span> 第四章 不定积分 <span class="ch-count">5知识点 · 8题</span> <span style="background:#e8f5e9;color:#2e7d32;font-size:9px;padding:1px 6px;border-radius:8px;">NEW v1.3</span></div>
+<div class="section-item">📄 4.1 不定积分的概念</div>
+<div class="kp-item" onclick="startStudy('calc_kp016','原函数与不定积分','<h2>原函数与不定积分</h2><p>若F\'(x)=f(x)，则F(x)为f(x)的原函数。∫f(x)dx=F(x)+C。</p><p><b>基本积分公式</b>：∫xⁿdx=xⁿ⁺¹/(n+1)+C(n≠-1)；∫(1/x)dx=ln|x|+C；∫eˣdx=eˣ+C；∫sinxdx=-cosx+C</p><div class=concepts><span class=concept-chip>原函数</span><span class=concept-chip>不定积分</span><span class=concept-chip>积分常数C</span></div>','calc15')">原函数与不定积分 <span class="q-count">3题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp017','第一类换元法','<h2>第一类换元法（凑微分法）</h2><p>∫f[φ(x)]φ\'(x)dx=∫f(u)du=F(u)+C。</p><p><b>核心技巧</b>：识别被积函数中哪部分是某函数的导数。</p><p><b>常见凑微分</b>：xⁿ⁻¹dx=(1/n)d(xⁿ)；cosxdx=d(sinx)；(1/x)dx=d(lnx)；eˣdx=d(eˣ)。</p><div class=concepts><span class=concept-chip>凑微分</span><span class=concept-chip>换元积分</span><span class=concept-chip>链式法则逆向</span></div>','calc16')">第一类换元法（凑微分） <span class="q-count">1题</span></div>
+<div class="section-item">📄 4.2 第二类换元与分部积分</div>
+<div class="kp-item" onclick="startStudy('calc_kp018','第二类换元法','<h2>第二类换元法</h2><p>令x=φ(t)，∫f(x)dx=∫f[φ(t)]φ\'(t)dt。</p><p><b>三角代换</b>：√(a²-x²)→x=asint；√(a²+x²)→x=atant。</p><p><b>根式代换</b>：含ⁿ√(ax+b)→令t=ⁿ√(ax+b)。</p><div class=concepts><span class=concept-chip>三角代换</span><span class=concept-chip>根式代换</span><span class=concept-chip>倒代换</span></div>','calc17')">第二类换元法 <span class="q-count">1题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp019','分部积分法','<h2>分部积分法</h2><p>∫udv=uv-∫vdu。</p><p><b>LIATE法则</b>（选u优先级）：<b>L</b>og><b>I</b>nverse><b>A</b>lgebraic><b>T</b>rig><b>E</b>xponential</p><p>例：∫xeˣdx→u=x,dv=eˣdx→xeˣ-∫eˣdx=(x-1)eˣ+C</p><div class=concepts><span class=concept-chip>分部积分</span><span class=concept-chip>LIATE法则</span><span class=concept-chip>循环型</span></div>','calc18')">分部积分法 <span class="q-count">2题</span></div>
+</div>
+<div class="chapter-card"><div class="ch-header" onclick="toggleChapter(this)"><span class="ch-icon">📖</span> 第五章 定积分与反常积分 <span class="ch-count">5知识点 · 7题</span> <span style="background:#e8f5e9;color:#2e7d32;font-size:9px;padding:1px 6px;border-radius:8px;">NEW v1.3</span></div>
+<div class="section-item">📄 5.1 定积分的概念</div>
+<div class="kp-item" onclick="startStudy('calc_kp020','定积分定义','<h2>定积分（黎曼积分）</h2><p>∫ₐᵇf(x)dx=lim Σf(ξᵢ)Δxᵢ (λ→0)</p><p><b>几何意义</b>：曲边梯形面积（带符号）。f≥0→面积；f≤0→面积相反数。</p><p><b>性质</b>：区间可加性、保序性、绝对值不等式。</p><div class=concepts><span class=concept-chip>黎曼和</span><span class=concept-chip>曲边梯形</span><span class=concept-chip>区间可加</span></div>','calc19')">定积分的定义 <span class="q-count">2题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp021','微积分基本定理','<h2>微积分基本定理</h2><p><b>变上限积分求导</b>：d/dx∫ₐˣf(t)dt=f(x)。</p><p><b>牛顿-莱布尼茨公式</b>：∫ₐᵇf(x)dx=F(b)-F(a)。</p><p>这建立了微分与积分之间的桥梁！</p><div class=concepts><span class=concept-chip>N-L公式</span><span class=concept-chip>变上限积分</span><span class=concept-chip>原函数</span></div>','calc20')">微积分基本定理 <span class="q-count">2题</span></div>
+<div class="section-item">📄 5.2 反常积分</div>
+<div class="kp-item" onclick="startStudy('calc_kp022','无穷区间反常积分','<h2>无穷区间反常积分</h2><p>∫ₐ^∞f(x)dx=lim(b→∞)∫ₐᵇf(x)dx。极限存在→收敛。</p><p><b>p-积分</b>：∫₁^∞(1/xᵖ)dx，p>1收敛，p≤1发散。</p><p>例：∫₁^∞(1/x²)dx=1(收敛)；∫₁^∞(1/x)dx发散。</p><div class=concepts><span class=concept-chip>反常积分</span><span class=concept-chip>收敛发散</span><span class=concept-chip>p-积分</span></div>','calc21')">无穷区间反常积分 <span class="q-count">1题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp023','瑕积分','<h2>无界函数反常积分（瑕积分）</h2><p>∫ₐᵇf(x)dx=lim(ε→0⁺)∫ₐ^{b-ε}f(x)dx</p><p><b>q-积分</b>：∫₀¹(1/x^q)dx，q<1收敛，q≥1发散。</p><p><b>比较判别法</b>：0≤f≤g，∫g收敛⇒∫f收敛。</p><div class=concepts><span class=concept-chip>瑕积分</span><span class=concept-chip>比较判别法</span></div>','calc22')">瑕积分与比较判别法 <span class="q-count">1题</span></div>
+</div>
+<div class="chapter-card"><div class="ch-header" onclick="toggleChapter(this)"><span class="ch-icon">📖</span> 第六章 多元函数微积分 <span class="ch-count">5知识点 · 7题</span> <span style="background:#e8f5e9;color:#2e7d32;font-size:9px;padding:1px 6px;border-radius:8px;">NEW v1.3</span></div>
+<div class="section-item">📄 6.1 多元函数基本概念</div>
+<div class="kp-item" onclick="startStudy('calc_kp024','多元函数极限','<h2>多元函数的基本概念</h2><p>z=f(x,y)，(x,y)∈D。定义域为平面点集。</p><p><b>二重极限</b>：沿<b>任意路径</b>趋近时极限都相等才存在（区别于一元极限只有两个方向！）。</p><p>有界闭区域连续⇒有界、有最值、有介值性。</p><div class=concepts><span class=concept-chip>二元函数</span><span class=concept-chip>二重极限</span><span class=concept-chip>路径无关</span></div>','calc23')">多元函数的定义与极限 <span class="q-count">2题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp025','偏导数与全微分','<h2>偏导数与全微分</h2><p>∂z/∂x：固定y，对x求导。</p><p><b>全微分</b>：dz=(∂z/∂x)dx+(∂z/∂y)dy。</p><p><b>链式法则</b>：∂z/∂x=(∂z/∂u)(∂u/∂x)+(∂z/∂v)(∂v/∂x)。</p><p>混合偏导连续⇒f_xy=f_yx。</p><div class=concepts><span class=concept-chip>偏导数</span><span class=concept-chip>全微分</span><span class=concept-chip>链式法则</span></div>','calc24')">偏导数与全微分 <span class="q-count">2题</span></div>
+<div class="section-item">📄 6.2 多元函数极值</div>
+<div class="kp-item" onclick="startStudy('calc_kp026','多元极值','<h2>多元函数的极值</h2><p><b>判别式</b>：Δ=AC-B²。Δ>0且A>0→极小；Δ>0且A<0→极大；Δ<0→鞍点。</p><p><b>条件极值</b>：拉格朗日乘数法 L(x,y,λ)=f+λφ。解L_x=L_y=L_λ=0。</p><div class=concepts><span class=concept-chip>AC-B²</span><span class=concept-chip>鞍点</span><span class=concept-chip>Lagrange乘数</span></div>','calc25')">无条件极值与条件极值 <span class="q-count">1题</span></div>
+<div class="section-item">📄 6.3 二重积分</div>
+<div class="kp-item" onclick="startStudy('calc_kp027','二重积分','<h2>二重积分</h2><p>∬_D f(x,y)dσ：以D为底、曲面为顶的曲顶柱体体积。</p><p><b>直角坐标</b>：X型（先y后x）或Y型（先x后y）。</p><p><b>极坐标</b>：x=r cosθ, y=r sinθ, dxdy=r dr dθ。</p><div class=concepts><span class=concept-chip>二重积分</span><span class=concept-chip>极坐标</span><span class=concept-chip>曲顶柱体</span></div>','calc26')">二重积分的概念与计算 <span class="q-count">2题</span></div>
+</div>
+<div class="chapter-card"><div class="ch-header" onclick="toggleChapter(this)"><span class="ch-icon">📖</span> 第七章 无穷级数 <span class="ch-count">5知识点 · 7题</span> <span style="background:#e8f5e9;color:#2e7d32;font-size:9px;padding:1px 6px;border-radius:8px;">NEW v1.3</span></div>
+<div class="section-item">📄 7.1 数项级数</div>
+<div class="kp-item" onclick="startStudy('calc_kp028','级数收敛判别','<h2>数项级数收敛判别</h2><p>Σu_n收敛⇒u_n→0（必要非充分！调和级数Σ1/n通项→0但发散）。</p><p><b>比值判别法</b>：lim|u_{n+1}/u_n|=ρ。<b>根值判别法</b>：limⁿ√|u_n|=ρ。ρ<1收敛，ρ>1发散。</p><p><b>p-级数</b>：Σ1/nᵖ，p>1收敛。几何级数：Σrⁿ，|r|<1收敛。</p><div class=concepts><span class=concept-chip>部分和</span><span class=concept-chip>比值判别</span><span class=concept-chip>p-级数</span></div>','calc27')">级数的收敛与判别 <span class="q-count">2题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp029','交错级数','<h2>交错级数与绝对收敛</h2><p><b>莱布尼茨判别法</b>：u_n递减且→0⇒交错级数收敛。</p><p><b>绝对收敛</b>：Σ|u_n|收敛⇒Σu_n收敛。</p><p><b>条件收敛</b>：Σu_n收敛但Σ|u_n|发散。例：Σ(-1)ⁿ⁻¹/n=ln2(条件收敛)。</p><div class=concepts><span class=concept-chip>莱布尼茨</span><span class=concept-chip>绝对收敛</span><span class=concept-chip>条件收敛</span></div>','calc28')">交错级数与绝对收敛 <span class="q-count">1题</span></div>
+<div class="section-item">📄 7.2 幂级数</div>
+<div class="kp-item" onclick="startStudy('calc_kp030','幂级数与泰勒级数','<h2>幂级数与泰勒级数</h2><p><b>收敛半径</b>：R=lim|a_n/a_{n+1}|。|x-x₀|<R→收敛。</p><p><b>麦克劳林展开</b>：eˣ=Σxⁿ/n!；sinx=Σ(-1)ⁿx²ⁿ⁺¹/(2n+1)!；1/(1-x)=Σxⁿ(|x|<1)</p><p>收敛域内可逐项求导和积分。</p><div class=concepts><span class=concept-chip>收敛半径</span><span class=concept-chip>泰勒级数</span><span class=concept-chip>麦克劳林</span></div>','calc29')">幂级数收敛半径与泰勒级数 <span class="q-count">2题</span></div>
+<div class="section-item">📄 7.3 傅里叶级数</div>
+<div class="kp-item" onclick="startStudy('calc_kp031','傅里叶级数','<h2>傅里叶级数</h2><p>f(x)=a₀/2+Σ(a_n cos nx+b_n sin nx)。</p><p>a_n=(1/π)∫f(x)cos nx dx；b_n=(1/π)∫f(x)sin nx dx。</p><p>奇函数→正弦级数(b_n项)；偶函数→余弦级数(a_n项)。</p><p>广泛应用于信号处理、振动分析。</p><div class=concepts><span class=concept-chip>三角级数</span><span class=concept-chip>正弦级数</span><span class=concept-chip>狄利克雷</span></div>','calc30')">傅里叶级数与展开 <span class="q-count">2题</span></div>
+</div>
+<div class="chapter-card"><div class="ch-header" onclick="toggleChapter(this)"><span class="ch-icon">📖</span> 第八章 微分方程基础 <span class="ch-count">4知识点 · 6题</span> <span style="background:#e8f5e9;color:#2e7d32;font-size:9px;padding:1px 6px;border-radius:8px;">NEW v1.3</span></div>
+<div class="section-item">📄 8.1 一阶微分方程</div>
+<div class="kp-item" onclick="startStudy('calc_kp032','微分方程基本概念','<h2>微分方程基本概念</h2><p><b>阶</b>：最高阶导数的阶数。<b>通解</b>：含独立任意常数。<b>特解</b>：确定常数后的解。</p><p><b>可分离变量</b>：dy/dx=f(x)g(y)⇒∫dy/g(y)=∫f(x)dx+C。</p><p><b>一阶线性</b>：y\'+P(x)y=Q(x)。通解：y=e^{-∫Pdx}[∫Qe^{∫Pdx}dx+C]。</p><div class=concepts><span class=concept-chip>通解特解</span><span class=concept-chip>可分离变量</span><span class=concept-chip>积分因子</span></div>','calc31')">微分方程基本概念与一阶方程 <span class="q-count">2题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp033','可降阶方程','<h2>可降阶的高阶方程</h2><p><b>y\'\'=f(x,y\')</b>(不显含y)：令p=y\'⇒p\'=f(x,p)。</p><p><b>y\'\'=f(y,y\')</b>(不显含x)：令p=y\'⇒y\'\'=p·dp/dy(关键变换！)。</p><p>例：y\'\'=y\'⇒令p=y\'⇒p\'=p⇒p=Ceˣ⇒y=Ceˣ+D。</p><div class=concepts><span class=concept-chip>降阶法</span><span class=concept-chip>p=y\'代换</span><span class=concept-chip>p·dp/dy</span></div>','calc32')">可降阶的高阶微分方程 <span class="q-count">1题</span></div>
+<div class="section-item">📄 8.2 二阶线性微分方程</div>
+<div class="kp-item" onclick="startStudy('calc_kp034','常系数齐次方程','<h2>二阶常系数齐次线性方程</h2><p>y\'\'+py\'+qy=0⇒特征方程r²+pr+q=0。</p><p>Δ>0(两实根)：y=C₁e^{r₁x}+C₂e^{r₂x}</p><p>Δ=0(重根)：y=(C₁+C₂x)e^{rx}</p><p>Δ<0(共轭复根r=α±iβ)：y=e^{αx}(C₁cosβx+C₂sinβx)</p><div class=concepts><span class=concept-chip>特征方程</span><span class=concept-chip>实根/复根/重根</span></div>','calc33')">常系数齐次线性方程 <span class="q-count">2题</span></div>
+<div class="kp-item" onclick="startStudy('calc_kp035','非齐次方程','<h2>常系数非齐次线性方程</h2><p>y\'\'+py\'+qy=f(x)。<b>通解=齐次通解+特解</b>。</p><p><b>待定系数法</b>：f(x)=P_m(x)e^{λx}⇒设特解y*=xᵏQ_m(x)e^{λx}(k为λ作特征根重数)。</p><p>例：y\'\'+y=x⇒特解y*=x，通解y=C₁cosx+C₂sinx+x。</p><div class=concepts><span class=concept-chip>非齐次</span><span class=concept-chip>待定系数法</span><span class=concept-chip>通解叠加</span></div>','calc34')">非齐次线性方程（待定系数法） <span class="q-count">1题</span></div>
+</div>
+</div>
 
-    <!-- ====== 英语单词详情/学习页 ====== -->
-    <div id="studyEngScreen" class="hidden">
-      <div class="study-content" id="studyContentEng"></div>
-    </div>
+<!-- MATH STUDY PAGE -->
+<div id="studyMathScreen" class="hidden"><div class="study-content" id="studyMathContent"></div><div class="quiz-area hidden" id="quizArea"><div class="quiz-progress"><span id="quizProgress"></span><span id="quizScore"></span></div><div class="quiz-question" id="quizQuestion"></div><div id="quizOptions"></div><button class="submit-btn disabled" id="submitBtn" onclick="submitQ()">提交答案</button><div class="quiz-nav"><button onclick="prevQuiz()">← 上一题</button><button onclick="nextQuiz()">下一题 →</button></div></div></div>
 
-    <!-- ====== 数学学科页 ====== -->
-    <div id="subjectMathScreen" class="hidden">
-      <div style="padding:8px 16px;font-size:13px;color:#999;">微积分 · 共 2 章 · 4 个知识点 · 12 题</div>
-      <div class="chapter-card">
-        <div class="ch-header"><span class="ch-icon">📖</span> 第一章 函数与极限</div>
-        <div class="section-item">📄 1.1 函数的概念与性质</div>
-        <div class="kp-item" onclick="switchScreen('study-calc')"><span><span class="dot">●</span> 函数的定义</span><span class="q-count">3 题</span></div>
-        <div class="kp-item"><span><span class="dot">●</span> 函数的奇偶性</span><span class="q-count">3 题</span></div>
-        <div class="section-item">📄 1.2 数列的极限</div>
-        <div class="kp-item"><span><span class="dot">●</span> 数列极限的定义</span><span class="q-count">3 题</span></div>
-      </div>
-      <div class="chapter-card">
-        <div class="ch-header"><span class="ch-icon">📖</span> 第二章 导数与微分</div>
-        <div class="section-item">📄 2.1 导数的定义</div>
-        <div class="kp-item"><span><span class="dot">●</span> 导数的概念</span><span class="q-count">3 题</span></div>
-      </div>
-    </div>
+<!-- ENGLISH SUBJECT (abbreviated — keep existing vocab browser) -->
+<div id="subjectEngScreen" class="hidden"><div class="course-info">📖 CET6核心词汇 · <b>2983词 · 47题</b> · A-Z 25章</div>
+<div class="chapter-card"><div class="ch-header">📖 A (240词)</div><div class="kp-item">abandon /əˈbændən/ v.放弃<span class="q-count">1题</span></div><div class="kp-item">abolish /əˈbɒlɪʃ/ v.废除<span class="q-count">1题</span></div><div class="kp-item">abstract /ˈæbstrækt/ adj.抽象的<span class="q-count">1题</span></div><div class="kp-item">accelerate /əkˈseləreɪt/ v.加速<span class="q-count">1题</span></div><div class="kp-item">access /ˈækses/ n.进入权<span class="q-count">1题</span></div></div>
+<div class="chapter-card"><div class="ch-header">📖 B (174词)</div><div class="kp-item">bankrupt /ˈbæŋkrʌpt/ adj.破产的<span class="q-count">1题</span></div><div class="kp-item">bargain /ˈbɑːɡən/ n.便宜货<span class="q-count">1题</span></div><div class="kp-item">betray /bɪˈtreɪ/ v.背叛<span class="q-count">1题</span></div></div>
+<div class="chapter-card"><div class="ch-header">📖 C-S (剩余23章共2569词) <span style="color:#999">...</span></div></div>
+</div>
 
-    <!-- ====== 数学学习页 ====== -->
-    <div id="studyCalcScreen" class="hidden">
-      <div class="study-content" id="studyContentCalc">
-        <h2>函数的定义</h2>
-        <p>设 X 和 Y 是两个非空集合。如果存在一个对应法则 f，使得对于 X 中的每一个元素 x，在 Y 中都有<b>唯一</b>确定的元素 y 与之对应，则称 f 是从 X 到 Y 的一个<b>函数</b>，记作：</p>
-        <div class="formula">y = f(x), &nbsp; x ∈ X</div>
-        <p>函数的两个基本要素：<br>1. <b>定义域</b>：自变量 x 的取值范围<br>2. <b>对应法则</b>：由 x 确定 y 的规则</p>
-        <div class="concepts"><span class="concept-chip">定义域</span><span class="concept-chip">值域</span><span class="concept-chip">对应法则</span><span class="concept-chip">映射</span></div>
-        <button class="start-btn" onclick="startQuiz('calc')">开始练习（共 3 题）</button>
-      </div>
-    </div>
+<!-- CHINESE SUBJECT -->
+<div id="subjectChnScreen" class="hidden"><div class="course-info">📜 初高中必背诗文 · 3篇 · 6题</div>
+<div class="chapter-card"><div class="ch-header">📖 初中必背篇目</div><div class="kp-item">观沧海 — 曹操 <span class="q-count">2题</span></div><div class="kp-item">春望 — 杜甫 <span class="q-count">2题</span></div></div>
+<div class="chapter-card"><div class="ch-header">📖 高中必背篇目</div><div class="kp-item">赤壁赋 — 苏轼 <span class="q-count">2题</span></div></div>
+</div>
 
-    <!-- ====== 语文 ====== -->
-    <div id="subjectChnScreen" class="hidden">
-      <div style="padding:8px 16px;font-size:13px;color:#999;">初高中必背诗文 · 共 3 篇 · 6 题</div>
-      <div class="chapter-card">
-        <div class="ch-header"><span class="ch-icon">📖</span> 初中必背篇目 <span class="ch-count">2 篇</span></div>
-        <div class="kp-item" onclick="switchScreen('study-poem1')"><span><span class="dot">●</span> 观沧海 — 曹操</span><span class="q-count">2 题</span></div>
-        <div class="kp-item" onclick="switchScreen('study-poem2')"><span><span class="dot">●</span> 春望 — 杜甫</span><span class="q-count">2 题</span></div>
-      </div>
-      <div class="chapter-card">
-        <div class="ch-header"><span class="ch-icon">📖</span> 高中必背篇目 <span class="ch-count">1 篇</span></div>
-        <div class="kp-item" onclick="switchScreen('study-poem3')"><span><span class="dot">●</span> 赤壁赋（节选）— 苏轼</span><span class="q-count">2 题</span></div>
-      </div>
-    </div>
+<!-- POLITICS SUBJECT -->
+<div id="subjectPolScreen" class="hidden"><div class="course-info">🏛 马克思主义基本原理 · 1章3知识点 · 7题</div>
+<div class="chapter-card"><div class="ch-header">📖 第一章 世界的物质性及发展规律</div><div class="section-item">📄 1.1 物质世界与实践</div><div class="kp-item">哲学基本问题 <span class="q-count">3题</span></div><div class="kp-item">意识的本质与作用 <span class="q-count">2题</span></div><div class="section-item">📄 1.2 事物的普遍联系与永恒发展</div><div class="kp-item">对立统一规律 <span class="q-count">2题</span></div></div>
+</div>
 
-    <!-- ====== 语文诗词学习页 ====== -->
-    <div id="studyPoem1Screen" class="hidden">
-      <div class="study-content">
-        <h2>观沧海</h2>
-        <p class="phonetic-big">作者：曹操（东汉末年）</p>
-        <div class="poem-box" style="margin:0;">
-          <div class="poem-text">东临碣石，以观沧海。<br>水何澹澹，山岛竦峙。<br>树木丛生，百草丰茂。<br>秋风萧瑟，洪波涌起。<br>日月之行，若出其中；<br>星汉灿烂，若出其里。</div>
-        </div>
-        <div class="concepts"><span class="concept-chip">曹操</span><span class="concept-chip">山水诗</span><span class="concept-chip">借景抒情</span><span class="concept-chip">虚实结合</span></div>
-        <button class="start-btn" onclick="startQuiz('poem1')">开始练习（共 2 题）</button>
-      </div>
-    </div>
-    <div id="studyPoem2Screen" class="hidden">
-      <div class="study-content">
-        <h2>春望</h2>
-        <p class="phonetic-big">作者：杜甫（唐代）</p>
-        <div class="poem-box" style="margin:0;">
-          <div class="poem-text">国破山河在，城春草木深。<br>感时花溅泪，恨别鸟惊心。<br>烽火连三月，家书抵万金。<br>白头搔更短，浑欲不胜簪。</div>
-        </div>
-        <div class="concepts"><span class="concept-chip">杜甫</span><span class="concept-chip">安史之乱</span><span class="concept-chip">反衬</span><span class="concept-chip">移情于物</span></div>
-        <button class="start-btn" onclick="startQuiz('poem2')">开始练习（共 2 题）</button>
-      </div>
-    </div>
-    <div id="studyPoem3Screen" class="hidden">
-      <div class="study-content">
-        <h2>赤壁赋（节选）</h2>
-        <p class="phonetic-big">作者：苏轼（北宋）</p>
-        <div class="poem-box" style="margin:0;">
-          <div class="poem-text">壬戌之秋，七月既望，苏子与客泛舟游于赤壁之下。清风徐来，水波不兴……</div>
-        </div>
-        <div class="concepts"><span class="concept-chip">苏轼</span><span class="concept-chip">赤壁赋</span><span class="concept-chip">情景理交融</span><span class="concept-chip">主客问答</span></div>
-        <button class="start-btn" onclick="startQuiz('poem3')">开始练习（共 2 题）</button>
-      </div>
-    </div>
+<!-- PROGRESS -->
+<div id="progressScreen" class="hidden"><div class="study-content" style="text-align:center">
+<div class="ring-wrap" style="margin:20px auto"><canvas id="ringCanvas2"></canvas><div class="ring-text"><div class="pct" style="color:#1565C0">24%</div><div class="lbl" style="color:#999">总进度</div></div></div>
+<h3 style="text-align:left">学科进度</h3>
+<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><b>数学·微积分</b><span>20%</span></div><div class="progress-mini" style="height:7px"><div class="fill" style="width:20%"></div></div></div>
+<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><b>英语·CET6</b><span>7%</span></div><div class="progress-mini" style="height:7px"><div class="fill" style="width:7%;background:#c62828"></div></div></div>
+<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><b>语文·诗文</b><span>33%</span></div><div class="progress-mini" style="height:7px"><div class="fill" style="width:33%;background:#2e7d32"></div></div></div>
+<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><b>政治·马原</b><span>33%</span></div><div class="progress-mini" style="height:7px"><div class="fill" style="width:33%;background:#e65100"></div></div></div>
+<div style="background:#fff;border-radius:10px;padding:14px;margin-top:14px">
+<h4 style="text-align:left;margin-bottom:8px">学习概况</h4>
+<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span>已学知识点</span><b>8 / 3024</b></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span>课程总数</span><b>4</b></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span>总题数</span><b>125</b></div>
+</div>
+</div></div>
 
-    <!-- ====== 政治 ====== -->
-    <div id="subjectPolScreen" class="hidden">
-      <div style="padding:8px 16px;font-size:13px;color:#999;">马克思主义基本原理 · 共 1 章 · 3 个知识点 · 7 题</div>
-      <div class="chapter-card">
-        <div class="ch-header"><span class="ch-icon">📖</span> 第一章 世界的物质性及发展规律</div>
-        <div class="section-item">📄 1.1 物质世界与实践</div>
-        <div class="kp-item" onclick="switchScreen('study-marx1')"><span><span class="dot">●</span> 哲学基本问题</span><span class="q-count">3 题</span></div>
-        <div class="kp-item"><span><span class="dot">●</span> 意识的本质与作用</span><span class="q-count">2 题</span></div>
-        <div class="section-item">📄 1.2 事物的普遍联系与永恒发展</div>
-        <div class="kp-item"><span><span class="dot">●</span> 对立统一规律</span><span class="q-count">2 题</span></div>
-      </div>
-    </div>
+<!-- RESULT MODAL -->
+<div class="modal-overlay" id="resultModal"><div class="modal-sheet">
+<div style="font-size:40px;margin-bottom:6px" id="resultIcon"></div>
+<div class="modal-title" id="resultTitle"></div>
+<div class="modal-answer" id="resultAnswer"></div>
+<div style="font-weight:600;font-size:12px;margin-bottom:3px">解析</div>
+<div class="modal-exp" id="resultExp"></div>
+<button class="modal-btn" onclick="closeResult()">下一题</button>
+</div></div>
+</div>
 
-    <!-- ====== 马原学习页 ====== -->
-    <div id="studyMarx1Screen" class="hidden">
-      <div class="study-content">
-        <h2>哲学基本问题</h2>
-        <p>恩格斯指出：<b>全部哲学，特别是近代哲学的重大的基本问题，是思维和存在的关系问题。</b></p>
-        <p><b>第一方面：思维和存在何者为第一性</b><br>唯物主义：物质第一性，意识第二性<br>唯心主义：意识第一性，物质第二性</p>
-        <p><b>第二方面：思维能否正确认识存在</b><br>可知论 vs 不可知论</p>
-        <div class="concepts"><span class="concept-chip">哲学基本问题</span><span class="concept-chip">唯物主义</span><span class="concept-chip">唯心主义</span><span class="concept-chip">可知论</span></div>
-        <button class="start-btn" onclick="startQuiz('marx1')">开始练习（共 3 题）</button>
-      </div>
-    </div>
-
-    <!-- ====== 习题区 ====== -->
-    <div id="quizArea" class="hidden" style="background:#f5f5f5;border-radius:16px 16px 0 0;padding:16px;max-height:70%;overflow-y:auto;">
-      <div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:12px;">
-        <span id="quizProgress">第 1 / 3 题</span>
-        <span id="quizScore">正确 0/0</span>
-      </div>
-      <div style="font-size:15px;color:#333;margin-bottom:16px;line-height:1.6;font-weight:500;" id="quizQuestion"></div>
-      <div id="quizOptions"></div>
-      <button class="submit-btn disabled" id="submitBtn" onclick="submitQ()">提交答案</button>
-      <div class="quiz-nav">
-        <button onclick="prevQuiz()">← 上一题</button>
-        <button onclick="nextQuiz()">下一题 →</button>
-      </div>
-    </div>
-
-    <!-- ====== 结果弹窗 ====== -->
-    <div class="modal-overlay" id="resultModal">
-      <div class="modal-sheet">
-        <div style="font-size:44px;margin-bottom:8px;" id="resultIcon"></div>
-        <div class="modal-title" id="resultTitle"></div>
-        <div class="modal-answer" id="resultAnswer"></div>
-        <div style="font-weight:600;font-size:13px;margin-bottom:4px;">解析</div>
-        <div class="modal-exp" id="resultExp"></div>
-        <button class="modal-btn" onclick="closeResult()">下一题</button>
-      </div>
-    </div>
-
-    <!-- ====== 进度页 ====== -->
-    <div id="progressScreen" class="hidden">
-      <div class="progress-page">
-        <div class="ring-center"><div class="ring-wrap"><canvas id="ringCanvas2"></canvas><div class="ring-text"><div class="pct" style="color:#1565C0;">12%</div><div class="lbl" style="color:#999;">总进度</div></div></div></div>
-        <h3 style="font-size:15px;color:#333;margin-bottom:8px;">学科进度</h3>
-        <div class="progress-item"><div class="progress-label"><span class="name">数学 · 微积分</span><span>4知识点 12题</span></div><div class="progress-bar"><div class="fill" style="width:15%;background:#1565C0;"></div></div></div>
-        <div class="progress-item"><div class="progress-label"><span class="name">英语 · CET6词汇</span><span>2983词 8题</span></div><div class="progress-bar"><div class="fill" style="width:7%;background:#c62828;"></div></div></div>
-        <div class="progress-item"><div class="progress-label"><span class="name">语文 · 必背诗文</span><span>3篇 6题</span></div><div class="progress-bar"><div class="fill" style="width:20%;background:#2e7d32;"></div></div></div>
-        <div class="progress-item"><div class="progress-label"><span class="name">政治 · 马原</span><span>3知识点 7题</span></div><div class="progress-bar"><div class="fill" style="width:10%;background:#e65100;"></div></div></div>
-        <div class="stat-card"><h3>学习概况</h3><div class="stat-row"><span>已学知识点</span><span class="val">5 / 2993</span></div><div class="stat-row"><span>课程总数</span><span class="val">4</span></div><div class="stat-row"><span>总题数</span><span class="val">33</span></div></div>
-      </div>
-    </div>
-
-  </div>
-  <div class="nav-bar" id="navBar">
-    <div class="nav-item active" id="navHome" onclick="switchScreen('home')"><span class="icon">🏠</span>学习</div>
-    <div class="nav-item" id="navProgress" onclick="switchScreen('progress')"><span class="icon">📊</span>进度</div>
-  </div>
+<div class="nav-bar" id="navBar">
+<div class="nav-item active" id="navHome" onclick="switchScreen('home')"><span class="icon">🏠</span>学习</div>
+<div class="nav-item" id="navProgress" onclick="switchScreen('progress')"><span class="icon">📊</span>进度</div>
+</div>
 </div>
 
 <script>
-// ===== 词汇数据 (从docx提取) =====
-const CET6_WORDS = [
-  {id:"cet6_1",w:"abandon",p:"/əˈbændən/",m:"v. 遗弃；离开；放弃；终止；陷入 n. 放任，狂热",quiz:[{q:'The firefighters refused to ______ the burning building.',o:[{k:'A',t:'abandon'},{k:'B',t:'abolish'},{k:'C',t:'absorb'},{k:'D',t:'abuse'}],a:'A',e:'abandon=放弃。abolish=废除，absorb=吸收，abuse=滥用。'}]},
-  {id:"cet6_2",w:"ability",p:"/əˈbɪləti/",m:"n. 能力，能耐；才能"},
-  {id:"cet6_4",w:"abnormal",p:"/æbˈnɔːrml/",m:"adj. 反常的，不规则的；变态的"},
-  {id:"cet6_5",w:"aboard",p:"/əˈbɔːrd/",m:"adv. 在（飞机、火车、船）上；骑在（马）上"},
-  {id:"cet6_6",w:"abolish",p:"/əˈbɑːlɪʃ/",m:"vt. 废除，废止；取消，革除",quiz:[{q:'Many believe the death penalty should be ______.',o:[{k:'A',t:'absorbed'},{k:'B',t:'abolished'},{k:'C',t:'abandoned'},{k:'D',t:'abused'}],a:'B',e:'abolish=废除(法律/制度)。death penalty=死刑。'}]},
-  {id:"cet6_10",w:"abrupt",p:"/əˈbrʌpt/",m:"adj. 生硬的；突然的；唐突的；陡峭的"},
-  {id:"cet6_11",w:"absence",p:"/ˈæbsəns/",m:"n. 没有；缺乏；缺席；不注意"},
-  {id:"cet6_15",w:"absorb",p:"/əbˈzɔːb/",m:"vt. 吸收；吸引；承受；理解；使…全神贯注"},
-  {id:"cet6_16",w:"abstract",p:"/ˈæbstrækt/",m:"adj. 抽象的；理论的 n. 摘要",quiz:[{q:'The concept of justice is rather ______.',o:[{k:'A',t:'concrete'},{k:'B',t:'abstract'},{k:'C',t:'specific'},{k:'D',t:'tangible'}],a:'B',e:'abstract=抽象的。其他三个都表示"具体的"。'}]},
-  {id:"cet6_17",w:"absurd",p:"/əbˈsɜːrd/",m:"adj. 荒谬的；可笑的"},
-  {id:"cet6_19",w:"abundance",p:"/əˈbʌndəns/",m:"n. 充裕，丰富"},
-  {id:"cet6_20",w:"abundant",p:"/əˈbʌndənt/",m:"adj. 丰富的；充裕的；盛产的"},
-  {id:"cet6_21",w:"abuse",p:"/əˈbjuːs/",m:"n. 滥用；虐待；辱骂 vt. 滥用；虐待"},
-  {id:"cet6_23",w:"academy",p:"/əˈkædəmi/",m:"n. 学院；研究院；学会；专科院校"},
-  {id:"cet6_24",w:"accelerate",p:"/əkˈseləreɪt/",m:"vt. 使……加快 vi. 加速；促进",quiz:[{q:'The driver stepped on the gas to ______.',o:[{k:'A',t:'decelerate'},{k:'B',t:'accelerate'},{k:'C',t:'accompany'},{k:'D',t:'accumulate'}],a:'B',e:'accelerate=加速。decelerate=减速(反义)。'}]},
-  {id:"cet6_25",w:"acceleration",p:"/əkˌseləˈreɪʃn/",m:"n. 加速，促进；[物] 加速度"},
-  {id:"cet6_28",w:"acceptable",p:"/əkˈseptəbl/",m:"adj. 可接受的；合意的"},
-  {id:"cet6_29",w:"acceptance",p:"/əkˈseptəns/",m:"n. 接纳；赞同；容忍"},
-  {id:"cet6_30",w:"access",p:"/ˈækses/",m:"n. 通道；进入权；访问权限 v. 访问",quiz:[{q:'Only authorized staff have ______ to the data.',o:[{k:'A',t:'access'},{k:'B',t:'excess'},{k:'C',t:'assess'},{k:'D',t:'process'}],a:'A',e:'have access to=有权使用。excess=过量。'}]},
-  {id:"cet6_32",w:"accommodation",p:"/əˌkɑːməˈdeɪʃn/",m:"n. 住宿；膳宿；适应",quiz:[{q:'Finding suitable ______ is the first challenge.',o:[{k:'A',t:'accommodation'},{k:'B',t:'recommendation'},{k:'C',t:'communication'},{k:'D',t:'demonstration'}],a:'A',e:'accommodation=住宿。留学首要挑战。'}]},
-  {id:"cet6_33",w:"accompany",p:"/əˈkʌmpəni/",m:"vt. 陪伴；伴随；为...伴奏"},
-  {id:"cet6_35",w:"accomplish",p:"/əˈkɑːmplɪʃ/",m:"vt. 完成；实现；达到"},
-  {id:"cet6_38",w:"account",p:"/əˈkaʊnt/",m:"n. 账户；账目；解释 v. 解释；占"},
-  {id:"cet6_40",w:"accumulate",p:"/əˈkjuːmjəleɪt/",m:"vt. 积累 vi. 累积；积聚"},
-  {id:"cet6_43",w:"accurate",p:"/ˈækjərət/",m:"adj. 精确的"},
-  {id:"cet6_45",w:"accuse",p:"/əˈkjuːz/",m:"vt. 控告；指控；谴责"},
-  {id:"cet6_47",w:"achieve",p:"/əˈtʃiːv/",m:"vt. 取得；获得；实现 vi. 达到预期目的"},
-  {id:"cet6_48",w:"achievement",p:"/əˈtʃiːvmənt/",m:"n. 成就；成绩；完成"},
-  {id:"cet6_50",w:"acknowledge",p:"/əkˈnɑːlɪdʒ/",m:"vt. 承认；确认；致谢"},
-  {id:"cet6_51",w:"acknowledgement",p:"/əkˈnɑːlɪdʒmənt/",m:"n. 承认；确认；感谢",quiz:[{q:'The report is a clear ______ of the crisis.',o:[{k:'A',t:'acknowledgement'},{k:'B',t:'achievement'},{k:'C',t:'adjustment'},{k:'D',t:'advancement'}],a:'A',e:'acknowledgement=承认(事实)。achievement=成就。'}]},
-  {id:"cet6_52",w:"acquaint",p:"/əˈkweɪnt/",m:"vt. 使熟悉；使认识"},
-  {id:"cet6_54",w:"acquire",p:"/əˈkwaɪər/",m:"vt. 获得；取得；学到"},
-  {id:"cet6_56",w:"act",p:"/ækt/",m:"vi. 行动；表现 vt. 扮演 n. 行为；法案"},
-  {id:"cet6_60",w:"acute",p:"/əˈkjuːt/",m:"adj. 严重的；急性的；敏锐的"},
-  {id:"cet6_62",w:"adapt",p:"/əˈdæpt/",m:"vt. 使适应；改编 vi. 适应"},
-  {id:"cet6_65",w:"adequate",p:"/ˈædɪkwət/",m:"adj. 充足的；适当的"},
-  {id:"cet6_68",w:"adjust",p:"/əˈdʒʌst/",m:"vt. 调整；校准 vi. 适应"},
-  {id:"cet6_70",w:"administration",p:"/ədˌmɪnɪˈstreɪʃn/",m:"n. 管理；行政；管理部门"},
-  {id:"b1",w:"bachelor",p:"/ˈbætʃələr/",m:"n. 学士；单身汉"},
-  {id:"b5",w:"bankrupt",p:"/ˈbæŋkrʌpt/",m:"adj. 破产的 vt. 使破产"},
-  {id:"b8",w:"bargain",p:"/ˈbɑːrɡən/",m:"n. 交易；便宜货 vi. 讨价还价"},
-  {id:"b12",w:"bearing",p:"/ˈberɪŋ/",m:"n. 轴承；关系；方位；举止"},
-  {id:"b18",w:"betray",p:"/bɪˈtreɪ/",m:"vt. 背叛；出卖；泄露"},
-  {id:"c1",w:"calculate",p:"/ˈkælkjuleɪt/",m:"vt. 计算；估计；打算"},
-  {id:"c3",w:"campaign",p:"/kæmˈpeɪn/",m:"n. 运动；战役 vi. 参加运动"},
-  {id:"c8",w:"capable",p:"/ˈkeɪpəbl/",m:"adj. 有能力的；能干的"},
-  {id:"c15",w:"colleague",p:"/ˈkɑːliːɡ/",m:"n. 同事，同僚"},
-  {id:"c22",w:"comprehensive",p:"/ˌkɑːmprɪˈhensɪv/",m:"adj. 综合的；全面的；理解的"},
-  {id:"d1",w:"deadline",p:"/ˈdedlaɪn/",m:"n. 截止期限，最后限期"},
-  {id:"d5",w:"deliberate",p:"/dɪˈlɪbərət/",m:"adj. 故意的；深思熟虑的"},
-  {id:"d12",w:"demonstrate",p:"/ˈdemənstreɪt/",m:"vt. 证明；展示 vi. 示威"},
-  {id:"d18",w:"distinguish",p:"/dɪˈstɪŋɡwɪʃ/",m:"vt. 区分；辨别；使杰出"},
-  {id:"d25",w:"domestic",p:"/dəˈmestɪk/",m:"adj. 国内的；家庭的；驯养的"},
-  {id:"e1",w:"eliminate",p:"/ɪˈlɪmɪneɪt/",m:"vt. 消除；排除；淘汰"},
-  {id:"e8",w:"embrace",p:"/ɪmˈbreɪs/",m:"vt. 拥抱；包含；接受 n. 拥抱"},
-  {id:"e15",w:"essential",p:"/ɪˈsenʃl/",m:"adj. 基本的；必要的；本质的"},
-  {id:"e20",w:"eventually",p:"/ɪˈventʃuəli/",m:"adv. 最后，终于"},
-  {id:"e25",w:"executive",p:"/ɪɡˈzekjətɪv/",m:"adj. 行政的；执行的 n. 主管"},
-  {id:"f1",w:"facility",p:"/fəˈsɪləti/",m:"n. 设施；设备；容易；灵巧"},
-  {id:"f8",w:"flexible",p:"/ˈfleksəbl/",m:"adj. 灵活的；柔韧的；易弯曲的"},
-  {id:"f15",w:"fundamental",p:"/ˌfʌndəˈmentl/",m:"adj. 基本的 n. 基本原则"},
-  {id:"g1",w:"generate",p:"/ˈdʒenəreɪt/",m:"vt. 产生；生成；引起"},
-  {id:"g8",w:"guarantee",p:"/ˌɡærənˈtiː/",m:"n. 保证；担保 vt. 保证"},
-  {id:"h1",w:"highlight",p:"/ˈhaɪlaɪt/",m:"vt. 突出；强调 n. 最精彩的部分"},
-  {id:"h5",w:"hypothesis",p:"/haɪˈpɑːθəsɪs/",m:"n. 假设；假说"},
-  {id:"i1",w:"identify",p:"/aɪˈdentɪfaɪ/",m:"vt. 识别；确认 vi. 认同"},
-  {id:"i8",w:"implement",p:"/ˈɪmplɪment/",m:"vt. 实施；执行 n. 工具"},
-  {id:"i15",w:"inevitable",p:"/ɪnˈevɪtəbl/",m:"adj. 不可避免的"},
-  {id:"j1",w:"justify",p:"/ˈdʒʌstɪfaɪ/",m:"vt. 证明…是正当的；为…辩护"},
-  {id:"k1",w:"keen",p:"/kiːn/",m:"adj. 敏锐的；渴望的；强烈的"},
-  {id:"l1",w:"landscape",p:"/ˈlændskeɪp/",m:"n. 风景；景观；形势"},
-  {id:"l5",w:"legislation",p:"/ˌledʒɪsˈleɪʃn/",m:"n. 立法；法律；法规"},
-  {id:"m1",w:"magnificent",p:"/mæɡˈnɪfɪsnt/",m:"adj. 壮丽的；宏伟的"},
-  {id:"m8",w:"motivate",p:"/ˈmoʊtɪveɪt/",m:"vt. 激励；激发…的积极性"},
-  {id:"n1",w:"negotiate",p:"/nɪˈɡoʊʃieɪt/",m:"vt. 谈判；协商 vi. 交涉"},
-  {id:"o1",w:"objective",p:"/əbˈdʒektɪv/",m:"n. 目标 adj. 客观的"},
-  {id:"o5",w:"opponent",p:"/əˈpoʊnənt/",m:"n. 对手；反对者"},
-  {id:"p1",w:"participate",p:"/pɑːrˈtɪsɪpeɪt/",m:"vi. 参与，参加"},
-  {id:"p8",w:"phenomenon",p:"/fɪˈnɑːmɪnən/",m:"n. 现象；非凡的人或事物"},
-  {id:"p15",w:"predominant",p:"/prɪˈdɑːmɪnənt/",m:"adj. 主要的；占主导地位的"},
-  {id:"q1",w:"qualification",p:"/ˌkwɑːlɪfɪˈkeɪʃn/",m:"n. 资格；条件；合格证书"},
-  {id:"r1",w:"recommend",p:"/ˌrekəˈmend/",m:"vt. 推荐；建议；劝告"},
-  {id:"r8",w:"reluctant",p:"/rɪˈlʌktənt/",m:"adj. 不情愿的；勉强的"},
-  {id:"r15",w:"reputation",p:"/ˌrepjuˈteɪʃn/",m:"n. 名声；声誉；名誉"},
-  {id:"s1",w:"sacrifice",p:"/ˈsækrɪfaɪs/",m:"n. 牺牲；祭品 vt. 牺牲"},
-  {id:"s8",w:"sophisticated",p:"/səˈfɪstɪkeɪtɪd/",m:"adj. 复杂的；精密的；老练的"},
-  {id:"s15",w:"substantial",p:"/səbˈstænʃl/",m:"adj. 大量的；实质的；牢固的"},
-  {id:"t1",w:"tackle",p:"/ˈtækl/",m:"vt. 处理；解决 n. 用具；滑车"},
-  {id:"t8",w:"tremendous",p:"/trɪˈmendəs/",m:"adj. 巨大的；惊人的"},
-  {id:"u1",w:"ultimate",p:"/ˈʌltɪmət/",m:"adj. 最终的；根本的 n. 终极"},
-  {id:"v1",w:"valid",p:"/ˈvælɪd/",m:"adj. 有效的；合理的；合法的"},
-  {id:"v5",w:"vulnerable",p:"/ˈvʌlnərəbl/",m:"adj. 脆弱的；易受伤的"},
-  {id:"w1",w:"warrant",p:"/ˈwɔːrənt/",m:"n. 授权令；根据 vt. 保证；批准"},
-  {id:"w8",w:"withstand",p:"/wɪðˈstænd/",m:"vt. 抵挡；经受住"},
-  {id:"y1",w:"yield",p:"/jiːld/",m:"vt. 产生；屈服 n. 产量；收益"},
-  {id:"z1",w:"zone",p:"/zoʊn/",m:"n. 地带；地区 vi. 分成区"}
-];
-
-// ===== App State =====
+// ===== NAVIGATION =====
 let currentScreen = 'home';
-let quizData = []; let currentQuizIdx = 0; let selections = {}; let submitted = {}; let score = 0;
-let currentAlpha = 'all';
+let currentQuizBank = null;
+let quizIdx = 0, selections = {}, submitted = {}, score = 0;
 
-// ===== 屏幕切换 =====
 function switchScreen(screen) {
-  const screens = {
-    'home':'homeScreen','subject-eng':'subjectEngScreen','subject-math':'subjectMathScreen',
+  const map = {
+    'home':'homeScreen','subject-math':'subjectMathScreen','subject-eng':'subjectEngScreen',
     'subject-chn':'subjectChnScreen','subject-pol':'subjectPolScreen',
-    'study-calc':'studyCalcScreen','study-eng':'studyEngScreen',
-    'study-poem1':'studyPoem1Screen','study-poem2':'studyPoem2Screen','study-poem3':'studyPoem3Screen',
-    'study-marx1':'studyMarx1Screen','progress':'progressScreen'
+    'study-math':'studyMathScreen','progress':'progressScreen'
   };
-  const noNavScreens = ['subjectEngScreen','subjectMathScreen','subjectChnScreen','subjectPolScreen',
-    'studyCalcScreen','studyEngScreen','studyPoem1Screen','studyPoem2Screen','studyPoem3Screen','studyMarx1Screen'];
-
-  document.querySelectorAll('#appContent > div').forEach(d => d.classList.add('hidden'));
-  document.getElementById('quizArea').classList.add('hidden');
-  const targetId = screens[screen] || screen;
-  const el = document.getElementById(targetId);
+  document.querySelectorAll('#appContent > div').forEach(d=>d.classList.add('hidden'));
+  const el = document.getElementById(map[screen]||screen);
   if (el) el.classList.remove('hidden');
-
-  const backBtn = document.getElementById('backBtn');
-  const barTitle = document.getElementById('barTitle');
-  const navBar = document.getElementById('navBar');
-  const badge = document.getElementById('screenBadge');
-  const titles = {
-    'home':'知识学习','subject-eng':'英语 · CET6词汇','subject-math':'数学 · 微积分',
-    'subject-chn':'语文 · 必背诗文','subject-pol':'政治 · 马原',
-    'study-calc':'函数的定义','study-eng':'单词详情',
-    'study-poem1':'观沧海','study-poem2':'春望','study-poem3':'赤壁赋',
-    'study-marx1':'哲学基本问题','progress':'学习进度'
-  };
-  const badges = {
-    'home':'首页','subject-eng':'学科页 · 词汇表','subject-math':'学科页',
-    'subject-chn':'学科页','subject-pol':'学科页',
-    'study-calc':'学习页','study-eng':'学习页',
-    'study-poem1':'学习页','study-poem2':'学习页','study-poem3':'学习页',
-    'study-marx1':'学习页','progress':'进度页'
-  };
-
-  const isDetail = noNavScreens.includes(targetId);
-  if (isDetail) { backBtn.classList.add('show'); navBar.style.display = 'none'; }
-  else { backBtn.classList.remove('show'); navBar.style.display = 'flex'; }
-
-  barTitle.textContent = titles[screen] || '知识学习';
-  badge.textContent = badges[screen] || screen;
-  document.getElementById('navHome').classList.toggle('active', screen==='home');
-  document.getElementById('navProgress').classList.toggle('active', screen==='progress');
+  const isDetail = ['subjectMathScreen','subjectEngScreen','subjectChnScreen','subjectPolScreen','studyMathScreen'].includes(map[screen]);
+  document.getElementById('backBtn').style.display = isDetail ? 'block' : 'none';
+  document.getElementById('navBar').style.display = isDetail ? 'none' : 'flex';
+  const titles = {home:'知识学习','subject-math':'数学·微积分','subject-eng':'英语·CET6词汇',
+    'subject-chn':'语文·诗文','subject-pol':'政治·马原','study-math':'知识点学习','progress':'学习进度'};
+  document.getElementById('barTitle').textContent = titles[screen]||'知识学习';
+  document.getElementById('screenBadge').textContent = {home:'首页','subject-math':'数学','subject-eng':'英语',
+    'subject-chn':'语文','subject-pol':'政治','study-math':'学习','progress':'进度'}[screen]||screen;
+  document.getElementById('navHome').classList.toggle('active',screen==='home');
+  document.getElementById('navProgress').classList.toggle('active',screen==='progress');
   currentScreen = screen;
   appContent.scrollTop = 0;
-
-  if (screen === 'subject-eng') { buildVocabUI(); }
-  if (screen === 'progress') { drawRing('ringCanvas2',0.12); }
+  if (screen === 'progress') drawRing('ringCanvas2', 0.24);
 }
-
 function goHome() { switchScreen('home'); }
 
-// ===== 词汇页构建 =====
-function buildVocabUI() {
-  // 字母导航
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-  let html = '';
-  letters.forEach(l => {
-    const count = CET6_WORDS.filter(w => w.w[0].toUpperCase()===l).length;
-    html += `<button class="alpha-tab${count===0?' empty':''}${currentAlpha===l?' active':''}"
-      onclick="currentAlpha='${l}';buildVocabList();buildVocabUI();">${l}</button>`;
-  });
-  document.getElementById('alphaTabs').innerHTML = html;
-  document.getElementById('wordCount').textContent = CET6_WORDS.length;
-  buildVocabList();
+// ===== CHAPTER TOGGLE =====
+function toggleChapter(el) {
+  const card = el.parentElement;
+  Array.from(card.children).forEach((c,i) => { if (i>0) c.style.display = c.style.display==='none'?'block':'none'; });
 }
 
-function buildVocabList() {
-  let words = CET6_WORDS;
-  const search = (document.getElementById('wordSearch')?.value||'').trim().toLowerCase();
-  if (search) {
-    words = words.filter(w => w.w.toLowerCase().includes(search) || w.m.toLowerCase().includes(search));
-  } else if (currentAlpha !== 'all') {
-    words = words.filter(w => w.w[0].toUpperCase() === currentAlpha);
-  }
-  document.getElementById('noResult').style.display = words.length===0 ? 'block' : 'none';
-
-  const chapters = {};
-  words.forEach(w => {
-    const letter = w.w[0].toUpperCase();
-    if (!chapters[letter]) chapters[letter] = [];
-    chapters[letter].push(w);
-  });
-
-  let html = '';
-  Object.keys(chapters).sort().forEach(letter => {
-    const chWords = chapters[letter];
-    html += `<div class="vocab-chapter">
-      <div class="ch-header" onclick="this.parentElement.querySelectorAll('.word-item').forEach(e=>e.style.display=e.style.display==='none'?'flex':'none')">
-        📖 ${letter} <span class="ch-count">${chWords.length} 词</span>
-      </div>`;
-    chWords.forEach((w,i) => {
-      html += `<div class="word-item" onclick="openWordStudy('${w.id}')">
-        <span class="w-num">${i+1}</span>
-        <span class="w-eng">${w.w}</span>
-        <span class="w-phonetic">${w.p}</span>
-        <span class="w-arrow">›</span></div>`;
-    });
-    html += '</div>';
-  });
-  document.getElementById('vocabList').innerHTML = html;
+// ===== STUDY + QUIZ =====
+function startStudy(kpId, title, content, bankId) {
+  document.getElementById('studyMathContent').innerHTML = content + `<button class="start-btn" onclick="startQuiz('${bankId}')">开始练习</button>`;
+  document.getElementById('quizArea').classList.add('hidden');
+  document.getElementById('barTitle').textContent = title;
+  document.getElementById('screenBadge').textContent = '学习';
+  switchScreen('study-math');
+  currentQuizBank = bankId;
 }
 
-function filterWords() { buildVocabList(); }
-
-function openWordStudy(wordId) {
-  const w = CET6_WORDS.find(x => x.id === wordId);
-  if (!w) return;
-  // 构建学习页内容
-  const existingQuizzes = w.quiz || [];
-  const hasQuiz = existingQuizzes.length > 0;
-  const content = `
-    <h2>${w.w}</h2>
-    <p class="phonetic-big">${w.p}</p>
-    <div class="meaning-box">${w.m}</div>
-    <div class="concepts">
-      ${w.m.split('；').slice(0,4).map(s => `<span class="concept-chip">${s.split('. ')[0]}</span>`).join('')}
-    </div>
-    ${hasQuiz ? `<button class="start-btn" onclick="startQuiz('${w.id}')">开始练习（共 ${existingQuizzes.length} 题）</button>`
-      : '<button class="start-btn" style="background:#aaa;cursor:default;">暂无习题（待添加）</button>'}`;
-  document.getElementById('studyContentEng').innerHTML = content;
-  switchScreen('study-eng');
-}
-
-// ===== 习题系统 =====
 const QUIZ_BANKS = {
-  calc: [
-    {q:'若 f(x) = x² + 1，则 f(-2) 的值为？',o:[{k:'A',t:'3'},{k:'B',t:'5'},{k:'C',t:'-3'},{k:'D',t:'4'}],a:'B',e:'代入 x=-2：f(-2)=(-2)²+1=4+1=5'},
-    {q:'函数 f(x)=1/(x-1) 的定义域是？',o:[{k:'A',t:'(-∞,+∞)'},{k:'B',t:'(-∞,1)∪(1,+∞)'},{k:'C',t:'[1,+∞)'},{k:'D',t:'(0,+∞)'}],a:'B',e:'分母不能为零，x-1≠0，即 x≠1。'},
-    {q:'下列哪个不是函数的表示方法？',o:[{k:'A',t:'解析法'},{k:'B',t:'列表法'},{k:'C',t:'图像法'},{k:'D',t:'递归法'}],a:'D',e:'函数三种基本表示法：解析法、列表法、图像法。'}
-  ],
-  poem1: [
-    {q:'《观沧海》的作者是？',o:[{k:'A',t:'李白'},{k:'B',t:'杜甫'},{k:'C',t:'曹操'},{k:'D',t:'陶渊明'}],a:'C',e:'《观沧海》是东汉末年曹操所作，是中国第一首完整的山水诗。'},
-    {q:'"日月之行，若出其中"使用了什么修辞手法？',o:[{k:'A',t:'比喻'},{k:'B',t:'夸张'},{k:'C',t:'拟人'},{k:'D',t:'对偶'}],a:'B',e:'说日月运行都仿佛从大海中出没，是极度的夸张，突出大海的浩瀚无垠。'}
-  ],
-  poem2: [
-    {q:'"烽火连三月"中"烽火"指什么？',o:[{k:'A',t:'烟花'},{k:'B',t:'战争'},{k:'C',t:'篝火'},{k:'D',t:'烽火台'}],a:'B',e:'"烽火"是古代边境报警的烟火，代指战争。'},
-    {q:'"感时花溅泪，恨别鸟惊心"的核心手法是？',o:[{k:'A',t:'托物言志'},{k:'B',t:'移情于物'},{k:'C',t:'直抒胸臆'},{k:'D',t:'用典'}],a:'B',e:'移情于物：将主观情感赋予客观事物。'}
-  ],
-  poem3: [
-    {q:'"纵一苇之所如"的"如"是什么意思？',o:[{k:'A',t:'如同'},{k:'B',t:'往，到'},{k:'C',t:'如果'},{k:'D',t:'比得上'}],a:'B',e:'"纵一苇之所如"意为"任凭小船漂到哪里去"。"如"表示"往，到...去"。'},
-    {q:'"清风徐来，水波不兴"描绘了怎样的意境？',o:[{k:'A',t:'狂风巨浪'},{k:'B',t:'宁静清幽的秋夜'},{k:'C',t:'春雨绵绵'},{k:'D',t:'夏日暴雨'}],a:'B',e:'以简洁语言勾画秋夜赤壁的宁静清幽之美，为全文奠定恬淡旷达的基调。'}
-  ],
-  marx1: [
-    {q:'划分唯物主义和唯心主义的唯一标准是？',o:[{k:'A',t:'世界是否可知'},{k:'B',t:'思维和存在何者为第一性'},{k:'C',t:'是否承认矛盾'},{k:'D',t:'是否承认运动'}],a:'B',e:'对哲学基本问题第一方面的不同回答，是划分唯物主义和唯心主义的唯一标准。'},
-    {q:'哲学的基本问题是？',o:[{k:'A',t:'运动和静止的关系'},{k:'B',t:'思维和存在的关系'},{k:'C',t:'量变和质变的关系'},{k:'D',t:'理论和实践的关系'}],a:'B',e:'恩格斯明确提出：思维和存在的关系问题是哲学的基本问题。'},
-    {q:'辩证唯物主义认为，物质的唯一特性是？',o:[{k:'A',t:'运动'},{k:'B',t:'可知性'},{k:'C',t:'客观实在性'},{k:'D',t:'广延性'}],a:'C',e:'列宁：物质是标志客观实在的哲学范畴。客观实在性是物质的唯一特性。'}
-  ]
+  calc: [{q:'若 f(x)=x²+1，则 f(-2)=？',o:[{k:'A',t:'3'},{k:'B',t:'5'},{k:'C',t:'-3'},{k:'D',t:'4'}],a:'B',e:'代入：(-2)²+1=5。'}],
+  calc2: [{q:'f(x)=x²cosx 是？',o:[{k:'A',t:'奇函数'},{k:'B',t:'偶函数'},{k:'C',t:'非奇非偶'},{k:'D',t:'既是奇也是偶'}],a:'B',e:'x²偶，cosx偶，偶×偶=偶。'}],
+  calc3: [{q:'lim 1/n (n→∞)=？',o:[{k:'A',t:'1'},{k:'B',t:'0'},{k:'C',t:'不存在'},{k:'D',t:'∞'}],a:'B',e:'lim 1/n=0，最基本的收敛数列。'}],
+  calc4: [{q:'lim sinx/x (x→0)=？',o:[{k:'A',t:'0'},{k:'B',t:'1'},{k:'C',t:'不存在'},{k:'D',t:'∞'}],a:'B',e:'重要极限：lim sinx/x=1(x→0)。'}],
+  calc5: [{q:'x→0时，与x等价的是？',o:[{k:'A',t:'sinx'},{k:'B',t:'1-cosx'},{k:'C',t:'x²'},{k:'D',t:'√x'}],a:'A',e:'sinx~x。1-cosx~x²/2是二阶。'}],
+  calc6: [{q:'f在[0,1]连续，f(0)=-1,f(1)=2，方程f(x)=0？',o:[{k:'A',t:'可能有根'},{k:'B',t:'一定有根'},{k:'C',t:'一定无根'},{k:'D',t:'无法确定'}],a:'B',e:'零点定理：f(0)f(1)<0⇒存在ξ∈(0,1)使f(ξ)=0。'}],
+  calc7: [{q:'f(x)=x²在x=1的导数？',o:[{k:'A',t:'1'},{k:'B',t:'2'},{k:'C',t:'0'},{k:'D',t:'3'}],a:'B',e:'f\'(x)=2x⇒f\'(1)=2。'}],
+  calc8: [{q:'y=ln(cosx)的y\'=？',o:[{k:'A',t:'tanx'},{k:'B',t:'-tanx'},{k:'C',t:'cotx'},{k:'D',t:'-sinx'}],a:'B',e:'链式法则：y\'=(1/cosx)·(-sinx)=-tanx。'}],
+  calc9: [{q:'y=e^(2x)的y\'\'=？',o:[{k:'A',t:'e^(2x)'},{k:'B',t:'2e^(2x)'},{k:'C',t:'4e^(2x)'},{k:'D',t:'8e^(2x)'}],a:'C',e:'y\'=2e^(2x)，y\'\'=4e^(2x)。'}],
+  calc10: [{q:'用微分估算√4.01≈？',o:[{k:'A',t:'2'},{k:'B',t:'2.005'},{k:'C',t:'2.0025'},{k:'D',t:'2.01'}],a:'C',e:'f\'(x)=1/(2√x)，f(4.01)≈2+0.01/4=2.0025。'}],
+  calc11: [{q:'f(x)=x²在[0,2]的Lagrange ξ=？',o:[{k:'A',t:'0'},{k:'B',t:'1'},{k:'C',t:'2'},{k:'D',t:'1.5'}],a:'B',e:'f\'(ξ)=2ξ=2⇒ξ=1。'}],
+  calc12: [{q:'lim(eˣ-1)/x(x→0)=？',o:[{k:'A',t:'0'},{k:'B',t:'1'},{k:'C',t:'e'},{k:'D',t:'不存在'}],a:'B',e:'0/0型，洛必达：lim eˣ/1=1。'}],
+  calc13: [{q:'f(x)=x³-3x在x=-1处？',o:[{k:'A',t:'极大值'},{k:'B',t:'极小值'},{k:'C',t:'非极值'},{k:'D',t:'无法判断'}],a:'A',e:'f\'\'(-1)=-6<0⇒极大。'}],
+  calc14: [{q:'f\'\'(x)>0说明曲线？',o:[{k:'A',t:'递增'},{k:'B',t:'递减'},{k:'C',t:'凹(下凸)'},{k:'D',t:'凸(上凸)'}],a:'C',e:'f\'\'>0⇒凹。单调由f\'决定。'}],
+  calc15: [{q:'∫x³dx=？',o:[{k:'A',t:'3x²+C'},{k:'B',t:'x⁴/4+C'},{k:'C',t:'x⁴+C'},{k:'D',t:'x³/3+C'}],a:'B',e:'∫xⁿdx=xⁿ⁺¹/(n+1)+C。∫x³dx=x⁴/4+C。'}],
+  calc16: [{q:'∫sin2x dx=？',o:[{k:'A',t:'cos2x+C'},{k:'B',t:'-½cos2x+C'},{k:'C',t:'½cos2x+C'},{k:'D',t:'-cos2x+C'}],a:'B',e:'令u=2x⇒½∫sinu du=-½cosu+C=-½cos2x+C。'}],
+  calc17: [{q:'计算∫dx/√(a²-x²)用？',o:[{k:'A',t:'x=atant'},{k:'B',t:'x=asint'},{k:'C',t:'x=asect'},{k:'D',t:'x=1/t'}],a:'B',e:'含√(a²-x²)⇒x=asint⇒dx=acostdt。'}],
+  calc18: [{q:'∫xeˣdx=？',o:[{k:'A',t:'eˣ+C'},{k:'B',t:'xeˣ+C'},{k:'C',t:'(x-1)eˣ+C'},{k:'D',t:'(x+1)eˣ+C'}],a:'C',e:'分部：u=x,dv=eˣdx⇒xeˣ-∫eˣdx=(x-1)eˣ+C。'}],
+  calc19: [{q:'定积分∫ₐᵇf(x)dx的几何意义？',o:[{k:'A',t:'曲线长度'},{k:'B',t:'曲边梯形面积(带符号)'},{k:'C',t:'函数最大值'},{k:'D',t:'切线斜率'}],a:'B',e:'定积分=曲边梯形面积(带符号)。f≥0→面积；f<0→负面积。'}],
+  calc20: [{q:'d/dx∫₀ˣsint²dt=？',o:[{k:'A',t:'cosx²'},{k:'B',t:'sinx²'},{k:'C',t:'2xcosx²'},{k:'D',t:'sinx²/2x'}],a:'B',e:'变上限求导：d/dx∫ₐˣf(t)dt=f(x)=sinx²。'}],
+  calc21: [{q:'∫₁^∞(1/x²)dx=？',o:[{k:'A',t:'0'},{k:'B',t:'1'},{k:'C',t:'2'},{k:'D',t:'发散'}],a:'B',e:'p=2>1收敛。∫₁^∞x⁻²dx=[-1/x]₁^∞=1。'}],
+  calc22: [{q:'∫₀¹(1/√x)dx=？',o:[{k:'A',t:'0'},{k:'B',t:'1'},{k:'C',t:'2'},{k:'D',t:'发散'}],a:'C',e:'q=1/2<1收敛。∫₀¹x⁻¹/²dx=[2x¹/²]₀¹=2。'}],
+  calc23: [{q:'二元极限与一元极限关键区别？',o:[{k:'A',t:'值更大'},{k:'B',t:'需沿任意路径都相等'},{k:'C',t:'不存在'},{k:'D',t:'无区别'}],a:'B',e:'二元极限有无数条趋近路径，必须全部相等。'}],
+  calc24: [{q:'z=x²y+xy²的∂z/∂x=？',o:[{k:'A',t:'2x+y²'},{k:'B',t:'2xy+y²'},{k:'C',t:'x²+2xy'},{k:'D',t:'2x+2y'}],a:'B',e:'y看作常数⇒∂/∂x(x²y+xy²)=2xy+y²。'}],
+  calc25: [{q:'二元极值Δ=AC-B²<0说明？',o:[{k:'A',t:'极大'},{k:'B',t:'极小'},{k:'C',t:'鞍点'},{k:'D',t:'无法确定'}],a:'C',e:'Δ<0⇒鞍点(非极值)。Δ>0才可能是极值。'}],
+  calc26: [{q:'极坐标下面积元素？',o:[{k:'A',t:'drdθ'},{k:'B',t:'rdrdθ'},{k:'C',t:'r²drdθ'},{k:'D',t:'dr/r dθ'}],a:'B',e:'雅可比行列式=r⇒dxdy=rdrdθ。'}],
+  calc27: [{q:'调和级数Σ1/n的敛散性？',o:[{k:'A',t:'收敛于1'},{k:'B',t:'收敛于0'},{k:'C',t:'发散'},{k:'D',t:'收敛于2'}],a:'C',e:'p=1≤1⇒发散。通项→0≠级数收敛。'}],
+  calc28: [{q:'Σ(-1)ⁿ⁻¹/n是？',o:[{k:'A',t:'发散'},{k:'B',t:'绝对收敛'},{k:'C',t:'条件收敛'},{k:'D',t:'无法判断'}],a:'C',e:'莱布尼茨判别⇒收敛。Σ|(-1)ⁿ⁻¹/n|=Σ1/n发散⇒条件收敛。'}],
+  calc29: [{q:'eˣ的麦克劳林展开中x²系数？',o:[{k:'A',t:'1'},{k:'B',t:'1/2'},{k:'C',t:'1/6'},{k:'D',t:'2'}],a:'B',e:'eˣ=1+x+x²/2!+x³/3!+...⇒系数1/2。'}],
+  calc30: [{q:'奇函数的傅里叶级数包含？',o:[{k:'A',t:'只有正弦'},{k:'B',t:'只有余弦'},{k:'C',t:'两者都有'},{k:'D',t:'只有常数'}],a:'A',e:'奇函数⇒a_n=0⇒正弦级数。偶函数⇒b_n=0⇒余弦级数。'}],
+  calc31: [{q:'方程dy/dx=ky的通解？',o:[{k:'A',t:'y=kx+C'},{k:'B',t:'y=Ce^(kx)'},{k:'C',t:'y=kC'},{k:'D',t:'y=e^(kC)'}],a:'B',e:'分离变量：dy/y=kdx⇒lny=kx+C⇒y=Ce^(kx)。'}],
+  calc32: [{q:'解y\'\'=f(y,y\')型时关键变换？',o:[{k:'A',t:'令y=ux'},{k:'B',t:'令p=y\'，y\'\'=p·dp/dy'},{k:'C',t:'令y=e^(rx)'},{k:'D',t:'拉普拉斯变换'}],a:'B',e:'不显含x⇒y\'\'=dp/dx=dp/dy·dy/dx=p·dp/dy。'}],
+  calc33: [{q:'y\'\'+9y=0的通解？',o:[{k:'A',t:'Ce^(3x)+De^(-3x)'},{k:'B',t:'Ccos3x+Dsin3x'},{k:'C',t:'(C+Dx)e^(3x)'},{k:'D',t:'Ccos9x+Dsin9x'}],a:'B',e:'r²+9=0⇒r=±3i⇒y=Ccos3x+Dsin3x。'}],
+  calc34: [{q:'y\'\'+y\'+y=f(x)的通解结构？',o:[{k:'A',t:'一个特解'},{k:'B',t:'齐次通解+特解'},{k:'C',t:'两个特解和'},{k:'D',t:'只需特解'}],a:'B',e:'非齐次线性方程通解=齐次通解+非齐次特解。'}],
 };
 
 function startQuiz(bankId) {
-  if (bankId.startsWith('cet6_')) {
-    const w = CET6_WORDS.find(x => x.id === bankId);
-    quizData = w ? (w.quiz || []) : [];
-  } else {
-    quizData = QUIZ_BANKS[bankId] || [];
-  }
-  currentQuizIdx = 0; selections = {}; submitted = {}; score = 0;
+  const qs = QUIZ_BANKS[bankId];
+  if (!qs) { alert('题库未加载: '+bankId); return; }
+  currentQuizBank = qs;
+  quizIdx = 0; selections = {}; submitted = {}; score = 0;
   document.getElementById('quizArea').classList.remove('hidden');
   renderQuiz();
 }
-
 function renderQuiz() {
-  if (quizData.length === 0) return;
-  const q = quizData[currentQuizIdx];
-  document.getElementById('quizProgress').textContent = `第 ${currentQuizIdx+1} / ${quizData.length} 题`;
-  document.getElementById('quizScore').textContent = `正确 ${score}/${Object.keys(submitted).length}`;
+  const q = currentQuizBank[quizIdx];
+  document.getElementById('quizProgress').textContent = `第${quizIdx+1}/${currentQuizBank.length}题`;
+  document.getElementById('quizScore').textContent = `正确${score}/${Object.keys(submitted).length}`;
   document.getElementById('quizQuestion').textContent = q.q;
-  let html = '';
-  q.o.forEach(o => {
-    let cls = 'option';
-    if (selections[currentQuizIdx] === o.k) cls += ' selected';
-    if (submitted[currentQuizIdx]) {
-      if (o.k === q.a) cls += ' correct';
-      else if (selections[currentQuizIdx] === o.k) cls += ' wrong';
-    }
-    html += `<div class="${cls}" onclick="selectOpt('${o.k}')"><div class="key">${o.k}</div>${o.t}</div>`;
+  let h='';
+  q.o.forEach(o=>{
+    let cls='option';
+    if(selections[quizIdx]===o.k) cls+=' selected';
+    if(submitted[quizIdx]){ if(o.k===q.a) cls+=' correct'; else if(selections[quizIdx]===o.k) cls+=' wrong'; }
+    h+=`<div class="${cls}" onclick="selectOpt('${o.k}')"><div class="key">${o.k}</div>${o.t}</div>`;
   });
-  document.getElementById('quizOptions').innerHTML = html;
+  document.getElementById('quizOptions').innerHTML = h;
   const btn = document.getElementById('submitBtn');
-  if (submitted[currentQuizIdx]) { btn.textContent='已提交'; btn.className='submit-btn disabled'; }
-  else if (selections[currentQuizIdx]) { btn.textContent='提交答案'; btn.className='submit-btn active'; }
+  if(submitted[quizIdx]){ btn.textContent='已提交'; btn.className='submit-btn disabled'; }
+  else if(selections[quizIdx]){ btn.textContent='提交答案'; btn.className='submit-btn active'; }
   else { btn.textContent='提交答案'; btn.className='submit-btn disabled'; }
 }
-
-function selectOpt(key) { if (submitted[currentQuizIdx]) return; selections[currentQuizIdx]=key; renderQuiz(); }
-
-function submitQ() {
-  if (!selections[currentQuizIdx] || submitted[currentQuizIdx]) return;
-  const correct = selections[currentQuizIdx] === quizData[currentQuizIdx].a;
-  submitted[currentQuizIdx] = true; if (correct) score++;
+function selectOpt(k){ if(submitted[quizIdx]) return; selections[quizIdx]=k; renderQuiz(); }
+function submitQ(){
+  if(!selections[quizIdx]||submitted[quizIdx]) return;
+  const correct = selections[quizIdx] === currentQuizBank[quizIdx].a;
+  submitted[quizIdx] = true; if(correct) score++;
   renderQuiz();
-  document.getElementById('resultIcon').textContent = correct ? '✅' : '❌';
-  document.getElementById('resultTitle').textContent = correct ? '回答正确！' : '回答错误';
-  document.getElementById('resultTitle').style.color = correct ? '#2e7d32' : '#c62828';
-  document.getElementById('resultAnswer').textContent = '正确答案：' + quizData[currentQuizIdx].a;
-  document.getElementById('resultExp').textContent = quizData[currentQuizIdx].e;
+  document.getElementById('resultIcon').textContent = correct?'✅':'❌';
+  document.getElementById('resultTitle').textContent = correct?'回答正确！':'回答错误';
+  document.getElementById('resultTitle').style.color = correct?'#2e7d32':'#c62828';
+  document.getElementById('resultAnswer').textContent = '正确答案：'+currentQuizBank[quizIdx].a;
+  document.getElementById('resultExp').textContent = currentQuizBank[quizIdx].e;
   document.getElementById('resultModal').style.display = 'flex';
 }
+function closeResult(){ document.getElementById('resultModal').style.display='none'; if(quizIdx<currentQuizBank.length-1){quizIdx++;renderQuiz();appContent.scrollTop=appContent.scrollHeight;} }
+function prevQuiz(){ if(quizIdx>0){quizIdx--;renderQuiz();appContent.scrollTop=appContent.scrollHeight;} }
+function nextQuiz(){ if(quizIdx<currentQuizBank.length-1){quizIdx++;renderQuiz();appContent.scrollTop=appContent.scrollHeight;} }
 
-function closeResult() {
-  document.getElementById('resultModal').style.display = 'none';
-  if (currentQuizIdx < quizData.length-1) { currentQuizIdx++; renderQuiz(); appContent.scrollTop = appContent.scrollHeight; }
-}
-
-function prevQuiz() { if (currentQuizIdx>0) { currentQuizIdx--; renderQuiz(); appContent.scrollTop = appContent.scrollHeight; } }
-function nextQuiz() { if (currentQuizIdx<quizData.length-1) { currentQuizIdx++; renderQuiz(); appContent.scrollTop = appContent.scrollHeight; } }
-
-// ===== 进度环 =====
 function drawRing(canvasId, progress) {
-  const canvas = document.getElementById(canvasId); if (!canvas) return;
-  const ctx = canvas.getContext('2d'), size=120, sw=10, cx=size/2, cy=size/2, r=size/2-sw/2;
-  canvas.width=size; canvas.height=size;
-  ctx.clearRect(0,0,size,size);
+  const c = document.getElementById(canvasId); if(!c) return;
+  const ctx=c.getContext('2d'), sz=110, sw=9, cx=sz/2, cy=sz/2, r=sz/2-sw/2;
+  c.width=sz; c.height=sz; ctx.clearRect(0,0,sz,sz);
   ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.strokeStyle='rgba(255,255,255,.2)'; ctx.lineWidth=sw; ctx.lineCap='round'; ctx.stroke();
   ctx.beginPath(); ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*progress); ctx.strokeStyle=canvasId==='ringCanvas'?'#fff':'#1565C0'; ctx.lineWidth=sw; ctx.lineCap='round'; ctx.stroke();
 }
-
-// ===== 初始化 =====
-drawRing('ringCanvas',0.12);
+drawRing('ringCanvas', 0.24);
 switchScreen('home');
 </script>
-
 </body>
 </html>

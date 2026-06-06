@@ -4,3 +4,6 @@
 - [论文配图生成](paper-diagram-generation.md) — MBSE+PLE论文全流程：审稿→改稿→Word排版→SysML配图→SVG修复→Inkscape，唤醒词「论文配图」「MBSE论文」「SVG图表」「学术图表」「draw.io编辑」
 - [AIVAS 智能汽车架构系统](aivas-project.md) — AI-Native架构开发平台 (FastAPI+React+10 Agent+Neo4j)，71文件，Phase 1骨架完成，唤醒词「AIVAS」「智能汽车架构」「AI-Native架构」「汽车架构开发系统」「MBSE系统」「基线流水线」
 - [自动备份工作流](auto-backup-workflow.md) — 每个项目/当天任务完成后自动备份记忆和任务到 GitHub，无需用户审批
+- [代码注释要求](feedback_comments.md) — 代码必须加注释，说明每段代码或函数的作用
+- [知识学习APP开发进度](knowledge-learning-app-progress.md) — Flutter已安装(v3.44.0, E:\Program Files\flutter)，待装Android SDK后执行19个Task，唤醒词「知识学习APP」「继续开发APP」「学习APP进度」
+- [默认备份仓库](default-backup-repo.md) — GitHub默认备份地址 https://github.com/rdjy11/claude_code_copy，触发词「备份」「备份到GitHub」

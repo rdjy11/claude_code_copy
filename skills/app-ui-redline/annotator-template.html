@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APP UI 截图标注工具</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;background:#1a1a2e;color:#eee;overflow:hidden;height:100vh;display:flex;flex-direction:column}
+/* 顶部工具栏 */
+.toolbar{display:flex;align-items:center;gap:12px;padding:10px 16px;background:#16213e;border-bottom:1px solid #0f3460;z-index:100;flex-wrap:wrap}
+.toolbar h2{font-size:16px;font-weight:700;color:#e94560;margin-right:auto}
+.toolbar button{padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:all .15s}
+.btn-primary{background:#2979FF;color:#fff}
+.btn-primary:hover{background:#448AFF}
+.btn-primary.active{background:#e94560}
+.btn-secondary{background:#0f3460;color:#ccc}
+.btn-secondary:hover{background:#1a5276}
+.btn-copy{background:#2e7d32;color:#fff}
+.btn-copy:hover{background:#388e3c}
+.btn-clear{background:#5c0000;color:#fcc}
+.btn-clear:hover{background:#7f0000}
+.file-input{display:none}
+.status{font-size:11px;color:#888;margin-left:8px}
+/* 画布区 */
+.canvas-wrap{flex:1;overflow:auto;position:relative;background:#111;display:flex;align-items:flex-start;justify-content:center;padding:20px}
+.canvas-inner{position:relative;display:inline-block;cursor:crosshair}
+.canvas-inner img{display:block;max-width:none;pointer-events:none}
+.overlay{position:absolute;inset:0;z-index:10}
+/* 标注矩形 */
+.ann-rect{position:absolute;border:2px solid #e94560;background:rgba(233,69,96,.1);pointer-events:none;z-index:11}
+.ann-badge{position:absolute;top:-12px;left:-12px;background:#e94560;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:bold 11px sans-serif;z-index:12}
+/* 输入气泡 */
+.bubble{position:fixed;z-index:200;background:#fff;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.4);padding:12px;width:260px;display:none;font:13px -apple-system,sans-serif;color:#333}
+.bubble-header{text-align:center;color:#bbb;font-size:10px;margin-bottom:8px;user-select:none;letter-spacing:2px;cursor:move}
+.bubble textarea{width:100%;border:1px solid #e2e8f0;border-radius:6px;padding:8px;font-size:12px;resize:vertical;outline:none;font-family:inherit;min-height:60px}
+.bubble textarea:focus{border-color:#2979FF}
+.bubble-btns{display:flex;gap:8px;margin-top:10px}
+.bubble-btns button{flex:1;padding:8px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600}
+.bubble-ok{background:#1a1a2e;color:#fff}
+.bubble-cancel{background:#f5f5f5;color:#666}
+/* 右侧悬浮按钮 */
+.float-btn{position:fixed;right:0;top:45%;z-index:300;display:flex;flex-direction:column;align-items:center;gap:3px;background:linear-gradient(160deg,#2979FF,#e94560);color:#fff;border:none;padding:14px 8px 14px 14px;border-radius:16px 0 0 16px;cursor:pointer;font-size:20px;transform:translateX(55%);transition:transform .25s ease;user-select:none}
+.float-btn:hover,.float-btn.on{transform:translateX(0)}
+.float-btn span{font-size:9px;letter-spacing:1px;white-space:nowrap}
+.float-btn.on{background:linear-gradient(160deg,#c53030,#e53e3e)}
+/* 标注列表面板 */
+.panel{position:fixed;bottom:14px;right:14px;width:300px;background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3);z-index:300;display:none;font:13px/1.5 -apple-system,sans-serif;color:#333;overflow:hidden}
+.panel.on{display:block}
+.panel-header{padding:12px 16px;background:#1a1a2e;color:#fff;font-weight:600;display:flex;justify-content:space-between;cursor:move;font-size:13px}
+.panel-list{max-height:200px;overflow-y:auto}
+.panel-item{padding:8px 16px;border-bottom:1px solid #f0f0f0;font-size:12px;display:flex;align-items:flex-start;gap:8px}
+.panel-num{display:inline-flex;align-items:center;justify-content:center;background:#e94560;color:#fff;min-width:20px;height:20px;border-radius:50%;font-size:10px;font-weight:bold;flex-shrink:0}
+.panel-comment{flex:1;line-height:1.5}
+.panel-footer{padding:10px 16px;display:flex;gap:8px;border-top:1px solid #eee}
+.panel-footer button{flex:1;padding:8px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600}
+.tip{padding:8px 16px;font-size:10px;color:#999;border-top:1px solid #f0f0f0;line-height:1.5}
+/* 空状态 */
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#666}
+.empty-state .icon{font-size:64px;opacity:.5}
+.empty-state p{font-size:14px;max-width:400px;text-align:center;line-height:1.6}
+/* 缩放控制 */
+.zoom-info{font-size:11px;color:#888}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h2>🔍 APP UI 标注工具</h2>
+  <button class="btn-primary" id="btnLoad" onclick="document.getElementById('fileInput').click()">📂 加载截图</button>
+  <input type="file" class="file-input" id="fileInput" accept="image/png,image/jpeg,image/bmp,image/webp" onchange="loadScreenshot(event)">
+  <span class="status" id="statusBar">未加载截图</span>
+  <span class="zoom-info" id="zoomInfo"></span>
+  <button class="btn-copy" id="btnCopy" onclick="copyJSON()" style="display:none">📋 复制 JSON</button>
+  <button class="btn-clear" id="btnClear" onclick="clearAll()" style="display:none">🗑 清空标注</button>
+</div>
+
+<div class="canvas-wrap" id="canvasWrap">
+  <div id="emptyState" class="empty-state">
+    <div class="icon">📸</div>
+    <p>点击「📂 加载截图」选择 APP 界面截图<br>支持 .png / .jpg / .bmp / .webp</p>
+    <p style="font-size:12px;color:#888;">Windows 截图快捷键：Win + Shift + S<br>安卓模拟器：用模拟器截图功能保存为 PNG</p>
+  </div>
+  <div class="canvas-inner" id="canvasInner" style="display:none">
+    <img id="screenshotImg" alt="Screenshot">
+    <div class="overlay" id="overlay"></div>
+  </div>
+</div>
+
+<!-- 右侧悬浮按钮 -->
+<button class="float-btn" id="floatBtn" onclick="toggleAnnotate()" style="display:none">📌<span>标注</span></button>
+
+<!-- 输入气泡 -->
+<div class="bubble" id="bubble">
+  <div class="bubble-header" id="bubbleHeader">⠿ ⠿ ⠿ 拖动移动</div>
+  <textarea id="bubbleText" rows="3" placeholder="描述要修改的内容（Enter 确认，Shift+Enter 换行）"></textarea>
+  <div class="bubble-btns">
+    <button class="bubble-ok" id="bubbleOk">确认</button>
+    <button class="bubble-cancel" id="bubbleCancel">取消</button>
+  </div>
+</div>
+
+<!-- 标注列表面板 -->
+<div class="panel" id="panel">
+  <div class="panel-header" id="panelHeader"><span>📝 标注列表</span><span id="panelCount">0 条</span></div>
+  <div class="panel-list" id="panelList"></div>
+  <div class="tip">📋 标注完成后点「复制 JSON」→ 粘贴到 Claude 对话框，描述代码需修改的位置和内容</div>
+  <div class="panel-footer">
+    <button style="background:#1a1a2e;color:#fff" onclick="copyJSON()">复制 JSON</button>
+    <button style="background:#fff5f5;color:#c53030;border:1px solid #fed7d7" onclick="clearAll()">清空</button>
+  </div>
+</div>
+
+<script>
+// ===== 状态 =====
+let annotations = [];
+let idCounter = 1;
+let annotateMode = false;
+let isDrawing = false;
+let startX, startY, drawRect;
+let pendingRect = null;
+let screenshotPath = '{{SCREENSHOT_PATH}}';
+let imageNaturalSize = { width: 0, height: 0 };
+let imageDisplaySize = { width: 0, height: 0 };
+let uiDrag = null;
+
+// ===== 加载截图 =====
+function loadScreenshot(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  screenshotPath = file.name;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    const img = document.getElementById('screenshotImg');
+    img.onload = function() {
+      imageNaturalSize = { width: img.naturalWidth, height: img.naturalHeight };
+      imageDisplaySize = { width: img.width, height: img.height };
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('canvasInner').style.display = 'inline-block';
+      document.getElementById('floatBtn').style.display = 'flex';
+      document.getElementById('btnCopy').style.display = 'inline-block';
+      document.getElementById('btnClear').style.display = 'inline-block';
+      document.getElementById('statusBar').textContent = file.name + ' (' + img.naturalWidth + '×' + img.naturalHeight + ')';
+      document.getElementById('zoomInfo').textContent = '100%';
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// 尝试自动加载预置路径
+if (screenshotPath && !screenshotPath.startsWith('{{')) {
+  const img = document.getElementById('screenshotImg');
+  img.onload = function() {
+    imageNaturalSize = { width: img.naturalWidth, height: img.naturalHeight };
+    imageDisplaySize = { width: img.width, height: img.height };
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('canvasInner').style.display = 'inline-block';
+    document.getElementById('floatBtn').style.display = 'flex';
+    document.getElementById('btnCopy').style.display = 'inline-block';
+    document.getElementById('btnClear').style.display = 'inline-block';
+    document.getElementById('statusBar').textContent = screenshotPath.split(/[\\/]/).pop() + ' (' + img.naturalWidth + '×' + img.naturalHeight + ')';
+  };
+  img.src = 'file:///' + screenshotPath.replace(/\\/g, '/');
+}
+
+// ===== 标注模式 =====
+function toggleAnnotate() {
+  annotateMode = !annotateMode;
+  const btn = document.getElementById('floatBtn');
+  btn.classList.toggle('on', annotateMode);
+  btn.innerHTML = annotateMode ? '<span style="font-size:18px">✕</span>' : '📌<span>标注</span>';
+  document.getElementById('canvasInner').style.cursor = annotateMode ? 'crosshair' : 'default';
+}
+
+// ===== 画框 =====
+const overlay = document.getElementById('overlay');
+overlay.addEventListener('mousedown', function(e) {
+  if (!annotateMode) return;
+  if (e.target !== overlay) return;
+  isDrawing = true;
+  const rect = overlay.getBoundingClientRect();
+  startX = e.clientX - rect.left;
+  startY = e.clientY - rect.top;
+  drawRect = document.createElement('div');
+  drawRect.className = 'ann-rect';
+  drawRect.style.left = startX + 'px';
+  drawRect.style.top = startY + 'px';
+  drawRect.style.width = '0';
+  drawRect.style.height = '0';
+  overlay.appendChild(drawRect);
+  e.preventDefault();
+});
+
+overlay.addEventListener('mousemove', function(e) {
+  if (!isDrawing || !drawRect) return;
+  const rect = overlay.getBoundingClientRect();
+  const cx = e.clientX - rect.left;
+  const cy = e.clientY - rect.top;
+  const x = Math.min(cx, startX), y = Math.min(cy, startY);
+  drawRect.style.left = x + 'px';
+  drawRect.style.top = y + 'px';
+  drawRect.style.width = Math.abs(cx - startX) + 'px';
+  drawRect.style.height = Math.abs(cy - startY) + 'px';
+});
+
+overlay.addEventListener('mouseup', function(e) {
+  if (!isDrawing) return;
+  isDrawing = false;
+  const rect = overlay.getBoundingClientRect();
+  const cx = e.clientX - rect.left;
+  const cy = e.clientY - rect.top;
+  const x = Math.min(cx, startX), y = Math.min(cy, startY);
+  const w = Math.abs(cx - startX), h = Math.abs(cy - startY);
+  if (w < 6 || h < 6) {
+    if (drawRect) { drawRect.remove(); drawRect = null; }
+    return;
+  }
+  pendingRect = { x, y, w, h, el: drawRect };
+  drawRect = null;
+  // 显示输入气泡
+  showBubble(e.clientX, e.clientY);
+});
+
+// ===== 气泡 =====
+function showBubble(cx, cy) {
+  const bubble = document.getElementById('bubble');
+  const bx = Math.min(cx, window.innerWidth - 280);
+  const by = Math.max(60, Math.min(cy - 30, window.innerHeight - 250));
+  bubble.style.display = 'block';
+  bubble.style.left = bx + 'px';
+  bubble.style.top = by + 'px';
+  document.getElementById('bubbleText').value = '';
+  document.getElementById('bubbleText').focus();
+}
+
+document.getElementById('bubbleOk').onclick = saveAnnotation;
+document.getElementById('bubbleCancel').onclick = cancelAnnotation;
+document.getElementById('bubbleText').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); saveAnnotation(); }
+});
+
+function saveAnnotation() {
+  const text = document.getElementById('bubbleText').value.trim();
+  if (!text || !pendingRect) {
+    if (pendingRect) { pendingRect.el.remove(); pendingRect = null; }
+    document.getElementById('bubble').style.display = 'none';
+    return;
+  }
+  const id = idCounter++;
+  // 像素坐标按比例折算回原始截图坐标
+  const scaleX = imageNaturalSize.width / imageDisplaySize.width;
+  const scaleY = imageNaturalSize.height / imageDisplaySize.height;
+  const ann = {
+    id,
+    x: Math.round(pendingRect.x * scaleX),
+    y: Math.round(pendingRect.y * scaleY),
+    width: Math.round(pendingRect.w * scaleX),
+    height: Math.round(pendingRect.h * scaleY),
+    x_pct: +(pendingRect.x / imageDisplaySize.width * 100).toFixed(1),
+    y_pct: +(pendingRect.y / imageDisplaySize.height * 100).toFixed(1),
+    w_pct: +(pendingRect.w / imageDisplaySize.width * 100).toFixed(1),
+    h_pct: +(pendingRect.h / imageDisplaySize.height * 100).toFixed(1),
+    comment: text
+  };
+  annotations.push(ann);
+  // 贴编号徽章
+  const badge = document.createElement('div');
+  badge.className = 'ann-badge';
+  badge.textContent = id;
+  pendingRect.el.appendChild(badge);
+  document.getElementById('bubble').style.display = 'none';
+  pendingRect = null;
+  refreshPanel();
+}
+
+function cancelAnnotation() {
+  if (pendingRect) { pendingRect.el.remove(); pendingRect = null; }
+  document.getElementById('bubble').style.display = 'none';
+}
+
+// ===== 面板 =====
+function refreshPanel() {
+  document.getElementById('panelCount').textContent = annotations.length + ' 条';
+  let html = '';
+  annotations.forEach(a => {
+    html += '<div class="panel-item"><span class="panel-num">' + a.id + '</span><span class="panel-comment">' + a.comment + '</span></div>';
+  });
+  document.getElementById('panelList').innerHTML = html;
+  document.getElementById('panel').classList.toggle('on', annotations.length > 0);
+}
+
+// ===== 拖移气泡和面板 =====
+function makeDraggable(el, handle) {
+  handle.addEventListener('mousedown', function(e) {
+    if (e.button !== 0 || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON') return;
+    const r = el.getBoundingClientRect();
+    const ox = e.clientX - r.left, oy = e.clientY - r.top;
+    const sx = e.clientX, sy = e.clientY;
+    function mm(ev) {
+      if (!uiDrag && (Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy) > 3)) {
+        uiDrag = { el, ox, oy };
+      }
+    }
+    function mu() {
+      uiDrag = null;
+      document.removeEventListener('mousemove', mm);
+      document.removeEventListener('mouseup', mu);
+    }
+    document.addEventListener('mousemove', mm);
+    document.addEventListener('mouseup', mu);
+  });
+}
+document.addEventListener('mousemove', function(e) {
+  if (uiDrag) {
+    const nx = Math.max(0, Math.min(e.clientX - uiDrag.ox, window.innerWidth - uiDrag.el.offsetWidth));
+    const ny = Math.max(0, Math.min(e.clientY - uiDrag.oy, window.innerHeight - uiDrag.el.offsetHeight));
+    uiDrag.el.style.left = nx + 'px';
+    uiDrag.el.style.top = ny + 'px';
+  }
+});
+makeDraggable(document.getElementById('bubble'), document.getElementById('bubbleHeader'));
+makeDraggable(document.getElementById('panel'), document.getElementById('panelHeader'));
+
+// ===== 复制 JSON =====
+function copyJSON() {
+  const output = {
+    source: 'screenshot',
+    image_path: screenshotPath,
+    image_size: imageNaturalSize,
+    timestamp: new Date().toISOString(),
+    annotations: annotations
+  };
+  const json = JSON.stringify(output, null, 2);
+  const btn = document.getElementById('btnCopy');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(json).then(() => {
+      btn.textContent = '✅ 已复制'; setTimeout(() => { btn.textContent = '📋 复制 JSON'; }, 2000);
+    }).catch(() => fallbackCopy(json, btn));
+  } else {
+    fallbackCopy(json, btn);
+  }
+}
+
+function fallbackCopy(text, btn) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); btn.textContent = '✅ 已复制'; } catch(e) { btn.textContent = '复制失败'; }
+  document.body.removeChild(ta);
+  setTimeout(() => { btn.textContent = '📋 复制 JSON'; }, 2000);
+}
+
+// ===== 清空 =====
+function clearAll() {
+  annotations = []; idCounter = 1;
+  document.querySelectorAll('.ann-rect').forEach(el => el.remove());
+  document.getElementById('panel').classList.remove('on');
+}
+</script>
+</body>
+</html>

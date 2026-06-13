@@ -1,0 +1,2338 @@
+{
+  "course_id": "calculus",
+  "course_name": "微积分",
+  "subject_id": "math",
+  "structure_type": "hierarchical",
+  "chapters": [
+    {
+      "id": "calc_ch01",
+      "title": "第一章 函数与极限",
+      "sections": [
+        {
+          "id": "calc_sec01",
+          "title": "1.1 函数的概念与性质",
+          "knowledge_points": [
+            {
+              "id": "calc_kp001",
+              "title": "函数的定义与表示",
+              "content_type": "markdown",
+              "content": "## 函数的定义\n\n设 X 和 Y 是两个非空集合。若存在对应法则 f，使对于 X 中每个 x，Y 中有**唯一**确定的 y 与之对应，则称 f 是从 X 到 Y 的**函数**：\n\n$$y = f(x), \\quad x \\in X$$\n\n**定义域**：x 的取值范围。**值域**：全体 f(x) 的取值。\n\n### 三种表示方法\n- 解析法（公式法）：$y = x^2 + 1$\n- 列表法：用表格列出对应值\n- 图像法：在坐标平面上画出曲线",
+              "key_concepts": [
+                "定义域",
+                "值域",
+                "对应法则",
+                "解析法",
+                "列表法",
+                "图像法"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q001",
+                  "type": "single_choice",
+                  "question": "若 f(x)=x²+1，则 f(-2) 的值为？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "3"
+                    },
+                    {
+                      "key": "B",
+                      "text": "5"
+                    },
+                    {
+                      "key": "C",
+                      "text": "-3"
+                    },
+                    {
+                      "key": "D",
+                      "text": "4"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "代入 x=-2：f(-2)=(-2)²+1=4+1=5。"
+                },
+                {
+                  "id": "calc_q002",
+                  "type": "single_choice",
+                  "question": "函数 f(x)=1/(x-1) 的定义域是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "全体实数"
+                    },
+                    {
+                      "key": "B",
+                      "text": "x≠1的所有实数"
+                    },
+                    {
+                      "key": "C",
+                      "text": "x≥1"
+                    },
+                    {
+                      "key": "D",
+                      "text": "x>0"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "分母不能为零，所以 x-1≠0，即 x≠1。"
+                },
+                {
+                  "id": "calc_q003",
+                  "type": "single_choice",
+                  "question": "函数 y=√(x-2) 的定义域是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "x≥0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "x≥2"
+                    },
+                    {
+                      "key": "C",
+                      "text": "x>2"
+                    },
+                    {
+                      "key": "D",
+                      "text": "x≤2"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "根号下表达式必须非负：x-2≥0，解得 x≥2。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp002",
+              "title": "函数的奇偶性与周期性",
+              "content_type": "markdown",
+              "content": "## 函数的奇偶性\n\n### 偶函数\n若 f(-x)=f(x)，则 f(x) 是**偶函数**，图像关于 y 轴对称。常见：y=x²，y=cosx，y=|x|。\n\n### 奇函数\n若 f(-x)=-f(x)，则 f(x) 是**奇函数**，图像关于原点对称。若 f(0) 有定义，必有 f(0)=0。常见：y=x³，y=sinx。\n\n### 周期性\n若存在 T>0 使 f(x+T)=f(x) 对所有 x 成立，则 f(x) 为**周期函数**。",
+              "key_concepts": [
+                "偶函数",
+                "奇函数",
+                "原点对称",
+                "周期函数",
+                "最小正周期"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q004",
+                  "type": "single_choice",
+                  "question": "函数 f(x)=x²cosx 的奇偶性是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "奇函数"
+                    },
+                    {
+                      "key": "B",
+                      "text": "偶函数"
+                    },
+                    {
+                      "key": "C",
+                      "text": "非奇非偶"
+                    },
+                    {
+                      "key": "D",
+                      "text": "既是奇也是偶"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "x² 和 cosx 都是偶函数，偶函数×偶函数=偶函数。"
+                },
+                {
+                  "id": "calc_q005",
+                  "type": "single_choice",
+                  "question": "若 f(x) 是奇函数且 f(2)=3，则 f(-2) 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "3"
+                    },
+                    {
+                      "key": "B",
+                      "text": "-3"
+                    },
+                    {
+                      "key": "C",
+                      "text": "0"
+                    },
+                    {
+                      "key": "D",
+                      "text": "无法确定"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "奇函数定义 f(-x)=-f(x)，所以 f(-2)=-f(2)=-3。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp003",
+              "title": "基本初等函数与复合函数",
+              "content_type": "markdown",
+              "content": "## 基本初等函数（5类）\n1. **幂函数**：y=xᵅ\n2. **指数函数**：y=aˣ（a>0,a≠1）\n3. **对数函数**：y=log_a(x)\n4. **三角函数**：sinx, cosx, tanx 等\n5. **反三角函数**：arcsinx, arccosx, arctanx 等\n\n## 复合函数\n设 y=f(u), u=g(x)。若 g(x) 的值域与 f(u) 的定义域交集非空，则 y=f[g(x)] 称为**复合函数**。",
+              "key_concepts": [
+                "幂函数",
+                "指数函数",
+                "对数函数",
+                "反三角函数",
+                "复合函数"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q006",
+                  "type": "single_choice",
+                  "question": "函数 y=ln(x-1) 的定义域是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "(0,+∞)"
+                    },
+                    {
+                      "key": "B",
+                      "text": "[1,+∞)"
+                    },
+                    {
+                      "key": "C",
+                      "text": "(1,+∞)"
+                    },
+                    {
+                      "key": "D",
+                      "text": "(-∞,1)"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "对数函数要求真数>0，即 x-1>0，解得 x>1。"
+                },
+                {
+                  "id": "calc_q007",
+                  "type": "single_choice",
+                  "question": "y=sin(x²) 由哪些函数复合而成？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "y=sinu, u=x²"
+                    },
+                    {
+                      "key": "B",
+                      "text": "y=sinx, u=x²"
+                    },
+                    {
+                      "key": "C",
+                      "text": "y=u, u=sin(x²)"
+                    },
+                    {
+                      "key": "D",
+                      "text": "无法复合"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "外层函数 y=sinu，内层函数 u=x²。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec02",
+          "title": "1.2 数列的极限",
+          "knowledge_points": [
+            {
+              "id": "calc_kp004",
+              "title": "数列极限的定义与性质",
+              "content_type": "markdown",
+              "content": "## 数列极限的 ε-N 定义\n设 {x_n} 为数列，a 为常数。若对任意 ε>0，总存在正整数 N，使当 n>N 时恒有 |x_n-a|<ε，则称 a 是数列 {x_n} 的**极限**，记作 lim x_n=a (n→∞)。\n\n## 收敛数列的性质\n1. **唯一性**：收敛数列的极限唯一\n2. **有界性**：收敛数列必有界\n3. **四则运算**：lim(x_n±y_n)=a±b，lim(x_n·y_n)=ab\n4. **夹逼准则**：若 y_n≤x_n≤z_n 且 lim y_n=lim z_n=a，则 lim x_n=a",
+              "key_concepts": [
+                "ε-N定义",
+                "收敛",
+                "发散",
+                "有界性",
+                "夹逼准则"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q008",
+                  "type": "single_choice",
+                  "question": "极限 lim(1/n) (n→∞) 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "1"
+                    },
+                    {
+                      "key": "B",
+                      "text": "0"
+                    },
+                    {
+                      "key": "C",
+                      "text": "不存在"
+                    },
+                    {
+                      "key": "D",
+                      "text": "∞"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "lim(1/n)=0 (n→∞)。对任意 ε>0，取 N=⌈1/ε⌉，当 n>N 时 |1/n-0|<ε。"
+                },
+                {
+                  "id": "calc_q009",
+                  "type": "single_choice",
+                  "question": "下列哪个数列发散？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "x_n=1/n"
+                    },
+                    {
+                      "key": "B",
+                      "text": "x_n=(-1)^n"
+                    },
+                    {
+                      "key": "C",
+                      "text": "x_n=n/(n+1)"
+                    },
+                    {
+                      "key": "D",
+                      "text": "x_n=2^(-n)"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "x_n=(-1)^n 在 1 和 -1 间震荡，不收敛于任何常数。其余均收敛。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec03",
+          "title": "1.3 函数的极限",
+          "knowledge_points": [
+            {
+              "id": "calc_kp005",
+              "title": "函数极限与左右极限",
+              "content_type": "markdown",
+              "content": "## 函数极限的 ε-δ 定义\n若对任意 ε>0，存在 δ>0，使当 0<|x-x₀|<δ 时 |f(x)-A|<ε，则称 lim f(x)=A (x→x₀)。\n\n## 左极限与右极限\n- 左极限：lim f(x) (x→x₀⁻)\n- 右极限：lim f(x) (x→x₀⁺)\n双侧极限存在 ⟺ 左右极限都存在且相等。\n\n## 极限运算法则\nlim[f(x)±g(x)]=A±B，lim[f(x)·g(x)]=A·B，lim[f(x)/g(x)]=A/B（B≠0）。",
+              "key_concepts": [
+                "ε-δ定义",
+                "左极限",
+                "右极限",
+                "极限运算法则"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q010",
+                  "type": "single_choice",
+                  "question": "极限 lim(|x|/x) (x→0⁺) 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "1"
+                    },
+                    {
+                      "key": "B",
+                      "text": "-1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "0"
+                    },
+                    {
+                      "key": "D",
+                      "text": "不存在"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "当 x>0 时 |x|=x，所以右极限为 1。左极限为 -1，双侧极限不存在。"
+                },
+                {
+                  "id": "calc_q011",
+                  "type": "single_choice",
+                  "question": "极限 lim(sinx/x) (x→0) 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "不存在"
+                    },
+                    {
+                      "key": "D",
+                      "text": "∞"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "lim(sinx/x)=1 (x→0)，微积分最重要的极限之一，用夹逼准则证明。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp006",
+              "title": "无穷小与无穷大",
+              "content_type": "markdown",
+              "content": "## 无穷小\n若 lim f(x)=0，称 f(x) 为该过程中的**无穷小**。\n\n### 无穷小的比较（α,β 为同一过程无穷小）\n- lim(β/α)=0 → β 是比 α 高阶的无穷小，记 β=o(α)\n- lim(β/α)=c≠0 → 同阶无穷小\n- lim(β/α)=1 → 等价无穷小，记 α~β\n\n### 常见等价无穷小(x→0)\nsinx~x，tanx~x，1-cosx~x²/2，ln(1+x)~x，eˣ-1~x\n\n## 两个重要极限\n1. lim(sinx/x)=1 (x→0)\n2. lim(1+x)^(1/x)=e (x→0)",
+              "key_concepts": [
+                "无穷小",
+                "高阶无穷小",
+                "等价无穷小",
+                "两个重要极限"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q012",
+                  "type": "single_choice",
+                  "question": "x→0 时，与 x 等价的是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "sinx"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1-cosx"
+                    },
+                    {
+                      "key": "C",
+                      "text": "x²"
+                    },
+                    {
+                      "key": "D",
+                      "text": "√x"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "sinx~x。1-cosx~x²/2 是二阶无穷小，x² 也是二阶，√x 是 1/2 阶。"
+                },
+                {
+                  "id": "calc_q013",
+                  "type": "single_choice",
+                  "question": "极限 lim(1+x)^(1/x) (x→0) 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "e"
+                    },
+                    {
+                      "key": "D",
+                      "text": "∞"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "lim(1+x)^(1/x)=e (x→0)。等价于 lim(1+1/n)^n=e (n→∞)。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec04",
+          "title": "1.4 函数的连续性与间断点",
+          "knowledge_points": [
+            {
+              "id": "calc_kp007",
+              "title": "连续与间断",
+              "content_type": "markdown",
+              "content": "## 连续的定义\n若 lim f(x)=f(x₀) (x→x₀)，则称 f(x) 在 x₀ 处**连续**。等价三条件：① f(x₀) 有定义 ② 极限存在 ③ 极限值等于函数值。\n\n## 间断点分类\n**第一类**（左右极限均存在）：可去间断、跳跃间断\n**第二类**（至少一侧极限不存在）：无穷间断、振荡间断\n\n## 闭区间连续函数性质\n1. 有界性与最值定理\n2. 介值定理\n3. **零点定理**：若 f(a)f(b)<0，则存在 ξ∈(a,b) 使 f(ξ)=0",
+              "key_concepts": [
+                "连续",
+                "可去间断",
+                "跳跃间断",
+                "介值定理",
+                "零点定理"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q014",
+                  "type": "single_choice",
+                  "question": "f(x)=sinx/x(x≠0), f(0)=1 在 x=0 处是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "连续"
+                    },
+                    {
+                      "key": "B",
+                      "text": "可去间断"
+                    },
+                    {
+                      "key": "C",
+                      "text": "跳跃间断"
+                    },
+                    {
+                      "key": "D",
+                      "text": "无穷间断"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "lim(sinx/x)=1=f(0)(x→0)，满足连续三条件。"
+                },
+                {
+                  "id": "calc_q015",
+                  "type": "single_choice",
+                  "question": "f在[0,1]连续，f(0)=-1，f(1)=2，则方程f(x)=0在(0,1)内？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "可能有根"
+                    },
+                    {
+                      "key": "B",
+                      "text": "一定有根"
+                    },
+                    {
+                      "key": "C",
+                      "text": "一定无根"
+                    },
+                    {
+                      "key": "D",
+                      "text": "无法确定"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "零点定理：f(0)f(1)=-2<0 且 f 连续，存在 ξ∈(0,1) 使 f(ξ)=0。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "calc_ch02",
+      "title": "第二章 导数与微分",
+      "sections": [
+        {
+          "id": "calc_sec05",
+          "title": "2.1 导数的概念",
+          "knowledge_points": [
+            {
+              "id": "calc_kp008",
+              "title": "导数的定义与几何意义",
+              "content_type": "markdown",
+              "content": "## 导数的定义\nf'(x₀)=lim [f(x₀+Δx)-f(x₀)]/Δx (Δx→0)。若该极限存在，称 f 在 x₀ 处**可导**。\n\n### 几何意义\nf'(x₀) = 曲线在 (x₀,f(x₀)) 处的**切线斜率**。切线方程：y-f(x₀)=f'(x₀)(x-x₀)。\n\n### 可导与连续\n可导 ⟹ 连续；但连续 ⇏ 可导（如 y=|x| 在 x=0 处）。\n\n### 基本求导公式\nC'=0，(xⁿ)'=nxⁿ⁻¹，(eˣ)'=eˣ，(lnx)'=1/x，(sinx)'=cosx，(cosx)'=-sinx",
+              "key_concepts": [
+                "导数定义",
+                "差商极限",
+                "切线斜率",
+                "可导与连续",
+                "求导公式"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q016",
+                  "type": "single_choice",
+                  "question": "f(x)=x² 在 x=1 处的导数 f'(1) 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "1"
+                    },
+                    {
+                      "key": "B",
+                      "text": "2"
+                    },
+                    {
+                      "key": "C",
+                      "text": "0"
+                    },
+                    {
+                      "key": "D",
+                      "text": "3"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "f'(x)=2x，代入 x=1 得 f'(1)=2。或用定义 lim[(1+h)²-1]/h=2。"
+                },
+                {
+                  "id": "calc_q017",
+                  "type": "single_choice",
+                  "question": "若 f'(x₀)=0，曲线在 x₀ 处的切线是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "斜向上"
+                    },
+                    {
+                      "key": "B",
+                      "text": "斜向下"
+                    },
+                    {
+                      "key": "C",
+                      "text": "水平直线"
+                    },
+                    {
+                      "key": "D",
+                      "text": "竖直直线"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "斜率 k=f'(x₀)=0，斜率为 0 的是水平直线。x₀ 可能是驻点。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec06",
+          "title": "2.2 求导法则与高阶导数",
+          "knowledge_points": [
+            {
+              "id": "calc_kp009",
+              "title": "四则运算求导与链式法则",
+              "content_type": "markdown",
+              "content": "## 四则运算法则\n(u±v)'=u'±v'，(uv)'=u'v+uv'，(u/v)'=(u'v-uv')/v²\n\n## 链式法则\n若 y=f(u), u=g(x) 均可导，则 dy/dx=f'[g(x)]·g'(x)。\n**口诀**：由外到内，逐层求导再相乘。\n\n例：y=ln(cosx)，y'=(1/cosx)·(-sinx)=-tanx。",
+              "key_concepts": [
+                "乘法法则",
+                "商法则",
+                "链式法则",
+                "隐函数求导"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q018",
+                  "type": "single_choice",
+                  "question": "y=ln(cosx) 的导数 y' 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "tanx"
+                    },
+                    {
+                      "key": "B",
+                      "text": "-tanx"
+                    },
+                    {
+                      "key": "C",
+                      "text": "cotx"
+                    },
+                    {
+                      "key": "D",
+                      "text": "-sinx"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "链式法则：y'=(1/cosx)·(-sinx)=-tanx。"
+                },
+                {
+                  "id": "calc_q019",
+                  "type": "single_choice",
+                  "question": "y=x·eˣ 的导数 y' 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "eˣ"
+                    },
+                    {
+                      "key": "B",
+                      "text": "xeˣ"
+                    },
+                    {
+                      "key": "C",
+                      "text": "(x+1)eˣ"
+                    },
+                    {
+                      "key": "D",
+                      "text": "x²eˣ"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "乘法法则：(xeˣ)'=1·eˣ+x·eˣ=(x+1)eˣ。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp010",
+              "title": "高阶导数",
+              "content_type": "markdown",
+              "content": "## 高阶导数\n对 f'(x) 再求导得**二阶导数** f''(x)=d²y/dx²。\n\n### 常见高阶导数\n(eˣ)⁽ⁿ⁾=eˣ，(sinx)⁽ⁿ⁾=sin(x+nπ/2)，(cosx)⁽ⁿ⁾=cos(x+nπ/2)\n\n### 莱布尼茨公式\n(uv)⁽ⁿ⁾=Σ C(n,k)u⁽ⁿ⁻ᵏ⁾v⁽ᵏ⁾ (k=0 to n)",
+              "key_concepts": [
+                "二阶导数",
+                "n阶导数",
+                "莱布尼茨公式",
+                "加速度"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q020",
+                  "type": "single_choice",
+                  "question": "y=e^(2x) 的二阶导数 y'' 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "e^(2x)"
+                    },
+                    {
+                      "key": "B",
+                      "text": "2e^(2x)"
+                    },
+                    {
+                      "key": "C",
+                      "text": "4e^(2x)"
+                    },
+                    {
+                      "key": "D",
+                      "text": "8e^(2x)"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "y'=2e^(2x)，y''=4e^(2x)。通式：(e^(2x))⁽ⁿ⁾=2ⁿe^(2x)。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec07",
+          "title": "2.3 函数的微分",
+          "knowledge_points": [
+            {
+              "id": "calc_kp011",
+              "title": "微分的概念与应用",
+              "content_type": "markdown",
+              "content": "## 微分的定义\n若 y=f(x) 在 x₀ 处可导，则 dy=f'(x₀)dx。\n\n### 几何意义\ndy 是切线的增量，Δy 是曲线的实际增量。|Δx| 很小时 Δy≈dy。\n\n### 可导与可微\n一元函数：可导 ⟺ 可微。\n\n### 近似计算\nf(x₀+Δx)≈f(x₀)+f'(x₀)Δx\n例：√4.01≈2+0.01/4=2.0025",
+              "key_concepts": [
+                "微分",
+                "可微",
+                "形式不变性",
+                "近似计算",
+                "线性主部"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q021",
+                  "type": "single_choice",
+                  "question": "y=x³ 在 x=1 处的微分 dy 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "dx"
+                    },
+                    {
+                      "key": "B",
+                      "text": "3dx"
+                    },
+                    {
+                      "key": "C",
+                      "text": "3x²dx"
+                    },
+                    {
+                      "key": "D",
+                      "text": "6dx"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "dy=f'(x)dx=3x²dx。在 x=1 处：dy=3·1²·dx=3dx。"
+                },
+                {
+                  "id": "calc_q022",
+                  "type": "single_choice",
+                  "question": "用微分估算 √4.01 的结果约等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "2.000"
+                    },
+                    {
+                      "key": "B",
+                      "text": "2.005"
+                    },
+                    {
+                      "key": "C",
+                      "text": "2.0025"
+                    },
+                    {
+                      "key": "D",
+                      "text": "2.010"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "f(x)=√x，f'(x)=1/(2√x)。f(4.01)≈f(4)+f'(4)·0.01=2+0.01/4=2.0025。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "calc_ch03",
+      "title": "第三章 中值定理与导数应用",
+      "sections": [
+        {
+          "id": "calc_sec08",
+          "title": "3.1 微分中值定理",
+          "knowledge_points": [
+            {
+              "id": "calc_kp012",
+              "title": "罗尔定理与拉格朗日中值定理",
+              "content_type": "markdown",
+              "content": "## 罗尔定理\n若 f 在[a,b]连续、(a,b)可导、f(a)=f(b)，则存在 ξ∈(a,b) 使 f'(ξ)=0。\n\n## 拉格朗日中值定理\n若 f 在[a,b]连续、(a,b)可导，则存在 ξ∈(a,b) 使：\nf'(ξ)=[f(b)-f(a)]/(b-a)\n\n**几何意义**：曲线上有一点，该点切线平行于弦。\n\n**推论**：f'(x)≡0→f(x)=常数。\n\n## 柯西中值定理\nf'(ξ)/g'(ξ)=[f(b)-f(a)]/[g(b)-g(a)]",
+              "key_concepts": [
+                "罗尔定理",
+                "拉格朗日中值定理",
+                "柯西中值定理"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q023",
+                  "type": "single_choice",
+                  "question": "罗尔定理的三个条件不包括？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "[a,b]上连续"
+                    },
+                    {
+                      "key": "B",
+                      "text": "(a,b)内可导"
+                    },
+                    {
+                      "key": "C",
+                      "text": "f(a)=f(b)"
+                    },
+                    {
+                      "key": "D",
+                      "text": "f'(a)=f'(b)"
+                    }
+                  ],
+                  "answer": "D",
+                  "explanation": "罗尔定理条件：闭区间连续、开区间可导、端点值相等。结论：存在 ξ 使 f'(ξ)=0。"
+                },
+                {
+                  "id": "calc_q024",
+                  "type": "single_choice",
+                  "question": "f(x)=x² 在 [0,2] 上满足 Lagrange 定理的 ξ 值为？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "2"
+                    },
+                    {
+                      "key": "D",
+                      "text": "1.5"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "f'(x)=2x，(f(2)-f(0))/(2-0)=2。令 f'(ξ)=2ξ=2，得 ξ=1∈(0,2)。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec09",
+          "title": "3.2 洛必达法则",
+          "knowledge_points": [
+            {
+              "id": "calc_kp013",
+              "title": "洛必达法则与不定式",
+              "content_type": "markdown",
+              "content": "## 洛必达法则\n\n### 0/0 型\n若 lim f(x)=lim g(x)=0，且 lim[f'(x)/g'(x)] 存在，则：\nlim[f(x)/g(x)]=lim[f'(x)/g'(x)]\n\n### ∞/∞ 型\n类似条件下结论同上。\n\n### 可转化类型\n0·∞ → 化为 0/(1/∞)；∞-∞ → 通分；0⁰,∞⁰,1^∞ → 取对数\n\n**注意**：使用前必须验证类型！可结合等价无穷小简化。",
+              "key_concepts": [
+                "0/0型",
+                "∞/∞型",
+                "可转化不定式",
+                "洛必达条件"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q025",
+                  "type": "single_choice",
+                  "question": "极限 lim(eˣ-1)/x (x→0) 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "e"
+                    },
+                    {
+                      "key": "D",
+                      "text": "不存在"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "0/0型，洛必达：lim[(eˣ-1)'/(x)']=lim(eˣ/1)=1 (x→0)。"
+                },
+                {
+                  "id": "calc_q026",
+                  "type": "single_choice",
+                  "question": "极限 lim(x·lnx) (x→0⁺) 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "-1"
+                    },
+                    {
+                      "key": "D",
+                      "text": "不存在"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "0·(-∞)型，化为 lnx/(1/x)，洛必达：lim(1/x)/(-1/x²)=lim(-x)=0。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec10",
+          "title": "3.3 函数的单调性与极值",
+          "knowledge_points": [
+            {
+              "id": "calc_kp014",
+              "title": "单调性判别与极值求法",
+              "content_type": "markdown",
+              "content": "## 单调性判别\nf'(x)>0 → 严格递增；f'(x)<0 → 严格递减。\n\n## 极值\n### 必要条件\n可导函数极值点处 f'(x₀)=0（x₀ 为**驻点**）。\n注意：驻点不一定是极值点！反例 y=x³ 在 x=0。\n\n### 第一充分条件\n看 f'(x) 在 x₀ 两侧变号：左正右负→极大；左负右正→极小\n\n### 第二充分条件\nf'(x₀)=0：f''(x₀)<0→极大；f''(x₀)>0→极小",
+              "key_concepts": [
+                "单调性",
+                "驻点",
+                "极值必要条件",
+                "第一充分条件",
+                "第二充分条件"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q027",
+                  "type": "single_choice",
+                  "question": "f(x)=x³-3x 在 x=-1 处取得？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "极大值"
+                    },
+                    {
+                      "key": "B",
+                      "text": "极小值"
+                    },
+                    {
+                      "key": "C",
+                      "text": "非极值"
+                    },
+                    {
+                      "key": "D",
+                      "text": "无法判断"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "f'(x)=3x²-3，驻点 x=-1,1。f''(x)=6x，f''(-1)=-6<0，故极大值 f(-1)=2。"
+                },
+                {
+                  "id": "calc_q028",
+                  "type": "single_choice",
+                  "question": "f'(x₀)=0 是 f(x) 在 x₀ 取极值的？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "充要条件"
+                    },
+                    {
+                      "key": "B",
+                      "text": "充分非必要"
+                    },
+                    {
+                      "key": "C",
+                      "text": "必要非充分"
+                    },
+                    {
+                      "key": "D",
+                      "text": "既非充分也非必要"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "可导函数极值点必是驻点（必要），但驻点不一定是极值点，如 y=x³ 在 x=0。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec11",
+          "title": "3.4 曲线的凹凸性与渐近线",
+          "knowledge_points": [
+            {
+              "id": "calc_kp015",
+              "title": "凹凸性、拐点与渐近线",
+              "content_type": "markdown",
+              "content": "## 凹凸性\nf''(x)>0 → 凹的（下凸，∪形）；f''(x)<0 → 凸的（上凸，∩形）\n\n## 拐点\n凹凸性改变的点。f''(x₀)=0 且两侧变号→拐点。例：y=x³，拐点 (0,0)。\n\n## 渐近线\n1. 水平渐近线：lim f(x)=A (x→∞) → y=A\n2. 垂直渐近线：lim f(x)=∞ (x→x₀) → x=x₀\n3. 斜渐近线：lim[f(x)/x]=k 且 lim[f(x)-kx]=b → y=kx+b",
+              "key_concepts": [
+                "凹",
+                "凸",
+                "拐点",
+                "水平渐近线",
+                "垂直渐近线",
+                "斜渐近线"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q029",
+                  "type": "single_choice",
+                  "question": "y=x³ 的拐点是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "(0,0)"
+                    },
+                    {
+                      "key": "B",
+                      "text": "(1,1)"
+                    },
+                    {
+                      "key": "C",
+                      "text": "(-1,-1)"
+                    },
+                    {
+                      "key": "D",
+                      "text": "没有拐点"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "y''=6x。x<0 时 y''<0(凸)；x>0 时 y''>0(凹)。在 x=0 处变号，(0,0)是拐点。"
+                },
+                {
+                  "id": "calc_q030",
+                  "type": "single_choice",
+                  "question": "f''(x)>0 在区间 I 内成立，说明曲线在 I 内是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "递增"
+                    },
+                    {
+                      "key": "B",
+                      "text": "递减"
+                    },
+                    {
+                      "key": "C",
+                      "text": "凹的（下凸）"
+                    },
+                    {
+                      "key": "D",
+                      "text": "凸的（上凸）"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "f''(x)>0→凹的（下凸）。单调性由 f'(x) 决定，非 f''(x)。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "calc_ch04",
+      "title": "第四章 不定积分",
+      "sections": [
+        {
+          "id": "calc_sec12",
+          "title": "4.1 不定积分的概念与性质",
+          "knowledge_points": [
+            {
+              "id": "calc_kp016",
+              "title": "原函数与不定积分",
+              "content_type": "markdown",
+              "content": "## 原函数\n\n若在区间 I 上 $F'(x)=f(x)$，则称 $F(x)$ 为 $f(x)$ 在 I 上的一个**原函数**。\n\n原函数存在定理：若 $f(x)$ 在区间 I 上连续，则 $f(x)$ 在 I 上必存在原函数。\n\n注意：原函数不唯一！若 $F(x)$ 是 $f(x)$ 的原函数，则 $F(x)+C$（$C$ 为任意常数）也是。\n\n## 不定积分\n\n$f(x)$ 的全体原函数称为 $f(x)$ 的**不定积分**，记作：\n\n$$\\int f(x)dx = F(x) + C$$\n\n其中 $\\int$ 为积分号，$f(x)$ 为被积函数，$x$ 为积分变量，$C$ 为积分常数。\n\n## 基本积分公式\n| 被积函数 | 不定积分 |\n|---------|--------|\n| $k$（常数） | $kx+C$ |\n| $x^n$（$n\\neq -1$） | $\\frac{x^{n+1}}{n+1}+C$ |\n| $\\frac{1}{x}$ | $\\ln|x|+C$ |\n| $e^x$ | $e^x+C$ |\n| $\\sin x$ | $-\\cos x+C$ |\n| $\\cos x$ | $\\sin x+C$ |\n| $\\sec^2 x$ | $\\tan x+C$ |\n\n## 不定积分的线性性质\n$$\\int [f(x)\\pm g(x)]dx = \\int f(x)dx \\pm \\int g(x)dx$$\n$$\\int kf(x)dx = k\\int f(x)dx$$",
+              "key_concepts": [
+                "原函数",
+                "不定积分",
+                "积分常数",
+                "基本积分公式",
+                "线性性质"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q031",
+                  "type": "single_choice",
+                  "question": "$\\int x^3 dx$ 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$3x^2+C$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$\\frac{x^4}{4}+C$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$x^4+C$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$\\frac{x^3}{3}+C$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "$\\int x^n dx=\\frac{x^{n+1}}{n+1}+C$（n≠-1）。$\\int x^3 dx=\\frac{x^4}{4}+C$。"
+                },
+                {
+                  "id": "calc_q032",
+                  "type": "single_choice",
+                  "question": "$\\int \\frac{1}{x} dx$ 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$\\ln x+C$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$\\ln|x|+C$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$\\frac{1}{x^2}+C$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$x+C$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "$\\int\\frac{1}{x}dx=\\ln|x|+C$。注意绝对值符号，因为 x 可能为负。"
+                },
+                {
+                  "id": "calc_q033",
+                  "type": "single_choice",
+                  "question": "若 $F'(x)=2x$，则 $F(x)$ 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$x^2$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$2x^2$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$x^2+C$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$2$"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "$F'(x)=2x$ 意味着 $F(x)$ 是 $2x$ 的原函数。$\\int 2x dx=x^2+C$。不能漏掉积分常数 C。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp017",
+              "title": "第一类换元法（凑微分法）",
+              "content_type": "markdown",
+              "content": "## 第一类换元积分法（凑微分法）\n\n基本思想：将被积表达式凑成 $f[\\varphi(x)]\\varphi'(x)dx$ 的形式，令 $u=\\varphi(x)$，则：\n\n$$\\int f[\\varphi(x)]\\varphi'(x)dx = \\int f(u)du = F(u)+C = F[\\varphi(x)]+C$$\n\n**核心技巧**：识别被积函数中哪部分是某函数的导数，然后\"凑进去\"。\n\n### 常见凑微分形式\n- $\\int f(ax+b)dx = \\frac{1}{a}\\int f(u)du$（令 $u=ax+b$）\n- $\\int x^n f(x^{n+1})dx = \\frac{1}{n+1}\\int f(u)du$（令 $u=x^{n+1}$）\n- $\\int f(\\sin x)\\cos x dx = \\int f(u)du$（令 $u=\\sin x$）\n- $\\int f(\\ln x)\\frac{1}{x}dx = \\int f(u)du$（令 $u=\\ln x$）\n- $\\int f(e^x)e^x dx = \\int f(u)du$（令 $u=e^x$）\n\n### 典型例题\n$\\int \\sin(2x)dx = \\frac{1}{2}\\int \\sin u du = -\\frac{1}{2}\\cos u + C = -\\frac{1}{2}\\cos(2x)+C$（令 $u=2x$）",
+              "key_concepts": [
+                "凑微分",
+                "换元积分",
+                "链式法则逆向",
+                "凑微分公式"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q034",
+                  "type": "single_choice",
+                  "question": "$\\int \\sin(2x)dx$ 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$\\cos(2x)+C$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$-\\frac{1}{2}\\cos(2x)+C$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$\\frac{1}{2}\\cos(2x)+C$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$-\\cos(2x)+C$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "令 u=2x，dx=du/2。$\\int\\sin(2x)dx=\\frac{1}{2}\\int\\sin u du=-\\frac{1}{2}\\cos u+C=-\\frac{1}{2}\\cos(2x)+C$。"
+                },
+                {
+                  "id": "calc_q035",
+                  "type": "single_choice",
+                  "question": "$\\int xe^{x^2}dx$ 的换元方式是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "令 $u=e^x$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "令 $u=x^2$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "令 $u=x$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "无法用换元法"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "令 $u=x^2$，则 $du=2xdx$，即 $xdx=du/2$。$\\int xe^{x^2}dx=\\frac{1}{2}\\int e^u du=\\frac{1}{2}e^u+C=\\frac{1}{2}e^{x^2}+C$。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec13",
+          "title": "4.2 第二类换元法与分部积分法",
+          "knowledge_points": [
+            {
+              "id": "calc_kp018",
+              "title": "第二类换元法",
+              "content_type": "markdown",
+              "content": "## 第二类换元积分法\n\n令 $x=\\varphi(t)$（$\\varphi(t)$ 单调可导且 $\\varphi'(t)\\neq 0$），则：\n\n$$\\int f(x)dx = \\int f[\\varphi(t)]\\varphi'(t)dt$$\n\n积分后再将 $t=\\varphi^{-1}(x)$ 代回。\n\n### 常用代换类型\n1. **三角代换**（被积函数含 $\\sqrt{a^2-x^2}$）：令 $x=a\\sin t$\n2. **三角代换**（含 $\\sqrt{a^2+x^2}$）：令 $x=a\\tan t$\n3. **三角代换**（含 $\\sqrt{x^2-a^2}$）：令 $x=a\\sec t$\n4. **根式代换**（含 $\\sqrt[n]{ax+b}$）：令 $t=\\sqrt[n]{ax+b}$\n5. **倒代换**：令 $x=1/t$（处理分母含高次幂的有理函数）",
+              "key_concepts": [
+                "第二类换元",
+                "三角代换",
+                "根式代换",
+                "倒代换"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q036",
+                  "type": "single_choice",
+                  "question": "计算 $\\int\\frac{dx}{\\sqrt{a^2-x^2}}$ 应使用的代换是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$x=a\\tan t$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$x=a\\sin t$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$x=a\\sec t$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$x=1/t$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "被积函数含 $\\sqrt{a^2-x^2}$，应令 $x=a\\sin t$，则 $\\sqrt{a^2-x^2}=a\\cos t$，$dx=a\\cos t dt$。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp019",
+              "title": "分部积分法",
+              "content_type": "markdown",
+              "content": "## 分部积分法\n\n由乘积的导数公式 $(uv)'=u'v+uv'$ 移项并积分得到：\n\n$$\\int u dv = uv - \\int v du$$\n\n或等价地：\n\n$$\\int uv' dx = uv - \\int u'v dx$$\n\n### 选取 u 和 dv 的原则（LIATE 法则，按优先级）\n**L**og（对数）> **I**nverse trig（反三角）> **A**lgebraic（代数/幂）> **T**rig（三角）> **E**xponential（指数）\n\n优先级高的选为 $u$，优先级低的选为 $dv$。\n\n### 典型例题\n1. $\\int x e^x dx$：取 $u=x$，$dv=e^x dx$，则 $\\int x e^x dx = x e^x - \\int e^x dx = x e^x - e^x + C = (x-1)e^x + C$\n2. $\\int \\ln x dx$：取 $u=\\ln x$，$dv=dx$，则 $\\int \\ln x dx = x\\ln x - \\int x\\cdot\\frac{1}{x}dx = x\\ln x - x + C$\n3. $\\int e^x\\sin x dx$（循环型）：需分部积分两次，建立方程求解",
+              "key_concepts": [
+                "分部积分",
+                "LIATE法则",
+                "uv-∫vdu",
+                "循环积分"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q037",
+                  "type": "single_choice",
+                  "question": "$\\int x e^x dx$ 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$e^x+C$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$xe^x+C$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$(x-1)e^x+C$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$(x+1)e^x+C$"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "分部积分：$\\int x e^x dx = xe^x - \\int e^x dx = xe^x - e^x + C = (x-1)e^x + C$。"
+                },
+                {
+                  "id": "calc_q038",
+                  "type": "single_choice",
+                  "question": "用分部积分法计算 $\\int\\ln x dx$ 时，应取？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$u=x, dv=\\ln xdx$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$u=\\ln x, dv=dx$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$u=1, dv=\\ln xdx$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "以上都不对"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "根据 LIATE 法则，对数函数优先级最高，应选 $u=\\ln x$，$dv=dx$。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "calc_ch05",
+      "title": "第五章 定积分与反常积分",
+      "sections": [
+        {
+          "id": "calc_sec14",
+          "title": "5.1 定积分的概念与性质",
+          "knowledge_points": [
+            {
+              "id": "calc_kp020",
+              "title": "定积分的定义",
+              "content_type": "markdown",
+              "content": "## 定积分的定义（黎曼积分）\n\n设 $f(x)$ 在 $[a,b]$ 上有界。将 $[a,b]$ 任意分成 $n$ 个小区间，在每个小区间上任取一点，作积分和（黎曼和）：\n\n$$\\sum_{i=1}^{n}f(\\xi_i)\\Delta x_i$$\n\n当分割无限变细（$\\lambda=\\max\\Delta x_i\\to 0$）时，若积分和的极限存在且与分割方式和取点无关，则称此极限为 $f(x)$ 在 $[a,b]$ 上的**定积分**：\n\n$$\\int_a^b f(x)dx = \\lim_{\\lambda\\to 0}\\sum_{i=1}^{n}f(\\xi_i)\\Delta x_i$$\n\n## 定积分的几何意义\n- 若 $f(x)\\geq 0$，$\\int_a^b f(x)dx$ 表示曲线下方、x 轴上方、$x=a$ 与 $x=b$ 所围区域的面积\n- 若 $f(x)\\leq 0$，定积分为负值（面积的相反数）\n\n## 定积分的基本性质\n1. $\\int_a^b f(x)dx = -\\int_b^a f(x)dx$\n2. $\\int_a^a f(x)dx = 0$\n3. $\\int_a^b f(x)dx = \\int_a^c f(x)dx + \\int_c^b f(x)dx$（区间可加性）\n4. 若 $f(x)\\leq g(x)$，则 $\\int_a^b f(x)dx \\leq \\int_a^b g(x)dx$（保序性）\n5. $|\\int_a^b f(x)dx| \\leq \\int_a^b |f(x)|dx$",
+              "key_concepts": [
+                "黎曼和",
+                "定积分",
+                "区间可加性",
+                "保序性",
+                "几何面积"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q039",
+                  "type": "single_choice",
+                  "question": "定积分 $\\int_a^b f(x)dx$ 的几何意义是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "曲线的长度"
+                    },
+                    {
+                      "key": "B",
+                      "text": "曲边梯形的面积（带符号）"
+                    },
+                    {
+                      "key": "C",
+                      "text": "函数的最大值"
+                    },
+                    {
+                      "key": "D",
+                      "text": "曲线的切线斜率"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "定积分表示曲线、x轴和两垂线所围曲边梯形的（带符号）面积。f(x)≥0时为正面积，f(x)≤0时为负。"
+                },
+                {
+                  "id": "calc_q040",
+                  "type": "single_choice",
+                  "question": "$\\int_a^b f(x)dx$ 与 $\\int_a^b f(t)dt$ 的关系是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "前者大"
+                    },
+                    {
+                      "key": "B",
+                      "text": "后者大"
+                    },
+                    {
+                      "key": "C",
+                      "text": "相等"
+                    },
+                    {
+                      "key": "D",
+                      "text": "无法确定"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "定积分只依赖于被积函数和积分区间，与积分变量的字母（哑变量）无关，两者相等。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp021",
+              "title": "微积分基本定理（牛顿-莱布尼茨公式）",
+              "content_type": "markdown",
+              "content": "## 变上限积分函数\n\n设 $f(x)$ 在 $[a,b]$ 上连续，定义：\n\n$$\\Phi(x)=\\int_a^x f(t)dt, \\quad x\\in[a,b]$$\n\n则 $\\Phi(x)$ 在 $[a,b]$ 上可导，且 $\\Phi'(x)=f(x)$。\n\n这意味着 **变上限积分是被积函数的一个原函数**！\n\n## 牛顿-莱布尼茨 (Newton-Leibniz) 公式\n\n若 $F(x)$ 是 $f(x)$ 在 $[a,b]$ 上的一个原函数（即 $F'(x)=f(x)$），则：\n\n$$\\int_a^b f(x)dx = F(b) - F(a) = \\big[F(x)\\big]_a^b$$\n\n**这是微积分的核心定理**，建立了微分和积分之间的桥梁：\n$$微分 \\longleftrightarrow 积分$$\n\n## 定积分的换元法\n$$\\int_a^b f(x)dx = \\int_{\\alpha}^{\\beta} f[\\varphi(t)]\\varphi'(t)dt$$\n注意：换元后积分限也必须随之改变！\n\n## 定积分的分部积分法\n$$\\int_a^b u dv = \\big[uv\\big]_a^b - \\int_a^b v du$$",
+              "key_concepts": [
+                "变上限积分",
+                "原函数",
+                "牛顿-莱布尼茨公式",
+                "定积分换元",
+                "定积分分部积分"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q041",
+                  "type": "single_choice",
+                  "question": "若 $F'(x)=f(x)$，则 $\\int_a^b f(x)dx$ 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$f(b)-f(a)$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$F(b)-F(a)$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$F(b)+F(a)$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$f(b)+f(a)$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "牛顿-莱布尼茨公式：$\\int_a^b f(x)dx=F(b)-F(a)$，其中 F 是 f 的任意原函数。"
+                },
+                {
+                  "id": "calc_q042",
+                  "type": "single_choice",
+                  "question": "$\\frac{d}{dx}\\int_0^x \\sin(t^2)dt$ 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$\\cos(x^2)$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$\\sin(x^2)$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$2x\\cos(x^2)$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$\\sin(x^2)/2x$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "变上限积分求导公式：$\\frac{d}{dx}\\int_a^x f(t)dt=f(x)$。直接代入得 $\\sin(x^2)$。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec15",
+          "title": "5.2 反常积分",
+          "knowledge_points": [
+            {
+              "id": "calc_kp022",
+              "title": "无穷区间上的反常积分",
+              "content_type": "markdown",
+              "content": "## 无穷区间上的反常积分\n\n### 积分区间为 $[a,+\\infty)$\n$$\\int_a^{+\\infty} f(x)dx = \\lim_{b\\to+\\infty}\\int_a^b f(x)dx$$\n若极限存在（有限），称反常积分**收敛**；否则**发散**。\n\n### 积分区间为 $(-\\infty,b]$\n$$\\int_{-\\infty}^b f(x)dx = \\lim_{a\\to-\\infty}\\int_a^b f(x)dx$$\n\n### 积分区间为 $(-\\infty,+\\infty)$\n$$\\int_{-\\infty}^{+\\infty} f(x)dx = \\int_{-\\infty}^c f(x)dx + \\int_c^{+\\infty} f(x)dx$$\n两边都收敛才称积分收敛。\n\n### 重要的判别例子：$p$-积分\n$$\\int_1^{+\\infty}\\frac{1}{x^p}dx \\begin{cases} \\text{收敛}, & p>1 \\\\ \\text{发散}, & p\\leq 1 \\end{cases}$$\n\n特别地：\n- $\\int_1^{+\\infty}\\frac{1}{x^2}dx = 1$（收敛）\n- $\\int_1^{+\\infty}\\frac{1}{x}dx$ 发散",
+              "key_concepts": [
+                "反常积分",
+                "无穷区间",
+                "收敛",
+                "发散",
+                "p-积分"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q043",
+                  "type": "single_choice",
+                  "question": "反常积分 $\\int_1^{+\\infty}\\frac{1}{x^2}dx$ 的值是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "2"
+                    },
+                    {
+                      "key": "D",
+                      "text": "发散"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "$\\int_1^{+\\infty}\\frac{1}{x^2}dx=\\lim_{b\\to\\infty}[-\\frac{1}{x}]_1^b=\\lim_{b\\to\\infty}(-\\frac{1}{b}+1)=1$。收敛。"
+                },
+                {
+                  "id": "calc_q044",
+                  "type": "single_choice",
+                  "question": "$\\int_1^{+\\infty}\\frac{1}{x}dx$ 的敛散性是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "收敛于 0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "收敛于 1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "收敛于 e"
+                    },
+                    {
+                      "key": "D",
+                      "text": "发散"
+                    }
+                  ],
+                  "answer": "D",
+                  "explanation": "$\\int_1^{+\\infty}\\frac{1}{x}dx=\\lim_{b\\to\\infty}[\\ln x]_1^b=\\lim_{b\\to\\infty}\\ln b=+\\infty$，发散。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp023",
+              "title": "无界函数的反常积分（瑕积分）",
+              "content_type": "markdown",
+              "content": "## 无界函数的反常积分（瑕积分）\n\n若 $f(x)$ 在 $x\\to b^{-}$ 时无界（$b$ 为**瑕点**），定义：\n\n$$\\int_a^b f(x)dx = \\lim_{\\varepsilon\\to 0^+}\\int_a^{b-\\varepsilon} f(x)dx$$\n\n类似可定义 $a$ 为瑕点或区间内部有瑕点的情况。\n\n### 重要的 $q$-积分\n$$\\int_0^1\\frac{1}{x^q}dx \\begin{cases} \\text{收敛}, & q<1 \\\\ \\text{发散}, & q\\geq 1 \\end{cases}$$\n\n特别地：\n- $\\int_0^1\\frac{1}{\\sqrt{x}}dx = 2$（$q=1/2<1$，收敛）\n- $\\int_0^1\\frac{1}{x}dx$ 发散（$q=1$）\n\n## 比较判别法\n\n### 比较判别法（无穷区间）\n若 $0\\leq f(x)\\leq g(x)$ 且 $\\int_a^{+\\infty}g(x)dx$ 收敛，则 $\\int_a^{+\\infty}f(x)dx$ 收敛。\n若 $0\\leq g(x)\\leq f(x)$ 且 $\\int_a^{+\\infty}g(x)dx$ 发散，则 $\\int_a^{+\\infty}f(x)dx$ 发散。\n\n### 极限比较判别法\n若 $\\lim_{x\\to+\\infty}\\frac{f(x)}{g(x)}=L$（$0<L<+\\infty$），则 $\\int_a^{+\\infty}f(x)dx$ 与 $\\int_a^{+\\infty}g(x)dx$ 同敛散。",
+              "key_concepts": [
+                "瑕积分",
+                "瑕点",
+                "q-积分",
+                "比较判别法",
+                "极限比较判别法"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q045",
+                  "type": "single_choice",
+                  "question": "反常积分 $\\int_0^1\\frac{1}{\\sqrt{x}}dx$ 的值为？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "2"
+                    },
+                    {
+                      "key": "D",
+                      "text": "发散"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "$x=0$ 是瑕点。$\\int_0^1 x^{-1/2}dx=[2x^{1/2}]_0^1=2$。因为 $q=1/2<1$，收敛。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "calc_ch06",
+      "title": "第六章 多元函数微积分",
+      "sections": [
+        {
+          "id": "calc_sec16",
+          "title": "6.1 多元函数的基本概念",
+          "knowledge_points": [
+            {
+              "id": "calc_kp024",
+              "title": "多元函数的定义与极限",
+              "content_type": "markdown",
+              "content": "## 多元函数的概念\n\n设 D 是平面上的点集。若对 D 中每一点 $(x,y)$，按法则 $f$ 有唯一确定的实数 $z$ 与之对应，则称 $f$ 为定义在 D 上的**二元函数**，记作：\n\n$$z = f(x,y), \\quad (x,y)\\in D$$\n\nD 称为定义域，全体函数值称为值域。\n\n类似可定义三元及更多元的函数。\n\n## 二元函数的极限\n\n若当点 $(x,y)$ 以**任意方式**趋近于 $(x_0,y_0)$ 时，$f(x,y)$ 都趋近于同一常数 A，则称：\n\n$$\\lim_{(x,y)\\to(x_0,y_0)} f(x,y) = A$$\n\n注意：二元极限要求\"沿任何路径趋近时极限都存在且相等\"。\n\n## 二元函数的连续性\n若 $\\lim_{(x,y)\\to(x_0,y_0)}f(x,y)=f(x_0,y_0)$，则称 $f(x,y)$ 在 $(x_0,y_0)$ 处连续。\n\n## 有界闭区域上连续函数的性质\n与一元类似：有界、能取到最值、具有介值性。",
+              "key_concepts": [
+                "二元函数",
+                "定义域",
+                "二重极限",
+                "路径无关",
+                "连续"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q046",
+                  "type": "single_choice",
+                  "question": "二元函数的定义域是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "数轴上的区间"
+                    },
+                    {
+                      "key": "B",
+                      "text": "平面上的点集"
+                    },
+                    {
+                      "key": "C",
+                      "text": "三维空间中的曲面"
+                    },
+                    {
+                      "key": "D",
+                      "text": "直线上的点"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "二元函数 $z=f(x,y)$ 的自变量是平面上的点 $(x,y)$，定义域是平面上的点集（区域）。"
+                },
+                {
+                  "id": "calc_q047",
+                  "type": "single_choice",
+                  "question": "二元函数极限与一元函数极限的关键区别是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "二元极限值更大"
+                    },
+                    {
+                      "key": "B",
+                      "text": "二元极限要求沿任意路径都相等"
+                    },
+                    {
+                      "key": "C",
+                      "text": "二元极限不存在"
+                    },
+                    {
+                      "key": "D",
+                      "text": "没有区别"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "一元极限只有左、右两个方向；二元极限有无数条趋近路径，必须沿所有路径极限都相等才存在。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp025",
+              "title": "偏导数与全微分",
+              "content_type": "markdown",
+              "content": "## 偏导数\n\n对二元函数 $z=f(x,y)$，固定 $y$ 后对 $x$ 求导，称为 $f$ 对 $x$ 的**偏导数**：\n\n$$\\frac{\\partial z}{\\partial x}=f_x(x,y)=\\lim_{\\Delta x\\to 0}\\frac{f(x+\\Delta x,y)-f(x,y)}{\\Delta x}$$\n\n同理定义对 $y$ 的偏导数 $\\frac{\\partial z}{\\partial y}=f_y(x,y)$。\n\n### 二阶偏导数\n- $\\frac{\\partial^2 z}{\\partial x^2}=f_{xx}$（对 x 求两次偏导）\n- $\\frac{\\partial^2 z}{\\partial x\\partial y}=f_{xy}$（先对 x 再对 y）\n- $\\frac{\\partial^2 z}{\\partial y\\partial x}=f_{yx}$（先对 y 再对 x）\n\n若 $f_{xy}$ 和 $f_{yx}$ 连续，则 $f_{xy}=f_{yx}$（混合偏导数与次序无关）。\n\n## 全微分\n\n若 $z=f(x,y)$ 在 $(x_0,y_0)$ 处可微，则：\n\n$$dz = \\frac{\\partial z}{\\partial x}dx + \\frac{\\partial z}{\\partial y}dy$$\n\n## 链式法则（多元复合函数求导）\n若 $z=f(u,v)$，$u=u(x,y)$，$v=v(x,y)$，则：\n$$\\frac{\\partial z}{\\partial x}=\\frac{\\partial z}{\\partial u}\\cdot\\frac{\\partial u}{\\partial x}+\\frac{\\partial z}{\\partial v}\\cdot\\frac{\\partial v}{\\partial x}$$",
+              "key_concepts": [
+                "偏导数",
+                "全微分",
+                "混合偏导",
+                "链式法则",
+                "可微条件"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q048",
+                  "type": "single_choice",
+                  "question": "$z=x^2y+xy^2$，则 $\\frac{\\partial z}{\\partial x}$ 等于？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$2x+y^2$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$2xy+y^2$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$x^2+2xy$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$2x+2y$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "把 y 看作常数，对 x 求偏导：$\\frac{\\partial}{\\partial x}(x^2y+xy^2)=2xy+y^2$。"
+                },
+                {
+                  "id": "calc_q049",
+                  "type": "single_choice",
+                  "question": "二元函数可微的充分条件是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "偏导数存在"
+                    },
+                    {
+                      "key": "B",
+                      "text": "连续"
+                    },
+                    {
+                      "key": "C",
+                      "text": "偏导数存在且连续"
+                    },
+                    {
+                      "key": "D",
+                      "text": "有界"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "偏导数存在且连续 → 可微 → 偏导数存在 + 连续。注意：偏导数存在不一定可微。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec17",
+          "title": "6.2 多元函数的极值",
+          "knowledge_points": [
+            {
+              "id": "calc_kp026",
+              "title": "无条件极值与条件极值",
+              "content_type": "markdown",
+              "content": "## 无条件极值\n\n若 $f(x,y)$ 在 $(x_0,y_0)$ 处取极值且偏导数存在，则：\n\n$$f_x(x_0,y_0)=0,\\quad f_y(x_0,y_0)=0$$\n\n满足上式的点称为**驻点**。\n\n### 极值的充分判别（二元）\n设 $(x_0,y_0)$ 为驻点，记：\n$$A=f_{xx}(x_0,y_0),\\ B=f_{xy}(x_0,y_0),\\ C=f_{yy}(x_0,y_0)$$\n判别式 $\\Delta = AC - B^2$：\n- $\\Delta>0$ 且 $A>0$ → 极小值\n- $\\Delta>0$ 且 $A<0$ → 极大值\n- $\\Delta<0$ → 非极值（鞍点）\n- $\\Delta=0$ → 不确定\n\n## 条件极值（拉格朗日乘数法）\n\n求 $z=f(x,y)$ 在条件 $\\varphi(x,y)=0$ 下的极值：\n\n构造拉格朗日函数：\n$$L(x,y,\\lambda)=f(x,y)+\\lambda\\varphi(x,y)$$\n\n解方程组：\n$$\\begin{cases} L_x = 0 \\\\ L_y = 0 \\\\ L_\\lambda = \\varphi(x,y) = 0 \\end{cases}$$\n\n求出的解即为可能的条件极值点。",
+              "key_concepts": [
+                "驻点",
+                "AC-B²判别",
+                "鞍点",
+                "拉格朗日乘数法",
+                "条件极值"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q050",
+                  "type": "single_choice",
+                  "question": "二元函数极值的判别式 $\\Delta=AC-B^2<0$ 说明？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "极大值"
+                    },
+                    {
+                      "key": "B",
+                      "text": "极小值"
+                    },
+                    {
+                      "key": "C",
+                      "text": "鞍点（非极值）"
+                    },
+                    {
+                      "key": "D",
+                      "text": "无法确定"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "$\\Delta=AC-B^2<0$ 时该驻点是鞍点，不是极值点。$\\Delta>0$ 时才有极值（A>0极小，A<0极大）。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec18",
+          "title": "6.3 二重积分",
+          "knowledge_points": [
+            {
+              "id": "calc_kp027",
+              "title": "二重积分的概念与计算",
+              "content_type": "markdown",
+              "content": "## 二重积分的定义\n\n设 $f(x,y)$ 在有界闭区域 D 上有定义。将 D 任意分割为 n 个小区域，在每个小区域上任取一点，作积分和。当分割无限变细时积分和的极限称为**二重积分**：\n\n$$\\iint_D f(x,y)d\\sigma = \\lim_{\\lambda\\to 0}\\sum_{i=1}^{n}f(\\xi_i,\\eta_i)\\Delta\\sigma_i$$\n\n几何意义：当 $f(x,y)\\geq 0$ 时，二重积分表示以 D 为底、曲面 $z=f(x,y)$ 为顶的**曲顶柱体的体积**。\n\n## 直角坐标下的计算\n\n### X-型区域（先 y 后 x）\n$$\\iint_D f(x,y)dxdy = \\int_a^b dx\\int_{y_1(x)}^{y_2(x)} f(x,y)dy$$\n\n### Y-型区域（先 x 后 y）\n$$\\iint_D f(x,y)dxdy = \\int_c^d dy\\int_{x_1(y)}^{x_2(y)} f(x,y)dx$$\n\n## 极坐标下的计算\n当积分区域为圆形或扇形时，用极坐标：$x=r\\cos\\theta$，$y=r\\sin\\theta$，$dxdy = r dr d\\theta$\n\n$$\\iint_D f(x,y)dxdy = \\int_{\\alpha}^{\\beta} d\\theta\\int_{r_1(\\theta)}^{r_2(\\theta)} f(r\\cos\\theta,r\\sin\\theta)\\, r dr$$",
+              "key_concepts": [
+                "二重积分",
+                "曲顶柱体体积",
+                "X-型区域",
+                "Y-型区域",
+                "极坐标变换"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q051",
+                  "type": "single_choice",
+                  "question": "二重积分 $\\iint_D f(x,y)d\\sigma$（f≥0）的几何意义是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "平面区域的面积"
+                    },
+                    {
+                      "key": "B",
+                      "text": "曲顶柱体的体积"
+                    },
+                    {
+                      "key": "C",
+                      "text": "曲线的弧长"
+                    },
+                    {
+                      "key": "D",
+                      "text": "曲面的面积"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "二重积分表示以积分区域 D 为底、曲面 z=f(x,y) 为顶的曲顶柱体的体积。如果是 $\\iint_D 1 d\\sigma$ 则表示 D 的面积。"
+                },
+                {
+                  "id": "calc_q052",
+                  "type": "single_choice",
+                  "question": "极坐标下二重积分的面积元素是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$dr d\\theta$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$r dr d\\theta$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$r^2 dr d\\theta$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$\\frac{1}{r}dr d\\theta$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "极坐标变换 $x=r\\cos\\theta, y=r\\sin\\theta$，雅可比行列式为 r，所以 $dxdy=r dr d\\theta$。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "calc_ch07",
+      "title": "第七章 无穷级数",
+      "sections": [
+        {
+          "id": "calc_sec19",
+          "title": "7.1 数项级数",
+          "knowledge_points": [
+            {
+              "id": "calc_kp028",
+              "title": "级数的收敛与判别",
+              "content_type": "markdown",
+              "content": "## 无穷级数的基本概念\n\n给定数列 $\\{u_n\\}$，称：\n\n$$\\sum_{n=1}^{\\infty}u_n = u_1+u_2+u_3+\\cdots$$\n\n为**无穷级数**。其前 n 项和 $S_n=\\sum_{k=1}^{n}u_k$ 称为**部分和**。若 $\\lim_{n\\to\\infty}S_n=S$（有限），称级数**收敛**于 S；否则**发散**。\n\n### 收敛的必要条件\n若 $\\sum u_n$ 收敛，则 $\\lim_{n\\to\\infty}u_n=0$。\n\n注意：$u_n\\to 0$ 只是必要条件，不是充分条件！\n反例：调和级数 $\\sum\\frac{1}{n}$ 中 $\\frac{1}{n}\\to 0$，但级数发散。\n\n### 正项级数的判别法\n\n1. **比较判别法**：若 $0\\leq u_n\\leq v_n$，$\\sum v_n$ 收敛 → $\\sum u_n$ 收敛\n2. **比值判别法（达朗贝尔）**：$\\lim_{n\\to\\infty}|\\frac{u_{n+1}}{u_n}|=\\rho$\n   - $\\rho<1$ → 收敛\n   - $\\rho>1$ → 发散\n   - $\\rho=1$ → 不确定\n3. **根值判别法（柯西）**：$\\lim_{n\\to\\infty}\\sqrt[n]{|u_n|}=\\rho$（同上述判据）\n\n### 重要的参照级数\n- **几何级数**：$\\sum ar^{n-1}$，$|r|<1$ 收敛，$|r|\\geq 1$ 发散\n- **p-级数**：$\\sum\\frac{1}{n^p}$，$p>1$ 收敛，$p\\leq 1$ 发散",
+              "key_concepts": [
+                "无穷级数",
+                "部分和",
+                "收敛必要条件",
+                "比值判别法",
+                "p-级数",
+                "几何级数"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q053",
+                  "type": "single_choice",
+                  "question": "级数 $\\sum_{n=1}^{\\infty}\\frac{1}{n}$（调和级数）的敛散性是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "收敛于 1"
+                    },
+                    {
+                      "key": "B",
+                      "text": "收敛于 0"
+                    },
+                    {
+                      "key": "C",
+                      "text": "发散"
+                    },
+                    {
+                      "key": "D",
+                      "text": "收敛于 2"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "调和级数发散。p-级数 $\\sum 1/n^p$ 中 p=1≤1，故发散。虽然通项趋于 0，但不满足收敛的充分条件。"
+                },
+                {
+                  "id": "calc_q054",
+                  "type": "single_choice",
+                  "question": "$\\sum_{n=1}^{\\infty}(\\frac{1}{2})^n$ 的和为？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "1"
+                    },
+                    {
+                      "key": "B",
+                      "text": "2"
+                    },
+                    {
+                      "key": "C",
+                      "text": "1/2"
+                    },
+                    {
+                      "key": "D",
+                      "text": "发散"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "这是几何级数，首项 a=1/2，公比 r=1/2。$S=a/(1-r)=(1/2)/(1-1/2)=1$。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp029",
+              "title": "交错级数与绝对收敛",
+              "content_type": "markdown",
+              "content": "## 交错级数\n\n形如 $\\sum (-1)^{n-1}u_n$（$u_n>0$）的级数。\n\n### 莱布尼茨判别法\n若交错级数满足：① $u_n$ 单调递减；② $\\lim u_n=0$\n则交错级数收敛，且其和 $S\\leq u_1$。\n\n例：$\\sum_{n=1}^{\\infty}\\frac{(-1)^{n-1}}{n}=1-\\frac{1}{2}+\\frac{1}{3}-\\frac{1}{4}+\\cdots = \\ln 2$（收敛）\n\n## 绝对收敛与条件收敛\n\n- 若 $\\sum |u_n|$ 收敛，称 $\\sum u_n$ **绝对收敛**\n- 若 $\\sum u_n$ 收敛但 $\\sum |u_n|$ 发散，称 $\\sum u_n$ **条件收敛**\n\n绝对收敛 ⟹ 收敛（反之不成立）。\n\n例：$\\sum\\frac{(-1)^{n-1}}{n}$ 是条件收敛（本身收敛，取绝对值后变为调和级数发散）。\n$\\sum\\frac{(-1)^{n-1}}{n^2}$ 是绝对收敛。",
+              "key_concepts": [
+                "交错级数",
+                "莱布尼茨判别法",
+                "绝对收敛",
+                "条件收敛"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q055",
+                  "type": "single_choice",
+                  "question": "交错级数 $\\sum_{n=1}^{\\infty}\\frac{(-1)^{n-1}}{n}$ 是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "发散"
+                    },
+                    {
+                      "key": "B",
+                      "text": "绝对收敛"
+                    },
+                    {
+                      "key": "C",
+                      "text": "条件收敛"
+                    },
+                    {
+                      "key": "D",
+                      "text": "无法判断"
+                    }
+                  ],
+                  "answer": "C",
+                  "explanation": "由莱布尼茨判别法知该级数收敛。但 $\\sum 1/n$ 发散，所以是条件收敛。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec20",
+          "title": "7.2 幂级数",
+          "knowledge_points": [
+            {
+              "id": "calc_kp030",
+              "title": "幂级数的收敛半径与泰勒级数",
+              "content_type": "markdown",
+              "content": "## 幂级数\n\n形如 $\\sum_{n=0}^{\\infty}a_n(x-x_0)^n$ 的级数称为**幂级数**。\n\n### 收敛半径\n\n幂级数存在一个**收敛半径** $R$（$0\\leq R\\leq +\\infty$）：\n- $|x-x_0|<R$ 时，级数绝对收敛\n- $|x-x_0|>R$ 时，级数发散\n- $|x-x_0|=R$ 时，需单独判别\n\n求收敛半径公式（比值法）：$R=\\lim_{n\\to\\infty}|\\frac{a_n}{a_{n+1}}|$（若极限存在）\n\n或根值法：$R=1/\\lim_{n\\to\\infty}\\sqrt[n]{|a_n|}$\n\n### 幂级数的运算性质\n在收敛域内，幂级数可逐项求导和逐项积分，收敛半径不变。\n\n## 泰勒级数与麦克劳林级数\n\n若 $f(x)$ 在 $x=x_0$ 处无限次可导，则：\n\n$$f(x)=\\sum_{n=0}^{\\infty}\\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n$$\n\n当 $x_0=0$ 时称为**麦克劳林级数**。\n\n### 常见麦克劳林展开式\n- $e^x = \\sum_{n=0}^{\\infty}\\frac{x^n}{n!} = 1+x+\\frac{x^2}{2!}+\\frac{x^3}{3!}+\\cdots$（$R=+\\infty$）\n- $\\sin x = \\sum_{n=0}^{\\infty}\\frac{(-1)^n x^{2n+1}}{(2n+1)!} = x-\\frac{x^3}{3!}+\\frac{x^5}{5!}-\\cdots$（$R=+\\infty$）\n- $\\cos x = \\sum_{n=0}^{\\infty}\\frac{(-1)^n x^{2n}}{(2n)!}$（$R=+\\infty$）\n- $\\frac{1}{1-x} = \\sum_{n=0}^{\\infty}x^n$（$R=1$，$|x|<1$）\n- $\\ln(1+x) = \\sum_{n=1}^{\\infty}\\frac{(-1)^{n-1}x^n}{n}$（$R=1$）",
+              "key_concepts": [
+                "幂级数",
+                "收敛半径",
+                "收敛域",
+                "泰勒级数",
+                "麦克劳林级数",
+                "逐项求导"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q056",
+                  "type": "single_choice",
+                  "question": "幂级数 $\\sum_{n=0}^{\\infty}x^n$ 的收敛半径是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "0"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1"
+                    },
+                    {
+                      "key": "C",
+                      "text": "∞"
+                    },
+                    {
+                      "key": "D",
+                      "text": "2"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "$a_n=1$，$R=\\lim|a_n/a_{n+1}|=1$。该级数即几何级数，当 |x|<1 时收敛。"
+                },
+                {
+                  "id": "calc_q057",
+                  "type": "single_choice",
+                  "question": "$e^x$ 的麦克劳林展开式中 $x^2$ 的系数是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "1"
+                    },
+                    {
+                      "key": "B",
+                      "text": "1/2"
+                    },
+                    {
+                      "key": "C",
+                      "text": "1/6"
+                    },
+                    {
+                      "key": "D",
+                      "text": "2"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "$e^x=1+x+\\frac{x^2}{2!}+\\frac{x^3}{3!}+\\cdots$，$x^2$ 系数为 $\\frac{1}{2!}=\\frac{1}{2}$。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec21",
+          "title": "7.3 傅里叶级数",
+          "knowledge_points": [
+            {
+              "id": "calc_kp031",
+              "title": "傅里叶级数与展开",
+              "content_type": "markdown",
+              "content": "## 傅里叶 (Fourier) 级数\n\n以 $2\\pi$ 为周期的函数 $f(x)$ 可展开为三角级数：\n\n$$f(x)=\\frac{a_0}{2}+\\sum_{n=1}^{\\infty}(a_n\\cos nx + b_n\\sin nx)$$\n\n其中傅里叶系数：\n$$a_n = \\frac{1}{\\pi}\\int_{-\\pi}^{\\pi}f(x)\\cos nx dx, \\quad n=0,1,2,\\cdots$$\n$$b_n = \\frac{1}{\\pi}\\int_{-\\pi}^{\\pi}f(x)\\sin nx dx, \\quad n=1,2,3,\\cdots$$\n\n## 收敛定理（狄利克雷条件）\n若 $f(x)$ 在 $[-\\pi,\\pi]$ 上分段单调且只有有限个第一类间断点，则其傅里叶级数收敛于：\n- 连续点处 → $f(x)$\n- 间断点处 → $\\frac{f(x^+)+f(x^-)}{2}$（左右极限的平均值）\n\n## 正弦级数与余弦级数\n- 若 $f(x)$ 是奇函数 → $a_n=0$，只有正弦项（**正弦级数**）\n- 若 $f(x)$ 是偶函数 → $b_n=0$，只有余弦项（**余弦级数**）\n\n## 周期为 2L 的傅里叶级数\n将变量代换 $x\\to\\frac{\\pi x}{L}$，可得任意周期 2L 的展开式。\n\n## 应用\n傅里叶级数广泛应用于信号处理、热传导方程、振动分析等领域。",
+              "key_concepts": [
+                "三角级数",
+                "傅里叶系数",
+                "狄利克雷条件",
+                "正弦级数",
+                "余弦级数",
+                "周期延拓"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q058",
+                  "type": "single_choice",
+                  "question": "奇函数的傅里叶级数展开中包含？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "只有正弦项"
+                    },
+                    {
+                      "key": "B",
+                      "text": "只有余弦项"
+                    },
+                    {
+                      "key": "C",
+                      "text": "正弦和余弦都有"
+                    },
+                    {
+                      "key": "D",
+                      "text": "只有常数项"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "奇函数 → $a_n=0$（含 a₀），只含正弦项，即正弦级数。偶函数 → $b_n=0$，只含余弦项。"
+                },
+                {
+                  "id": "calc_q059",
+                  "type": "single_choice",
+                  "question": "傅里叶系数 $a_0$ 表示什么？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "正弦分量的幅度"
+                    },
+                    {
+                      "key": "B",
+                      "text": "函数在一个周期内的平均值"
+                    },
+                    {
+                      "key": "C",
+                      "text": "函数的频率"
+                    },
+                    {
+                      "key": "D",
+                      "text": "函数的相位"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "$a_0/2$ 是 f(x) 在一个周期内的平均值（直流分量）。$a_0=\\frac{1}{\\pi}\\int_{-\\pi}^{\\pi}f(x)dx$。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "calc_ch08",
+      "title": "第八章 微分方程基础",
+      "sections": [
+        {
+          "id": "calc_sec22",
+          "title": "8.1 一阶微分方程",
+          "knowledge_points": [
+            {
+              "id": "calc_kp032",
+              "title": "微分方程的基本概念",
+              "content_type": "markdown",
+              "content": "## 微分方程的基本概念\n\n含有未知函数及其导数的方程称为**微分方程**。\n\n- **阶**：方程中出现的最高阶导数的阶数\n- **解**：代入方程后使其成为恒等式的函数\n- **通解**：含有与方程阶数相同个数的独立任意常数的解\n- **特解**：由初始条件确定了通解中常数后得到的解\n\n## 可分离变量的微分方程\n\n形如 $\\frac{dy}{dx}=f(x)g(y)$ 的方程。分离变量后两边积分：\n\n$$\\int\\frac{dy}{g(y)}=\\int f(x)dx + C$$\n\n## 一阶线性微分方程\n\n$$\\frac{dy}{dx} + P(x)y = Q(x)$$\n\n通解公式：\n$$y = e^{-\\int P(x)dx}\\left[\\int Q(x)e^{\\int P(x)dx}dx + C\\right]$$\n\n口诀：\"先算积分因子，再套通解公式\"。\n\n当 $Q(x)\\equiv 0$ 时称为**齐次方程**：$y=Ce^{-\\int P(x)dx}$。",
+              "key_concepts": [
+                "微分方程",
+                "阶",
+                "通解",
+                "特解",
+                "可分离变量",
+                "一阶线性",
+                "积分因子"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q060",
+                  "type": "single_choice",
+                  "question": "方程 $\\frac{dy}{dx}=ky$ 的通解是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$y=kx+C$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$y=Ce^{kx}$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$y=kC$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$y=e^{kC}$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "可分离变量：$\\frac{dy}{y}=kdx$，积分得 $\\ln|y|=kx+C_1$，所以 $y=Ce^{kx}$。"
+                },
+                {
+                  "id": "calc_q061",
+                  "type": "single_choice",
+                  "question": "$y'+P(x)y=Q(x)$ 的积分因子是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$e^{\\int P(x)dx}$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$e^{-\\int P(x)dx}$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$\\int P(x)dx$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$e^{P(x)}$"
+                    }
+                  ],
+                  "answer": "A",
+                  "explanation": "积分因子为 $\\mu(x)=e^{\\int P(x)dx}$。两边乘以积分因子后左边变为 $(\\mu y)'$。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp033",
+              "title": "可降阶的高阶微分方程",
+              "content_type": "markdown",
+              "content": "## 可降阶的高阶微分方程\n\n### 类型1：$y^{(n)}=f(x)$\n直接逐次积分即可。\n\n### 类型2：$y''=f(x,y')$（不显含 y）\n令 $p=y'$，则 $y''=p'$，方程降为一阶：$p'=f(x,p)$。\n\n### 类型3：$y''=f(y,y')$（不显含 x）\n令 $p=y'$，则 $y''=p\\frac{dp}{dy}$（关键变换！），方程降为一阶：$p\\frac{dp}{dy}=f(y,p)$。\n\n### 例题\n解 $y''=y'$（不显含 x 和 y）：令 $p=y'$，$p'=p$，$\\frac{dp}{dx}=p$，解得 $p=C_1e^x$，再积分得 $y=C_1e^x+C_2$。",
+              "key_concepts": [
+                "降阶法",
+                "p=y'代换",
+                "p(dp/dy)变换",
+                "逐次积分"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q062",
+                  "type": "single_choice",
+                  "question": "解 $y''=f(y,y')$ 型方程时，关键变换是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "令 $y=ux$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "令 $p=y'$，$y''=p dp/dy$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "令 $y=e^{rx}$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "拉普拉斯变换"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "不显含 x 时，令 $p=y'$，利用链式法则 $y''=\\frac{dp}{dx}=\\frac{dp}{dy}\\frac{dy}{dx}=p\\frac{dp}{dy}$。这样就可以把 y 作为自变量。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "calc_sec23",
+          "title": "8.2 二阶线性微分方程",
+          "knowledge_points": [
+            {
+              "id": "calc_kp034",
+              "title": "常系数齐次线性方程",
+              "content_type": "markdown",
+              "content": "## 二阶常系数齐次线性微分方程\n\n$$y''+py'+qy=0$$\n\n### 特征方程法\n设 $y=e^{rx}$，代入得**特征方程**：$r^2+pr+q=0$。\n\n根据判别式 $\\Delta=p^2-4q$：\n\n| 根的情况 | 通解形式 |\n|---------|--------|\n| 两不等实根 $r_1\\neq r_2$ | $y=C_1e^{r_1x}+C_2e^{r_2x}$ |\n| 重根 $r_1=r_2=r$ | $y=(C_1+C_2x)e^{rx}$ |\n| 共轭复根 $r=\\alpha\\pm i\\beta$ | $y=e^{\\alpha x}(C_1\\cos\\beta x+C_2\\sin\\beta x)$ |\n\n### 典型例题\n1. $y''-3y'+2y=0$：特征方程 $r^2-3r+2=0$，根 $r=1,2$，通解 $y=C_1e^x+C_2e^{2x}$\n2. $y''+4y=0$：$r^2+4=0$，$r=\\pm 2i$，通解 $y=C_1\\cos 2x+C_2\\sin 2x$\n3. $y''+2y'+y=0$：$r^2+2r+1=0$，重根 $r=-1$，通解 $y=(C_1+C_2x)e^{-x}$",
+              "key_concepts": [
+                "特征方程",
+                "实根",
+                "复根",
+                "重根",
+                "二阶常系数齐次"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q063",
+                  "type": "single_choice",
+                  "question": "$y''-4y'+4y=0$ 的通解是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$y=C_1e^{2x}+C_2e^{-2x}$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$y=(C_1+C_2x)e^{2x}$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$y=e^{2x}(C_1\\cos 2x+C_2\\sin 2x)$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$y=C_1e^{2x}$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "特征方程 $r^2-4r+4=0$，$(r-2)^2=0$，重根 $r=2$。通解 $y=(C_1+C_2x)e^{2x}$。"
+                },
+                {
+                  "id": "calc_q064",
+                  "type": "single_choice",
+                  "question": "$y''+9y=0$ 的通解是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "$y=C_1e^{3x}+C_2e^{-3x}$"
+                    },
+                    {
+                      "key": "B",
+                      "text": "$y=C_1\\cos 3x+C_2\\sin 3x$"
+                    },
+                    {
+                      "key": "C",
+                      "text": "$y=C_1x\\cos 3x+C_2x\\sin 3x$"
+                    },
+                    {
+                      "key": "D",
+                      "text": "$y=C_1\\cos 9x+C_2\\sin 9x$"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "特征方程 $r^2+9=0$，$r=\\pm 3i$。共轭复根，通解 $y=C_1\\cos 3x+C_2\\sin 3x$。"
+                }
+              ]
+            },
+            {
+              "id": "calc_kp035",
+              "title": "常系数非齐次线性方程",
+              "content_type": "markdown",
+              "content": "## 二阶常系数非齐次线性微分方程\n\n$$y''+py'+qy=f(x)$$\n\n**通解 = 齐次通解 + 非齐次特解**\n\n### 待定系数法\n\n当 $f(x)$ 为以下形式时，可设特解形式：\n\n#### 1. $f(x)=P_m(x)e^{\\lambda x}$（$P_m$ 为 m 次多项式）\n设特解 $y^* = x^k Q_m(x)e^{\\lambda x}$\n其中 k 是 λ 作为特征根的重数（0,1,2）。\n\n#### 2. $f(x)=e^{\\alpha x}[P_l(x)\\cos\\beta x+P_n(x)\\sin\\beta x]$\n设特解 $y^*=x^ke^{\\alpha x}[R_m(x)\\cos\\beta x+S_m(x)\\sin\\beta x]$\n其中 $m=\\max(l,n)$，k 是 $\\alpha+i\\beta$ 作为特征根的重数。\n\n### 例题\n$y''+y=x$：齐次通解 $y_h=C_1\\cos x+C_2\\sin x$；设特解 $y^*=ax+b$，代入得 $a=1,b=0$，特解 $y^*=x$。通解 $y=C_1\\cos x+C_2\\sin x+x$。",
+              "key_concepts": [
+                "非齐次方程",
+                "待定系数法",
+                "特解形式",
+                "通解叠加"
+              ],
+              "quizzes": [
+                {
+                  "id": "calc_q065",
+                  "type": "single_choice",
+                  "question": "非齐次方程 $y''+y'+y=f(x)$ 的通解结构是？",
+                  "options": [
+                    {
+                      "key": "A",
+                      "text": "一个特解"
+                    },
+                    {
+                      "key": "B",
+                      "text": "齐次通解+一个特解"
+                    },
+                    {
+                      "key": "C",
+                      "text": "两个特解的线性组合"
+                    },
+                    {
+                      "key": "D",
+                      "text": "只需求特解"
+                    }
+                  ],
+                  "answer": "B",
+                  "explanation": "非齐次线性方程的通解 = 对应齐次方程的通解 + 非齐次方程的一个特解。这是线性微分方程解的叠加原理。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

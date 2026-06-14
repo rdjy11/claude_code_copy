@@ -65,11 +65,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',s
 .quiz-progress{display:flex;justify-content:space-between;font-size:11px;color:#888;margin-bottom:10px}
 .quiz-question{font-size:14px;color:#333;margin-bottom:14px;line-height:1.5;font-weight:500}
 .option{background:#fafafa;border:2px solid #e8e8e8;border-radius:10px;padding:12px;margin-bottom:6px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:13px;transition:all .15s}
-.option.selected{border-color:#1565C0;background:#e8eaf6}
+.option.selected{border-color:#2979FF;background:#e3f2fd}
 .option.correct{border-color:#2e7d32;background:#e8f5e9}
 .option.wrong{border-color:#c62828;background:#ffebee}
 .option .key{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;background:#e0e0e0;color:#666;flex-shrink:0}
-.option.selected .key{background:#1565C0;color:#fff}
+.option.selected .key{background:#2979FF;color:#fff}
 .option.correct .key{background:#2e7d32;color:#fff}
 .option.wrong .key{background:#c62828;color:#fff}
 .submit-btn{width:100%;padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-top:6px}
@@ -382,6 +382,265 @@ function drawRing(canvasId, progress) {
 }
 drawRing('ringCanvas', 0.24);
 switchScreen('home');
+</script>
+<!-- HTML Annotator — 框选区域后输入备注，点"复制 JSON"把反馈发给 Claude -->
+<script>
+(function () {
+  var anns = [], idCtr = 1, active = false, dragging = false;
+  var sx, sy, drawEl, pendingRect, uiDrag = null;
+
+  /* ── 样式 ── */
+  var s = document.createElement('style');
+  s.textContent = [
+    '@keyframes _ann_pulse{0%,100%{box-shadow:-3px 2px 18px rgba(102,126,234,.5)}50%{box-shadow:-4px 2px 32px rgba(102,126,234,.9),0 0 0 5px rgba(102,126,234,.12)}}',
+    '#_ann_tb{position:fixed;right:0;top:45%;z-index:2147483647;user-select:none}',
+    '#_ann_btn{display:flex;flex-direction:column;align-items:center;gap:3px;background:linear-gradient(160deg,#667eea,#764ba2);color:#fff;border:none;padding:14px 8px 14px 14px;border-radius:16px 0 0 16px;cursor:pointer;font-size:22px;line-height:1;font-family:-apple-system,sans-serif;transform:translateX(55%);transition:transform .25s cubic-bezier(.34,1.56,.64,1);animation:_ann_pulse 2.5s ease-in-out infinite}',
+    '#_ann_btn span{font-size:9px;letter-spacing:1px;opacity:.9;white-space:nowrap}',
+    '#_ann_tb:hover #_ann_btn,#_ann_btn.on{transform:translateX(0);animation:none}',
+    '#_ann_btn.on{background:linear-gradient(160deg,#c53030,#e53e3e)}',
+    '#_ann_ov{position:fixed;inset:0;z-index:2147483640;cursor:crosshair;pointer-events:none}',
+    '#_ann_ov.on{pointer-events:all}',
+    '._ann_r{position:fixed;border:2px solid #e53e3e;background:rgba(229,62,62,.07);z-index:2147483641;pointer-events:none}',
+    '._ann_b{position:absolute;top:-10px;left:-10px;background:#e53e3e;color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:bold 11px sans-serif}',
+    '#_ann_panel{position:fixed;bottom:14px;right:14px;width:290px;background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.18);z-index:2147483647;display:none;font:13px/1.4 -apple-system,sans-serif;overflow:hidden}',
+    '#_ann_panel.on{display:block}',
+    '#_ann_ph{padding:11px 14px;background:#1a1a2e;color:#fff;font-weight:600;display:flex;justify-content:space-between;cursor:move}',
+    '#_ann_pb{max-height:220px;overflow-y:auto}',
+    '._ann_item{padding:8px 14px;border-bottom:1px solid #f0f0f0;font-size:12px;color:#333}',
+    '._ann_n{display:inline-flex;align-items:center;justify-content:center;background:#e53e3e;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:bold;margin-right:6px;flex-shrink:0}',
+    '#_ann_pf{padding:9px 14px;display:flex;gap:7px;border-top:1px solid #eee}',
+    '._ann_fbtn{flex:1;padding:6px;border:none;border-radius:5px;cursor:pointer;font-size:12px;font-weight:500}',
+    '#_ann_copy{background:#1a1a2e;color:#fff}',
+    '#_ann_clr{background:#fff5f5;color:#c53030;border:1px solid #fed7d7}',
+    '#_ann_tip{padding:7px 14px 8px;font-size:11px;color:#999;border-top:1px solid #f0f0f0;line-height:1.6}',
+    '#_ann_bbl{position:fixed;z-index:2147483647;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:11px;width:230px;display:none;font:13px -apple-system,sans-serif}',
+    '#_ann_bbl_hdr{cursor:move;text-align:center;color:#bbb;font-size:11px;margin-bottom:7px;user-select:none;letter-spacing:2px}',
+    '#_ann_ta{width:100%;border:1px solid #e2e8f0;border-radius:5px;padding:6px 8px;font-size:12px;resize:none;outline:none;box-sizing:border-box;font-family:inherit}',
+    '#_ann_bbl_btns{display:flex;gap:10px;margin-top:9px}',
+    '#_ann_bbl_btns button{flex:1;padding:7px 5px;border:none;border-radius:4px;cursor:pointer;font-size:12px}',
+    '#_ann_ok{background:#1a1a2e;color:#fff}',
+    '#_ann_no{background:#f7fafc;color:#555}'
+  ].join('');
+  document.head.appendChild(s);
+
+  /* ── DOM ── */
+  function el(tag, id, html) {
+    var e = document.createElement(tag);
+    if (id) e.id = id;
+    if (html) e.innerHTML = html;
+    document.body.appendChild(e);
+    return e;
+  }
+
+  var ov     = el('div', '_ann_ov');
+  var tb     = el('div', '_ann_tb', '<button id="_ann_btn">📌<span>标注</span></button>');
+  var panel  = el('div', '_ann_panel',
+    '<div id="_ann_ph"><span>标注列表</span><span id="_ann_cnt">0 条</span></div>' +
+    '<div id="_ann_pb"></div>' +
+    '<div id="_ann_tip">📋 完成后点「复制 JSON」，粘贴到 Claude 对话框，他会按标注修改原型</div>' +
+    '<div id="_ann_pf">' +
+    '<button class="_ann_fbtn" id="_ann_copy">复制 JSON</button>' +
+    '<button class="_ann_fbtn" id="_ann_clr">清空</button></div>');
+  var bbl    = el('div', '_ann_bbl',
+    '<div id="_ann_bbl_hdr">⠿ ⠿ ⠿</div>' +
+    '<textarea id="_ann_ta" rows="3" placeholder="描述偏差（Shift+Enter 换行，Enter 确认）"></textarea>' +
+    '<div id="_ann_bbl_btns"><button id="_ann_ok">确认</button><button id="_ann_no">取消</button></div>');
+
+  /* ── 拖移 ── */
+  function makeDraggable(elem, handle, vOnly) {
+    handle.addEventListener('mousedown', function (e) {
+      if (e.button !== 0 || e.target.tagName === 'TEXTAREA') return;
+      var isBtn = e.target.tagName === 'BUTTON';
+      var r = elem.getBoundingClientRect();
+      var ox = e.clientX - r.left, oy = e.clientY - r.top;
+      var sx = e.clientX, sy = e.clientY;
+      function mm(ev) {
+        if (!uiDrag && (Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy) > 5)) {
+          uiDrag = { el: elem, ox: ox, oy: oy, vOnly: !!vOnly };
+          if (isBtn) {
+            e.target.addEventListener('click', function stop(ce) {
+              ce.stopImmediatePropagation();
+              e.target.removeEventListener('click', stop, true);
+            }, true);
+          }
+        }
+      }
+      function mu() {
+        document.removeEventListener('mousemove', mm);
+        document.removeEventListener('mouseup', mu);
+      }
+      document.addEventListener('mousemove', mm);
+      document.addEventListener('mouseup', mu);
+      if (!isBtn) e.preventDefault();
+    });
+  }
+  makeDraggable(tb, tb, true);
+  makeDraggable(panel, document.getElementById('_ann_ph'));
+  makeDraggable(bbl, document.getElementById('_ann_bbl_hdr'));
+
+  /* ── 切换标注模式 ── */
+  document.getElementById('_ann_btn').onclick = function () {
+    active = !active;
+    this.classList.toggle('on', active);
+    this.innerHTML = active ? '✕' : '📌<span>标注</span>';
+    ov.classList.toggle('on', active);
+  };
+
+  /* ── 画框 ── */
+  ov.addEventListener('mousedown', function (e) {
+    if (!active) return;
+    dragging = true; sx = e.clientX; sy = e.clientY;
+    drawEl = document.createElement('div');
+    drawEl.className = '_ann_r';
+    drawEl.style.cssText = 'left:' + sx + 'px;top:' + sy + 'px;width:0;height:0';
+    document.body.appendChild(drawEl);
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (uiDrag) {
+      var ny = Math.max(0, Math.min(e.clientY - uiDrag.oy, window.innerHeight - uiDrag.el.offsetHeight));
+      uiDrag.el.style.top = ny + 'px';
+      if (!uiDrag.vOnly) {
+        var nx = Math.max(0, Math.min(e.clientX - uiDrag.ox, window.innerWidth - uiDrag.el.offsetWidth));
+        uiDrag.el.style.left = nx + 'px';
+        uiDrag.el.style.right = 'auto'; uiDrag.el.style.bottom = 'auto';
+      }
+      return;
+    }
+    if (!dragging || !drawEl) return;
+    var x = Math.min(e.clientX, sx), y = Math.min(e.clientY, sy);
+    var w = Math.abs(e.clientX - sx), h = Math.abs(e.clientY - sy);
+    drawEl.style.cssText = 'left:' + x + 'px;top:' + y + 'px;width:' + w + 'px;height:' + h + 'px';
+  });
+
+  document.addEventListener('mouseup', function (e) {
+    if (uiDrag) { uiDrag = null; return; }
+    if (!dragging) return;
+    dragging = false;
+    var x = Math.min(e.clientX, sx), y = Math.min(e.clientY, sy);
+    var w = Math.abs(e.clientX - sx), h = Math.abs(e.clientY - sy);
+    if (w < 8 || h < 8) { if (drawEl) { drawEl.remove(); drawEl = null; } return; }
+    pendingRect = { x: x, y: y, w: w, h: h, el: drawEl };
+    drawEl = null;
+    /* 显示输入气泡 */
+    var bx = Math.min(x + w + 8, window.innerWidth - 248);
+    var by = Math.max(8, Math.min(y, window.innerHeight - 170));
+    bbl.style.cssText = 'display:block;left:' + bx + 'px;top:' + by + 'px';
+    var ta = document.getElementById('_ann_ta');
+    ta.value = ''; ta.focus();
+  });
+
+  /* ── 确认备注 ── */
+  function save() {
+    var text = document.getElementById('_ann_ta').value.trim();
+    if (!text || !pendingRect) {
+      if (pendingRect) { pendingRect.el.remove(); pendingRect = null; }
+      bbl.style.display = 'none'; return;
+    }
+    var id = idCtr++;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    /* 捕获页面和元素上下文 */
+    var cx = Math.round(pendingRect.x + pendingRect.w / 2);
+    var cy = Math.round(pendingRect.y + pendingRect.h / 2);
+    ov.style.pointerEvents = 'none';
+    var tel = document.elementFromPoint(cx, cy);
+    ov.style.pointerEvents = '';
+    var telStr = '';
+    if (tel) {
+      telStr = tel.tagName.toLowerCase();
+      if (tel.id) { telStr += '#' + tel.id; }
+      else if (tel.className && typeof tel.className === 'string') {
+        var cls = tel.className.trim().split(/\s+/).slice(0, 2).join('.');
+        if (cls) telStr += '.' + cls;
+      }
+    }
+    /* 向上查找最近的有 id 的祖先，用于定位 JS render 函数 */
+    var nearestId = '';
+    var cur = tel;
+    while (cur && cur !== document.body) {
+      if (cur.id && !cur.id.startsWith('_ann_')) { nearestId = cur.id; break; }
+      cur = cur.parentElement;
+    }
+    anns.push({
+      id: id,
+      x: Math.round(pendingRect.x),
+      y: Math.round(pendingRect.y),
+      width: Math.round(pendingRect.w),
+      height: Math.round(pendingRect.h),
+      x_pct: +(pendingRect.x / vw * 100).toFixed(1),
+      y_pct: +(pendingRect.y / vh * 100).toFixed(1),
+      w_pct: +(pendingRect.w / vw * 100).toFixed(1),
+      h_pct: +(pendingRect.h / vh * 100).toFixed(1),
+      nearest_id: nearestId,
+      target_el: telStr,
+      comment: text
+    });
+    /* 贴编号 */
+    var badge = document.createElement('div');
+    badge.className = '_ann_b'; badge.textContent = id;
+    pendingRect.el.appendChild(badge);
+    bbl.style.display = 'none'; pendingRect = null;
+    refresh();
+  }
+
+  document.getElementById('_ann_ok').onclick = save;
+  document.getElementById('_ann_ta').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); save(); }
+  });
+  document.getElementById('_ann_no').onclick = function () {
+    if (pendingRect) { pendingRect.el.remove(); pendingRect = null; }
+    bbl.style.display = 'none';
+  };
+
+  /* ── 面板刷新 ── */
+  function refresh() {
+    document.getElementById('_ann_cnt').textContent = anns.length + ' 条';
+    document.getElementById('_ann_pb').innerHTML = anns.map(function (a) {
+      return '<div class="_ann_item"><span class="_ann_n">' + a.id + '</span>' + a.comment + '</div>';
+    }).join('');
+    panel.classList.toggle('on', anns.length > 0);
+  }
+
+  /* ── 复制 JSON（兼容 file:// 协议） ── */
+  function fallbackCopy(text, btn) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      btn.textContent = '已复制 ✓';
+    } catch (e) {
+      btn.textContent = '复制失败';
+    }
+    document.body.removeChild(ta);
+    setTimeout(function () { btn.textContent = '复制 JSON'; }, 2000);
+  }
+  document.getElementById('_ann_copy').onclick = function () {
+    var btn = this;
+    var json = JSON.stringify({
+      timestamp: new Date().toISOString(),
+      viewport: { width: window.innerWidth, height: window.innerHeight },
+      annotations: anns
+    }, null, 2);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(json).then(function () {
+        btn.textContent = '已复制 ✓';
+        setTimeout(function () { btn.textContent = '复制 JSON'; }, 2000);
+      }).catch(function () { fallbackCopy(json, btn); });
+    } else {
+      fallbackCopy(json, btn);
+    }
+  };
+
+  /* ── 清空 ── */
+  document.getElementById('_ann_clr').onclick = function () {
+    anns = []; idCtr = 1;
+    document.querySelectorAll('._ann_r').forEach(function (el) { el.remove(); });
+    refresh();
+  };
+})();
 </script>
 </body>
 </html>

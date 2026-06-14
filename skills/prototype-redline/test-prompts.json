@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "prompt": "帮 C:\\Users\\MI\\Desktop\\demo.html 加标注",
+    "expected": "Read文件 → 检查_ann_btn是否已存在 → Edit注入代码块 → 告知用户刷新浏览器即可"
+  },
+  {
+    "id": 2,
+    "prompt": "（用户粘贴如下JSON）{\"timestamp\":\"2026-05-06T10:00:00Z\",\"viewport\":{\"width\":1440,\"height\":900},\"annotations\":[{\"id\":1,\"nearest_id\":\"header\",\"target_el\":\"div.nav\",\"comment\":\"导航背景色太浅，改深一点\"},{\"id\":2,\"nearest_id\":\"card-grid\",\"target_el\":\"h3.title\",\"comment\":\"标题字号太小，看不清\"}]}",
+    "expected": "定位header→div.nav改背景色，定位card-grid→h3.title改字号，汇报两条改动（① ②格式，一行一条）"
+  },
+  {
+    "id": 3,
+    "prompt": "帮我做一个给设计师审阅用的产品landing page原型",
+    "expected": "生成完整HTML，</body>前自动嵌入标注代码块，回复附上使用说明"
+  }
+]

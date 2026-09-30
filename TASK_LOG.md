@@ -1,6 +1,6 @@
-# 任务与项目总览 | 2026-05
+# 任务与项目总览 | 2026-10
 
-> 最后更新：2026-05-28
+> 最后更新：2026-10-01
 
 ---
 
@@ -83,6 +83,7 @@
 | 3 | 知识学习APP (Flutter) | `E:\.Claude Code Project\3.知识学习APP_20260528\` | 开发中 |
 | 4 | 论文配图版 | `E:\.Claude Code Project\4.论文配图版_20260502\` | 完成 |
 | 5 | AIVAS智能汽车架构系统 | `E:\.Claude Code Project\5.AIVAS智能汽车架构系统_20260503\` | Phase 1骨架完成 |
+| 6 | Basetech 工程师智能体（需求专家 Agent 体系） | `C:\Users\pc\claude_code_copy\projects\6.Basetech工程师智能体_20260929\` | 已完成并验证 |
 
 ### 论文/文档资产
 
@@ -119,5 +120,5 @@
 
 | 仓库 | 内容 | 最后更新 |
 |------|------|---------|
-| [rdjy11/claude_code_copy](https://github.com/rdjy11/claude_code_copy) | Skills备份 + CLAUDE.md + RTK.md + memory-backup + tasks-backup | 2026-05-28 |
+| [rdjy11/claude_code_copy](https://github.com/rdjy11/claude_code_copy) | Skills备份 + CLAUDE.md + RTK.md + memory-backup + tasks-backup + projects-backup | 2026-10-01 |
 

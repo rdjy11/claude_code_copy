@@ -4,7 +4,7 @@ description: Basetech 工程师智能体（项目 6）——基于 Base Tech SWR
 metadata: 
   node_type: memory
   type: project
-  modified: 2026-09-30
+  modified: 2026-10-15T14:31:07.181Z
   originSessionId: c4b75c45-a383-4100-ae7a-760125b5ec82
 ---
 
@@ -56,12 +56,27 @@ metadata:
 | 验证记录 | `docs/operations/验证记录-最小闭环.md`、`验证记录-完整.md` |
 | 操作手册 | `docs/operations/唤醒调用手册.md` + 飞书 https://my.feishu.cn/docx/BfiOdaYO2ogr9ExTo1HcgbIknZb |
 | 执行账本（全部裁决） | `_sdd/progress.md` |
+| §12.2 判定证据脚本 | `_tools/analyze_open_items.py`（只读可复现） |
 
 **验证结果**：路由 12/12（100%）、零编造编号、评审召回 5/5、生成格式 7/7、零盲区（1999 条全覆盖）。
 
 **⚠️ 会话限制**：执行会话无法派发项目级具名 subagent，故内容验证替代了机制验证；**机制侧已由用户于 2026-09-30 在交互式会话中补验通过**（证据 `_out/qa-20260930-234601.md`，用户确认格式合规）。
 
 **实测输出质量**：问答产出会主动区分「引用层级」（L1 清单 vs L2 语料）、单列「文档未覆盖」边界、并处理 AUTOSAR 4.0.x / 4.1+ 的跨版本行为分支。
+
+## §12.2 未决项已全部关闭（2026-10-15）——结构锁定
+
+原三项「跑通验证后再定」用实测数据关闭，**结构最终锁定 11 专家 + 1 编排 + 3 工作流**，无悬置增减项。证据脚本 `_tools/analyze_open_items.py`。
+
+| 事项 | 决定 | 关键依据 |
+|------|------|---------|
+| `model` 取值 | 专家 `sonnet` / 编排者 `opus` | 见 [[claude-model-alias-mapping]]——本环境下 `sonnet` 与 `inherit` 等价，仅 `opus` 映射更强模型；已验证质量出自便宜档 |
+| `bt-carcfg` 是否并入 `bt-platform` | **不并入** | 设计设定的触发条件「与平台高频共现」**不成立**：仅 22.2%，而 `bt-dtc` 49.2%、`bt-ethernet` 36.5% 更高——platform 只是第 4 近邻 |
+| 时序是否独立成域 | **不独立** | 触发条件字面成立（评审 5 处偏差中 3 处属时序），**但结论反转**：三处分落三个不同域（`bt-uds`/`bt-diag-transport`/`bt-platform`），时序是横切维度而非语义簇；329 条时序需求 329/329 已被现有域覆盖 |
+
+**副产澄清（非缺陷）**：曾疑心 1873–1956 那批 `agedDTCLimit`/`ConfirmedDTCLimit` 是 `bt-dtc` 召回缺口，实查 **90/90 全在 `bt-dtc`**。
+
+**方法论留痕**：未决项 3 是「触发条件成立但蕴含动作错误」的典型——触发词写的是"考虑"，考虑了，答案是"不"。判定时不能只看条件是否满足，要看条件背后的动作是否成立。
 
 ## 设计文档
 

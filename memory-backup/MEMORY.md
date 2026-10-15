@@ -15,3 +15,4 @@
 - [飞书 MCP 授权恢复](lark-mcp-auth.md) — UAT 重新登录 + /mcp 重连两步走，唤醒词「飞书授权」「lark 报错」
 - [Basetech 工程师智能体](basetech-engineer-agent.md) — 项目 6，SWRS DHU 语料 + 11 领域专家 Agent 设计，唤醒词「Basetech智能体」
 - [Basetech 任务自主权](basetech-task-autonomy.md) — 项目 6 后续开发已预授权自主执行脚本与 shell，无需逐次请求权限
+- [模型档位映射](claude-model-alias-mapping.md) — 本机走 DeepSeek 代理，haiku=sonnet=inherit 同一模型，仅 opus 不同；选档前必读

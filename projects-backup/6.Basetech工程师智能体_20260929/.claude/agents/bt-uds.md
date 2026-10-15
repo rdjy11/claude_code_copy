@@ -8,7 +8,7 @@ description: UDS 诊断服务领域专家。当问题涉及诊断服务报文与
   不负责 DTC 检测策略与老化（见 bt-dtc），不负责传输层寻址（见 bt-diag-transport），
   不负责刷写流程编排（见 bt-flash）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

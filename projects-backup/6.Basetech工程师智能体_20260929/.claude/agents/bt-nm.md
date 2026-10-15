@@ -6,7 +6,7 @@ description: 网络管理领域专家。当问题涉及网络管理报文与 NM 
   TFRResumeComSynchronized、TCANGwPncRequest）时使用。
   不负责具体总线的帧格式与位定时（见 bt-can-lin-flexray），不负责 IP 层与以太网（见 bt-ethernet）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

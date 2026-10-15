@@ -7,7 +7,7 @@ description: 信息安全领域专家。当问题涉及随机数生成、证书�
   以及功能安全（ASIL、FMEA、ISO 26262、安全状态、安全相关通信）时使用。
   不负责 SecurityAccess 服务的报文与会话语义（见 bt-uds），不负责刷写流程编排（见 bt-flash）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

@@ -5,7 +5,7 @@ description: 诊断传输层 / 网关领域专家。当问题涉及 DoIP 与 DoC
   隔离、诊断网关与请求路由、车内网关的功能性请求分发时使用。
   不负责 UDS 服务本身的报文语义（见 bt-uds），不负责以太网与 CAN 的链路层细节（见 bt-ethernet / bt-can-lin-flexray）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

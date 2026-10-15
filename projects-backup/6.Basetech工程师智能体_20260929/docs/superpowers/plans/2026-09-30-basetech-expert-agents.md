@@ -10,6 +10,8 @@
 
 **Spec:** `docs/superpowers/specs/2026-09-30-basetech-expert-agents-design.md`
 
+> ⚠️ **注（2026-10-15）：本计划中出现的 `model: inherit` 已作废。** 设计文档 §12.1b-5 已定：专家 `model: sonnet`、编排者 `model: opus`。本文件下文（Task 3/4/6 的模板与约束段）保留原始文字作为**执行记录**，未回改；**重新执行或复制模板时以设计文档 §13 为准**（该处模板已更新为 `sonnet`）。
+
 ## Global Constraints
 
 - **Python**：3.14.7，**只允许标准库**。测试用 `unittest`，运行 `python -m unittest discover -s _tools -p "test_*.py" -v`。

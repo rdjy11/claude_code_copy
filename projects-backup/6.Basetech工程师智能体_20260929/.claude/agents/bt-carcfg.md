@@ -7,7 +7,7 @@ description: 车辆配置 CC / CCP 领域专家。当问题涉及 Car Configurat
   （Customer Settings）、配置参数存储与掉电保持时使用。
   不负责 ECU 平台与 AUTOSAR（见 bt-platform），不负责网络管理（见 bt-nm）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

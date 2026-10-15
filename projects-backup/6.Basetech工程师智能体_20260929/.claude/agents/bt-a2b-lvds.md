@@ -7,7 +7,7 @@ description: A2B / LVDS 高速链路领域专家。当问题涉及 A2B 数据链
   均衡（equalization）、预加重（preemphasis）、PRBS 测试、链路通信校验时使用。
   不负责 CAN/LIN/FlexRay（见 bt-can-lin-flexray），不负责以太网（见 bt-ethernet）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

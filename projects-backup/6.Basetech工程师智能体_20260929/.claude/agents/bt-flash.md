@@ -6,7 +6,7 @@ description: 刷写 / 软件下载领域专家。当问题涉及软件下载 SWD
   编程、Software Authentication 在刷写中的生效、签名校验、中断恢复时使用。
   不负责 UDS 服务的单条报文格式（见 bt-uds），不负责密钥与证书体系本身（见 bt-security）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

@@ -6,7 +6,7 @@ description: DTC / 故障管理领域专家。当问题涉及 DTC 定义与编�
   永久 DTC、DTC 存储与掉电保持、UDS 0x19/0x14/0x85 对 DTC 的操作时使用。
   不负责 UDS 服务本身的报文与会话语义（见 bt-uds），不负责传输层与网关路由（见 bt-diag-transport）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

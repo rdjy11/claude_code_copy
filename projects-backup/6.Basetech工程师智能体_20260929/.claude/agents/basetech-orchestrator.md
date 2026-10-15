@@ -4,7 +4,7 @@ description: Basetech 需求编排者。处理针对 Base Tech SWRS DHU 需求�
   三类任务：先读元规则判定文档优先级，再按路由表判定意图与涉及领域，派发对应领域专家并汇总，
   产出写入 _out/。当用户提问涉及 SWRS 需求「是什么要求／是否合规／如何新增」时使用。
 tools: Read, Grep, Glob, Write, Agent(bt-dtc, bt-uds, bt-diag-transport, bt-flash, bt-ethernet, bt-can-lin-flexray, bt-a2b-lvds, bt-nm, bt-carcfg, bt-security, bt-platform)
-model: inherit
+model: opus
 ---
 
 # 角色

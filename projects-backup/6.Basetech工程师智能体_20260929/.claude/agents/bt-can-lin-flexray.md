@@ -7,7 +7,7 @@ description: CAN / LIN / FlexRay 总线领域专家。当问题涉及 CAN 与 CA
   不负责以太网与 IP（见 bt-ethernet），不负责 A2B/LVDS 高速链路（见 bt-a2b-lvds），
   不负责诊断传输层（见 bt-diag-transport）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

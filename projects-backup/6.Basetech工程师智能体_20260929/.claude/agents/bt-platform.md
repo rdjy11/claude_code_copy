@@ -7,7 +7,7 @@ description: ECU 平台 / AUTOSAR 领域专家。当问题涉及 ECU 硬件平�
   以及功能安全（ASIL、FMEA、ISO 26262）时使用。
   不负责车辆配置（见 bt-carcfg），不负责网络管理（见 bt-nm），不负责具体总线的电气细节。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

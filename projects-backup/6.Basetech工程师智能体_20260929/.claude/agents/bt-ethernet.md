@@ -6,7 +6,7 @@ description: 车载以太网 / IP 领域专家。当问题涉及车载以太网�
   IP Command Protocol 报文、Resource Group、Link Monitoring、MIB、链路质量监控时使用。
   不负责 DoIP/UDS 承载的传输层语义（见 bt-diag-transport），不负责 A2B/LVDS 高速链路（见 bt-a2b-lvds）。
 tools: Read, Grep, Glob
-model: inherit
+model: sonnet
 ---
 
 # 职责范围

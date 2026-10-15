@@ -1,6 +1,6 @@
 # 任务与项目总览 | 2026-10
 
-> 最后更新：2026-10-01
+> 最后更新：2026-10-15
 
 ---
 
@@ -120,5 +120,5 @@
 
 | 仓库 | 内容 | 最后更新 |
 |------|------|---------|
-| [rdjy11/claude_code_copy](https://github.com/rdjy11/claude_code_copy) | Skills备份 + CLAUDE.md + RTK.md + memory-backup + tasks-backup + projects-backup | 2026-10-01 |
+| [rdjy11/claude_code_copy](https://github.com/rdjy11/claude_code_copy) | Skills备份 + CLAUDE.md + RTK.md + memory-backup + tasks-backup + projects-backup | 2026-10-15 |
 
